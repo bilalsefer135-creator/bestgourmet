@@ -3,18 +3,18 @@
 import { useMemo, useState } from "react";
 
 const products = [
-  { name: "San Sebastian", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products/san-sebastian.jpeg" },
-  { name: "Limonlu Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products/limonlu-cheesecake.jpg" },
-  { name: "Frambuazlı Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products/frambuazli-cheesecake.jpg" },
-  { name: "Lotuslu Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products/lotus-cheesecake.jpeg" },
-  { name: "Muzlu Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products/muzlu-magnolia.jpg" },
-  { name: "Çilekli Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products/cilekli-magnolia.jpeg" },
-  { name: "Lotuslu Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products/lotuslu-magnolia.jpeg" },
-  { name: "Profiterollü Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products/profiterollu-magnolia.jpg" },
-  { name: "Rulo Çikolatalı Pasta", category: "Pastalar", detail: "12 dilim", image: "/products/rulo-cikolatali.jpeg" },
-  { name: "Sade Brownie", category: "Pastalar", detail: "9 adet", image: "/products/brownie.jpeg" },
-  { name: "Mozaik Pasta", category: "Pastalar", detail: "10 dilim", image: "/products/mozaik-pasta.jpg" },
-  { name: "Çikolatalı Cookie", category: "Cookie", detail: "6 adet · 80 gr", image: "/products/cookie.jpeg" },
+  { name: "San Sebastian", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products-studio/san-sebastian.png" },
+  { name: "Limonlu Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products-studio/limonlu-cheesecake.png" },
+  { name: "Frambuazlı Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products-studio/frambuazli-cheesecake.png" },
+  { name: "Lotuslu Cheesecake", category: "Cheesecake", detail: "10 dilim · bütün", image: "/products-studio/lotus-cheesecake.png" },
+  { name: "Muzlu Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products-studio/muzlu-magnolia.png" },
+  { name: "Çilekli Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products-studio/cilekli-magnolia.png" },
+  { name: "Lotuslu Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products-studio/lotuslu-magnolia.png" },
+  { name: "Profiterollü Magnolya", category: "Cup Tatlılar", detail: "270 cc · kapaklı", image: "/products-studio/profiterollu-magnolia.png" },
+  { name: "Rulo Çikolatalı Pasta", category: "Pastalar", detail: "12 dilim", image: "/products-studio/rulo-cikolatali.png" },
+  { name: "Sade Brownie", category: "Pastalar", detail: "9 adet", image: "/products-studio/brownie.png" },
+  { name: "Mozaik Pasta", category: "Pastalar", detail: "10 dilim", image: "/products-studio/mozaik-pasta.png" },
+  { name: "Çikolatalı Cookie", category: "Cookie", detail: "6 adet · 80 gr", image: "/products-studio/cookie.png" },
 ];
 
 const categories = ["Tümü", "Cheesecake", "Cup Tatlılar", "Pastalar", "Cookie"];
@@ -61,25 +61,35 @@ export default function Home() {
             <a className="button button-primary" href="#urunler">Kataloğu keşfet <span>↘</span></a>
             <a className="text-link" href="#iletisim">İş ortağımız olun <span>→</span></a>
           </div>
-          <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
-            <div><strong>40+</strong><span>seçkin ürün</span></div>
-            <div><strong>Her gün</strong><span>taptaze üretim</span></div>
-            <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
-          </div>
         </div>
 
-        <div className="hero-gallery" aria-label="Öne çıkan Best Gourmet ürünleri">
-          <div className="hero-photo hero-photo-main">
-            <img src="/products/san-sebastian.jpeg" alt="Best Gourmet San Sebastian cheesecake" />
+        <div className="hero-products" aria-label="Öne çıkan Best Gourmet ürünleri">
+          <div className="hero-main-product">
+            <img src="/products-studio/san-sebastian.png" alt="Best Gourmet San Sebastian cheesecake" />
           </div>
-          <div className="hero-photo hero-photo-small">
-            <img src="/products/frambuazli-cheesecake.jpg" alt="Best Gourmet frambuazlı cheesecake" />
+          <div className="hero-mini hero-mini-one">
+            <img src="/products-studio/limonlu-cheesecake.png" alt="Limonlu cheesecake" />
+            <span>Limonlu</span>
           </div>
-          <div className="hero-photo hero-photo-round">
-            <img src="/products/muzlu-magnolia.jpg" alt="Best Gourmet muzlu magnolya" />
+          <div className="hero-mini hero-mini-two">
+            <img src="/products-studio/cilekli-magnolia.png" alt="Çilekli magnolya" />
+            <span>Çilekli</span>
+          </div>
+          <div className="hero-mini hero-mini-three">
+            <img src="/products-studio/cookie.png" alt="Çikolatalı cookie" />
+            <span>Cookie</span>
+          </div>
+          <div className="hero-mini hero-mini-four">
+            <img src="/products-studio/rulo-cikolatali.png" alt="Rulo çikolatalı pasta" />
+            <span>Rulo pasta</span>
           </div>
           <span className="hero-stamp">Taze üretim<br />• Her gün •</span>
-          <p className="gallery-note">Görünüşüyle merak,<br />lezzetiyle sadakat.</p>
+        </div>
+
+        <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
+          <div><strong>40+</strong><span>seçkin ürün</span></div>
+          <div><strong>Her gün</strong><span>taptaze üretim</span></div>
+          <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
         </div>
       </section>
 
@@ -141,7 +151,7 @@ export default function Home() {
 
       <section className="production" id="uretim">
         <div className="production-photo">
-          <img src="/products/lotuslu-magnolia.jpeg" alt="Best Gourmet üretiminden Lotuslu Magnolya" />
+          <img src="/products-studio/lotuslu-magnolia.png" alt="Best Gourmet üretiminden Lotuslu Magnolya" />
         </div>
         <div className="production-copy">
           <p className="section-index light">03 / Üretim standardı</p>
