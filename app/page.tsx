@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { InteractivePastryGallery } from "@/components/ui/interactive-pastry-gallery";
 
 type Product = {
   name: string;
@@ -198,7 +199,16 @@ export default function Home() {
 
       <section className="events" id="etkinlik">
         <div className="events-intro"><p className="section-index">04 / Etkinlik üretimi</p><h2>Kalabalıklar için<br /><em>tek bir iyi standart.</em></h2><p>Marka lansmanından düğün davetine; konuk sayınıza, servis akışınıza ve etkinlik dilinize uygun tatlı seçkisini birlikte tasarlıyor, planlı üretim ve zamanında teslimatla tamamlıyoruz.</p><a className="button button-primary" href={whatsapp("Merhaba, etkinliğim için özel tatlı üretimi planlamak istiyorum.")} target="_blank" rel="noreferrer">Etkinliği planlayalım <span>↗</span></a></div>
-        <div className="event-showcase" aria-label="Etkinlik ürünleri"><img src={sku("mono-frambuaz")} alt="Frambuaz mono pasta" /><img src={sku("adet-fistik-drajeli")} alt="Fıstık drajeli adet pasta" /><img src={sku("magnolia-yaban-mersinli")} alt="Yaban mersinli magnolia" /></div>
+        <InteractivePastryGallery
+          collectionName="Etkinlik seçkisi"
+          items={[
+            { id: "frambuaz", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
+            { id: "fistik", image: sku("adet-fistik-drajeli"), title: "Fıstık Drajeli", category: "Adet Pasta" },
+            { id: "magnolia", image: sku("magnolia-yaban-mersinli"), title: "Yaban Mersinli", category: "Magnolia" },
+            { id: "ekler", image: sku("ekler-karisik-mix"), title: "Karışık Mix", category: "Fransız Ekleri" },
+            { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tart" },
+          ]}
+        />
         <div className="event-cards"><article><span>01</span><h3>Kurumsal Etkinlikler</h3><p>Toplantı, bayi buluşması ve şirket davetleri için porsiyon kontrollü, markanıza uyarlanabilir sunumlar.</p></article><article><span>02</span><h3>Düğün & Davet</h3><p>Konuk sayısına göre planlanan mono tatlılar, cup servisler ve paylaşım masaları.</p></article><article><span>03</span><h3>Lansman & Açılış</h3><p>Fotojenik ürün kurgusu, hızlı servis akışı ve ilk bakışta akılda kalan tatlı deneyimi.</p></article></div>
         <div className="event-flow"><span>Kişi sayısına göre planlama</span><i>→</i><span>Özel menü & sunum</span><i>→</i><span>Zamanında soğuk teslimat</span></div>
       </section>
