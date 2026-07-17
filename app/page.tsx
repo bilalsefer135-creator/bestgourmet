@@ -127,7 +127,7 @@ export default function Home() {
           <a href="#urunler" onClick={() => setMenuOpen(false)}>Ürünler</a>
           <a href="#hikayemiz" onClick={() => setMenuOpen(false)}>Hikâyemiz</a>
           <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
-          <a href="#etkinlik" onClick={() => setMenuOpen(false)}>Etkinlik</a>
+          <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
         </nav>
       </header>
@@ -139,7 +139,7 @@ export default function Home() {
           <p className="hero-lead">İşletmenizin menüsünü sıradanlıktan çıkaran premium tatlılar. Güvenilir üretim, güçlü sunum ve planlı tedarik.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#urunler">59 lezzeti keşfet <span>↘</span></a>
-            <a className="text-link" href="#etkinlik">Etkinlik planla <span>→</span></a>
+            <a className="text-link" href="/etkinlikler">Etkinlik planla <span>→</span></a>
           </div>
         </div>
         <div className="hero-products" aria-label="Öne çıkan Best Gourmet ürünleri">
@@ -198,7 +198,7 @@ export default function Home() {
       </section>
 
       <section className="events" id="etkinlik">
-        <div className="events-intro"><p className="section-index">04 / Etkinlik üretimi</p><h2>Kalabalıklar için<br /><em>tek bir iyi standart.</em></h2><p>Marka lansmanından düğün davetine; konuk sayınıza, servis akışınıza ve etkinlik dilinize uygun tatlı seçkisini birlikte tasarlıyor, planlı üretim ve zamanında teslimatla tamamlıyoruz.</p><a className="button button-primary" href={whatsapp("Merhaba, etkinliğim için özel tatlı üretimi planlamak istiyorum.")} target="_blank" rel="noreferrer">Etkinliği planlayalım <span>↗</span></a></div>
+        <div className="events-intro"><p className="section-index">04 / Etkinlik üretimi</p><h2>Her kutlamaya özel,<br /><em>tek bir iyi standart.</em></h2><p>Düğünden doğum gününe, özel davetten kurumsal buluşmaya; menüyü, sunumu ve servis akışını etkinliğinizin ihtiyacına göre tek bir planda buluşturuyoruz.</p><a className="button button-primary" href="/etkinlikler">Tüm etkinlikleri keşfet <span>↗</span></a></div>
         <InteractivePastryGallery
           collectionName="Etkinlik seçkisi"
           items={[
@@ -209,8 +209,13 @@ export default function Home() {
             { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tart" },
           ]}
         />
-        <div className="event-cards"><article><span>01</span><h3>Kurumsal Etkinlikler</h3><p>Toplantı, bayi buluşması ve şirket davetleri için porsiyon kontrollü, markanıza uyarlanabilir sunumlar.</p></article><article><span>02</span><h3>Düğün & Davet</h3><p>Konuk sayısına göre planlanan mono tatlılar, cup servisler ve paylaşım masaları.</p></article><article><span>03</span><h3>Lansman & Açılış</h3><p>Fotojenik ürün kurgusu, hızlı servis akışı ve ilk bakışta akılda kalan tatlı deneyimi.</p></article></div>
-        <div className="event-flow"><span>Kişi sayısına göre planlama</span><i>→</i><span>Özel menü & sunum</span><i>→</i><span>Zamanında soğuk teslimat</span></div>
+        <div className="event-cards">
+          <article><span>01</span><h3>Düğün Etkinlikleri</h3><p>Düğün, nişan, kına ve nikâh davetlerine menü, sunum ve servis planı.</p><a href="/etkinlikler/dugun">Detayları incele ↗</a></article>
+          <article><span>02</span><h3>Doğum Günü</h3><p>Çocuk, yetişkin ve temalı kutlamalara kişiye özel pasta ve ikram kurgusu.</p><a href="/etkinlikler/dogum-gunu">Detayları incele ↗</a></article>
+          <article><span>03</span><h3>Özel Günler</h3><p>Yıldönümü, mezuniyet ve butik davetler için esnek lezzet ve sunum seçenekleri.</p><a href="/etkinlikler/ozel-gun">Detayları incele ↗</a></article>
+          <article><span>04</span><h3>Kurumsal Etkinlikler</h3><p>Toplantı, lansman, açılış ve fuarlar için ölçeklenebilir servis çözümleri.</p><a href="/etkinlikler/kurumsal">Detayları incele ↗</a></article>
+        </div>
+        <div className="event-flow"><span>İhtiyacı dinleme</span><i>→</i><span>Menü & sunum planı</span><i>→</i><span>Üretim, kurulum & servis</span></div>
       </section>
 
       <section className="contact" id="iletisim">

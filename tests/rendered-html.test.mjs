@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
+async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
+    new Request(`http://localhost${pathname}`, { headers: { accept: "text/html" } }),
     { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
     { waitUntil() {}, passThroughOnException() {} },
   );
@@ -28,6 +28,25 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /wa\.me\/905301344525/);
   assert.match(html, /products-studio\/sku\/mono-antep-fistigi-dubai\.webp/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+});
+
+test("server-renders the event hub and four category routes", async () => {
+  const routes = [
+    ["/etkinlikler", /Her kutlamanın/],
+    ["/etkinlikler/dugun", /En özel ‘evet’inizi/],
+    ["/etkinlikler/dogum-gunu", /Yeni yaşın enerjisini/],
+    ["/etkinlikler/ozel-gun", /Hatırlanacak anlara/],
+    ["/etkinlikler/kurumsal", /Markanızın ritmine uygun/],
+  ];
+
+  for (const [pathname, heading] of routes) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, heading, pathname);
+    assert.match(html, /Teklif ve rezervasyon/, pathname);
+    assert.match(html, /905301344525/, pathname);
+  }
 });
 
 test("ships one dedicated image for every catalog product", async () => {
