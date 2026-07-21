@@ -1,6 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { InteractivePastryGallery } from "@/components/ui/interactive-pastry-gallery";
 
 type Product = {
@@ -105,6 +110,14 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
+  const categoryTabsRef = useRef<HTMLDivElement>(null);
+  const categoryDragRef = useRef({
+    active: false,
+    moved: false,
+    startX: 0,
+    scrollLeft: 0,
+  });
+  const suppressCategoryClickRef = useRef(false);
 
   const visibleProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
@@ -114,6 +127,58 @@ export default function Home() {
       return categoryMatches && queryMatches;
     });
   }, [activeCategory, query]);
+
+  function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
+    const track = categoryTabsRef.current;
+    if (!track) return;
+
+    categoryDragRef.current = {
+      active: true,
+      moved: false,
+      startX: event.clientX,
+      scrollLeft: track.scrollLeft,
+    };
+    track.setPointerCapture(event.pointerId);
+  }
+
+  function handleCategoryPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    const track = categoryTabsRef.current;
+    const drag = categoryDragRef.current;
+    if (!track || !drag.active) return;
+
+    const distance = event.clientX - drag.startX;
+    if (Math.abs(distance) > 5) drag.moved = true;
+    track.scrollLeft = drag.scrollLeft - distance;
+  }
+
+  function finishCategoryDrag(event: ReactPointerEvent<HTMLDivElement>) {
+    const track = categoryTabsRef.current;
+    const drag = categoryDragRef.current;
+    if (!track || !drag.active) return;
+
+    drag.active = false;
+    if (track.hasPointerCapture(event.pointerId)) {
+      track.releasePointerCapture(event.pointerId);
+    }
+    if (drag.moved) {
+      suppressCategoryClickRef.current = true;
+      window.setTimeout(() => {
+        suppressCategoryClickRef.current = false;
+      }, 0);
+    }
+  }
+
+  function selectCategory(category: string) {
+    if (suppressCategoryClickRef.current) return;
+    setActiveCategory(category);
+  }
+
+  function scrollCategories(direction: -1 | 1) {
+    categoryTabsRef.current?.scrollBy({
+      left: direction * 280,
+      behavior: "smooth",
+    });
+  }
 
   return (
     <main>
@@ -144,10 +209,8 @@ export default function Home() {
         </div>
         <div className="hero-products" aria-label="Öne çıkan Best Gourmet ürünleri">
           <div className="hero-main-product"><img src={sku("mono-antep-fistigi-dubai")} alt="Antep Fıstığı Dubai mono pasta" /></div>
-          <div className="hero-mini hero-mini-one"><img src={sku("karamel-trilece")} alt="Karamel trileçe" /><span>Trileçe</span></div>
-          <div className="hero-mini hero-mini-two"><img src={sku("ekler-karisik-mix")} alt="Karışık Fransız ekleri" /><span>Fransız ekleri</span></div>
-          <div className="hero-mini hero-mini-three"><img src={sku("tart-orman-meyveli")} alt="Orman meyveli tart" /><span>Tart</span></div>
-          <div className="hero-mini hero-mini-four"><img src={sku("pasta-cikolatali-ganaj")} alt="Çikolatalı ganaj pasta" /><span>Bütün pasta</span></div>
+          <div className="hero-mini hero-mini-one"><img src={sku("tart-orman-meyveli")} alt="Orman meyveli tart" /><span>Sezon seçkisi</span></div>
+          <div className="hero-visual-note"><span>01</span><p>Az malzeme değil;<br />doğru denge.</p></div>
           <span className="hero-stamp">Taze üretim<br />• Her gün •</span>
         </div>
         <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
@@ -160,9 +223,26 @@ export default function Home() {
       <div className="marquee" aria-label="Marka değerleri"><div><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span><i>✦</i><span>Lezzeti standartlaştır</span><i>✦</i><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span></div></div>
 
       <section className="manifesto" id="hikayemiz">
-        <p className="section-index">01 / Yaklaşımımız</p>
-        <div><h2>Menünüzdeki en güçlü<br />karakter.</h2><p>Best Gourmet, profesyonel mutfakların hızını iyi bilir. Her ürünü yalnızca lezzetli değil; kolay servis edilen, tutarlı ve vitrinde ilk bakışta fark edilen bir deneyim olarak tasarlarız.</p></div>
-        <div className="manifesto-seal"><span>BG</span> Kaliteyi<br />standartlaştırır.</div>
+        <div className="manifesto-topline">
+          <p className="section-index">01 / Hikâyemiz</p>
+          <p className="manifesto-kicker">Lezzetten önce bir yaklaşım.</p>
+        </div>
+        <div className="manifesto-heading">
+          <h2>Menünüzdeki en güçlü<br />karakter.</h2>
+          <div className="manifesto-seal"><span>BG</span> Kaliteyi<br />standartlaştırır.</div>
+        </div>
+        <div className="manifesto-narrative">
+          <p className="manifesto-lead">Best Gourmet, profesyonel mutfakların günlük temposunu anlayan çağdaş bir tatlı üretim yaklaşımıdır. Bizim için iyi ürün yalnızca ilk lokmada değil; vitrinde, serviste ve yeniden tercih edildiğinde de aynı güveni vermelidir.</p>
+          <div className="manifesto-copy">
+            <p>Bu yüzden lezzeti; reçete disiplini, porsiyon tutarlılığı ve güçlü sunumla birlikte ele alıyoruz. İşletmelerin kendi karakterini korurken menülerini daha çekici ve yönetilebilir hâle getirmeyi amaçlıyoruz.</p>
+            <p>Tanıdık aromaları çağdaş dokunuşlarla buluşturuyor; üründen planlamaya kadar sade, anlaşılır ve güven veren bir iş ortaklığı kuruyoruz. Her tabakta bıraktığımız iz, markamızın en gerçek imzası oluyor.</p>
+          </div>
+        </div>
+        <div className="manifesto-values" aria-label="Best Gourmet yaklaşımı">
+          <article><span>01</span><h3>Lezzet karakteri</h3><p>Dengeli aromalar, net reçeteler ve hatırlanan bir son dokunuş.</p></article>
+          <article><span>02</span><h3>Servis kolaylığı</h3><p>Yoğun operasyonun ritmine uyum sağlayan planlı bir ürün seçkisi.</p></article>
+          <article><span>03</span><h3>Sunum gücü</h3><p>Vitrinde merak uyandıran, masada özel hissettiren bir görünüm.</p></article>
+        </div>
       </section>
 
       <section className="products-section" id="urunler">
@@ -171,8 +251,28 @@ export default function Home() {
           <p>Dokuz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
         </div>
         <div className="catalog-tools">
-          <div className="category-tabs" role="group" aria-label="Ürün kategorileri">
-            {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => setActiveCategory(category)}>{category}</button>)}
+          <div className="category-browser">
+            <div className="category-browser-meta">
+              <span>Tut, sürükle ve keşfet</span>
+              <div className="category-arrows" aria-label="Kategorileri kaydır">
+                <button type="button" onClick={() => scrollCategories(-1)} aria-label="Önceki kategorileri göster">←</button>
+                <button type="button" onClick={() => scrollCategories(1)} aria-label="Sonraki kategorileri göster">→</button>
+              </div>
+            </div>
+            <div className="category-tabs-wrap">
+              <div
+                className="category-tabs"
+                role="group"
+                aria-label="Ürün kategorileri"
+                ref={categoryTabsRef}
+                onPointerDown={handleCategoryPointerDown}
+                onPointerMove={handleCategoryPointerMove}
+                onPointerUp={finishCategoryDrag}
+                onPointerCancel={finishCategoryDrag}
+              >
+                {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => selectCategory(category)}>{category}</button>)}
+              </div>
+            </div>
           </div>
           <label className="product-search"><span>Ürün ara</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Lotus, frambuaz, mono…" /></label>
         </div>
@@ -194,7 +294,19 @@ export default function Home() {
 
       <section className="production" id="uretim">
         <div className="production-photo"><img src={sku("magnolia-lotuslu")} alt="Best Gourmet üretiminden Lotuslu Magnolia" /></div>
-        <div className="production-copy"><p className="section-index light">03 / Üretim standardı</p><h2>Her servis,<br />aynı <em>iyi his.</em></h2><p>Seçilmiş hammaddeler, kontrollü üretim süreçleri ve soğuk zincir teslimatıyla işletmenize yalnızca ürün değil, güvenilir bir lezzet standardı getiriyoruz.</p><ul><li><span>01</span> Günlük ve planlı üretim</li><li><span>02</span> Standart reçete, tutarlı sonuç</li><li><span>03</span> İşletmeye özel ürün planlaması</li></ul></div>
+        <div className="production-copy">
+          <p className="section-index light">03 / Üretim standardı</p>
+          <h2>Her servis,<br />aynı <em>iyi his.</em></h2>
+          <p>Seçilmiş hammaddeler, kontrollü üretim süreçleri ve soğuk zincir teslimatıyla işletmenize yalnızca ürün değil, güvenilir bir lezzet standardı getiriyoruz.</p>
+          <p>Ürün planlamasını işletmenin servis yoğunluğuna, menü yapısına ve sunum beklentisine göre ele alıyoruz. Böylece mutfak ekibi daha öngörülebilir bir akışla çalışırken, misafir her siparişte aynı özenli deneyimle buluşuyor.</p>
+          <div className="production-note"><span>Üretimden teslimata</span><p>Doğru ürün; yalnızca iyi bir reçete değil, doğru porsiyonlama, doğru saklama ve doğru zamanda teslim edilen bütünlüklü bir süreçtir.</p></div>
+          <ul>
+            <li><span>01</span> Seçilmiş hammadde yaklaşımı</li>
+            <li><span>02</span> Standart reçete, tutarlı sonuç</li>
+            <li><span>03</span> İşletmeye özel ürün planlaması</li>
+            <li><span>04</span> Kontrollü saklama ve teslimat akışı</li>
+          </ul>
+        </div>
       </section>
 
       <section className="events" id="etkinlik">
