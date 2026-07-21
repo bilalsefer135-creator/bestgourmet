@@ -130,7 +130,7 @@ export default function Home() {
 
   function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const track = categoryTabsRef.current;
-    if (!track) return;
+    if (!track || event.button !== 0) return;
 
     categoryDragRef.current = {
       active: true,
@@ -138,7 +138,6 @@ export default function Home() {
       startX: event.clientX,
       scrollLeft: track.scrollLeft,
     };
-    track.setPointerCapture(event.pointerId);
   }
 
   function handleCategoryPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
@@ -147,7 +146,10 @@ export default function Home() {
     if (!track || !drag.active) return;
 
     const distance = event.clientX - drag.startX;
-    if (Math.abs(distance) > 5) drag.moved = true;
+    if (Math.abs(distance) > 5 && !drag.moved) {
+      drag.moved = true;
+      track.setPointerCapture(event.pointerId);
+    }
     track.scrollLeft = drag.scrollLeft - distance;
   }
 
@@ -199,19 +201,20 @@ export default function Home() {
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> Yeni nesil profesyonel mutfaklar için</p>
-          <h1>Tatlı değil,<br /><em>imza</em> bırakıyoruz.</h1>
-          <p className="hero-lead">İşletmenizin menüsünü sıradanlıktan çıkaran premium tatlılar. Güvenilir üretim, güçlü sunum ve planlı tedarik.</p>
+          <p className="eyebrow"><span /> Profesyonel mutfakların tatlı imzası</p>
+          <h1>Lezzetin<br /><em>en zarif</em><br />hâli.</h1>
+          <p className="hero-lead">Modern sunum, dengeli reçete ve her serviste aynı özen. Best Gourmet, vitrininize yalnızca tatlı değil; güçlü bir karakter kazandırır.</p>
           <div className="hero-actions">
             <a className="button button-primary" href="#urunler">59 lezzeti keşfet <span>↘</span></a>
             <a className="text-link" href="/etkinlikler">Etkinlik planla <span>→</span></a>
           </div>
         </div>
-        <div className="hero-products" aria-label="Öne çıkan Best Gourmet ürünleri">
-          <div className="hero-main-product"><img src={sku("mono-antep-fistigi-dubai")} alt="Antep Fıstığı Dubai mono pasta" /></div>
-          <div className="hero-mini hero-mini-one"><img src={sku("tart-orman-meyveli")} alt="Orman meyveli tart" /><span>Sezon seçkisi</span></div>
-          <div className="hero-visual-note"><span>01</span><p>Az malzeme değil;<br />doğru denge.</p></div>
-          <span className="hero-stamp">Taze üretim<br />• Her gün •</span>
+        <div className="hero-visual" aria-label="Best Gourmet imza ürünü">
+          <div className="hero-visual-frame">
+            <img src={sku("pasta-antep-fistikli")} alt="Best Gourmet Antep fıstıklı pasta" />
+            <div className="hero-image-label"><span>İmza seçkisi / 01</span><strong>Antep Fıstıklı Pasta</strong></div>
+          </div>
+          <p className="hero-visual-side">Best Gourmet · Profesyonel lezzet · 2026</p>
         </div>
         <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
           <div><strong>59 özel ürün</strong><span>geniş ürün seçkisi</span></div>
