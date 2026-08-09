@@ -62,10 +62,13 @@ export function InteractivePastryGallery({
   };
 
   return (
-    <div className={`pastry-gallery ${isOpen ? "is-open" : ""} ${isHovering ? "is-hovering" : ""}`}>
+    <div
+      className={`pastry-gallery ${isOpen ? "is-open" : ""} ${isHovering ? "is-hovering" : ""}`}
+      style={{ "--item-count": items.length } as CardStyle}
+    >
       <div className="pastry-gallery-heading">
         <div><span>Seçkinin içinden</span><strong>Sunuma dokun, koleksiyonu aç.</strong></div>
-        <p>{isOpen ? "Bir kartı aşağı sürükleyerek kapatabilirsin." : "Beş imza lezzet, tek bir etkinlik dili."}</p>
+        <p>{isOpen ? "Bir kartı aşağı sürükleyerek kapatabilirsin." : "Her kategoriden bir imza lezzet, tek bir etkinlik dili."}</p>
       </div>
 
       <div className="pastry-gallery-stage">
@@ -75,8 +78,13 @@ export function InteractivePastryGallery({
           <div className="pastry-gallery-cards" aria-label={`${collectionName} ürün kartları`}>
             {items.map((item, index) => {
               const offset = index - (items.length - 1) / 2;
+              const columnCount = Math.min(5, items.length);
+              const openColumn = index % columnCount - (columnCount - 1) / 2;
+              const openRow = Math.floor(index / columnCount);
               const style: CardStyle = {
                 "--offset": offset,
+                "--open-column": openColumn,
+                "--open-row": openRow,
                 "--stack-scale": 1 - Math.abs(offset) * 0.035,
                 "--drag-y": `${drag?.id === item.id ? drag.y : 0}px`,
                 zIndex: drag?.id === item.id ? 30 : index + 2,

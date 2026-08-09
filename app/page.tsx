@@ -28,7 +28,10 @@ const products: Product[] = [
     ["Frambuazlı Trileçe", "frambuazli-trilece"],
     ["Lotuslu Trileçe", "lotuslu-trilece"],
   ]),
-  ...makeProducts("Adet Pastalar", "Tek porsiyon", [
+  ...makeProducts("Islak Kek", "Tek porsiyon", [
+    ["Çikolatalı Islak Kek", "islak-kek"],
+  ]),
+  ...makeProducts("Adet Pastalar", "8–9 cm genişlik · yaklaşık 10 cm yükseklik", [
     ["Lotuslu", "adet-lotuslu"],
     ["Fıstık Drajeli", "adet-fistik-drajeli"],
     ["Frambuazlı", "adet-frambuazli"],
@@ -40,7 +43,6 @@ const products: Product[] = [
   ...makeProducts("Pasta Çeşitleri", "1 no · bütün pasta", [
     ["Çikolatalı Ganaj", "pasta-cikolatali-ganaj"],
     ["Orman Meyveli", "pasta-orman-meyveli"],
-    ["Muz Karamel Çikolata", "pasta-muz-karamel-cikolata"],
     ["Profiterollü", "pasta-profiterollu"],
     ["Çilek Çikolata", "pasta-cilek-cikolata"],
     ["Meyveli", "pasta-meyveli"],
@@ -93,7 +95,7 @@ const products: Product[] = [
     ["Oreolu Cheesecake", "cheesecake-oreolu"],
     ["Orman Meyveli Cheesecake", "cheesecake-orman-meyveli"],
   ]),
-  ...makeProducts("Mono Pasta", "8 cm genişlik · 5 cm yükseklik", [
+  ...makeProducts("Mono Pasta", "8 cm genişlik · 7–8 cm yükseklik", [
     ["Lotus", "mono-lotus"],
     ["Lime", "mono-lime"],
     ["Frambuaz", "mono-frambuaz"],
@@ -218,7 +220,7 @@ export default function Home() {
         </div>
         <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
           <div><strong>59 özel ürün</strong><span>geniş ürün seçkisi</span></div>
-          <div><strong>9 kategori</strong><span>tek üretim standardı</span></div>
+          <div><strong>10 kategori</strong><span>tek üretim standardı</span></div>
           <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
         </div>
       </section>
@@ -251,7 +253,7 @@ export default function Home() {
       <section className="products-section" id="urunler">
         <div className="products-heading">
           <div><p className="section-index">02 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>Dokuz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
+          <p>On ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
         </div>
         <div className="catalog-tools">
           <div className="category-browser">
@@ -317,11 +319,16 @@ export default function Home() {
         <InteractivePastryGallery
           collectionName="Etkinlik seçkisi"
           items={[
-            { id: "frambuaz", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
-            { id: "fistik", image: sku("adet-fistik-drajeli"), title: "Fıstık Drajeli", category: "Adet Pasta" },
+            { id: "trilece", image: sku("karamel-trilece"), title: "Karamel Trileçe", category: "Trileçe" },
+            { id: "islak-kek", image: sku("islak-kek"), title: "Çikolatalı Islak Kek", category: "Islak Kek" },
+            { id: "adet-pasta", image: sku("adet-fistik-drajeli"), title: "Fıstık Drajeli", category: "Adet Pasta" },
+            { id: "pasta", image: sku("pasta-orman-meyveli"), title: "Orman Meyveli", category: "Pasta Çeşitleri" },
             { id: "magnolia", image: sku("magnolia-yaban-mersinli"), title: "Yaban Mersinli", category: "Magnolia" },
             { id: "ekler", image: sku("ekler-karisik-mix"), title: "Karışık Mix", category: "Fransız Ekleri" },
+            { id: "rulo", image: sku("rulo-muzlu"), title: "Muzlu Rulo", category: "Rulo" },
             { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tart" },
+            { id: "cheesecake", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cheesecake" },
+            { id: "mono", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
           ]}
         />
         <div className="event-cards">
