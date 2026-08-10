@@ -79,7 +79,9 @@ export function InteractivePastryGallery({
             {items.map((item, index) => {
               const offset = index - (items.length - 1) / 2;
               const columnCount = Math.min(5, items.length);
-              const openColumn = index % columnCount - (columnCount - 1) / 2;
+              const rowStart = Math.floor(index / columnCount) * columnCount;
+              const rowLength = Math.min(columnCount, items.length - rowStart);
+              const openColumn = index - rowStart - (rowLength - 1) / 2;
               const openRow = Math.floor(index / columnCount);
               const style: CardStyle = {
                 "--offset": offset,

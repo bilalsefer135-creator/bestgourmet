@@ -27,8 +27,6 @@ const products: Product[] = [
     ["Karamel Trileçe", "karamel-trilece"],
     ["Frambuazlı Trileçe", "frambuazli-trilece"],
     ["Lotuslu Trileçe", "lotuslu-trilece"],
-  ]),
-  ...makeProducts("Islak Kek", "Tek porsiyon", [
     ["Çikolatalı Islak Kek", "islak-kek"],
   ]),
   ...makeProducts("Adet Pastalar", "8–9 cm genişlik · yaklaşık 10 cm yükseklik", [
@@ -220,7 +218,7 @@ export default function Home() {
         </div>
         <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
           <div><strong>59 özel ürün</strong><span>geniş ürün seçkisi</span></div>
-          <div><strong>10 kategori</strong><span>tek üretim standardı</span></div>
+          <div><strong>9 kategori</strong><span>tek üretim standardı</span></div>
           <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
         </div>
       </section>
@@ -253,7 +251,7 @@ export default function Home() {
       <section className="products-section" id="urunler">
         <div className="products-heading">
           <div><p className="section-index">02 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>On ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
+          <p>Dokuz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
         </div>
         <div className="catalog-tools">
           <div className="category-browser">
@@ -320,7 +318,6 @@ export default function Home() {
           collectionName="Etkinlik seçkisi"
           items={[
             { id: "trilece", image: sku("karamel-trilece"), title: "Karamel Trileçe", category: "Trileçe" },
-            { id: "islak-kek", image: sku("islak-kek"), title: "Çikolatalı Islak Kek", category: "Islak Kek" },
             { id: "adet-pasta", image: sku("adet-fistik-drajeli"), title: "Fıstık Drajeli", category: "Adet Pasta" },
             { id: "pasta", image: sku("pasta-orman-meyveli"), title: "Orman Meyveli", category: "Pasta Çeşitleri" },
             { id: "magnolia", image: sku("magnolia-yaban-mersinli"), title: "Yaban Mersinli", category: "Magnolia" },
