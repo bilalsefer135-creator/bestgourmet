@@ -22,7 +22,7 @@ test("server-renders the finished Best Gourmet site", async () => {
   const html = await response.text();
   assert.match(html, /<html lang="tr">/i);
   assert.match(html, /<title>Best Gourmet \| Profesyonel Lezzet<\/title>/i);
-  assert.match(html, /Tatlı değil,/);
+  assert.match(html, /home-hero-2026\.jpg/);
   assert.match(html, /<strong>69<\/strong> ürün gösteriliyor/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905301344525/);
@@ -75,6 +75,10 @@ test("ships one dedicated image for every catalog product", async () => {
   for (const file of catalogFiles) assert.ok(files.includes(file), `missing catalog image: ${file}`);
   assert.match(page, /const products: Product\[\]/);
   assert.match(page, /Pasta Çeşitleri/);
+  assert.match(page, /Rulo Pastalar/);
+  assert.match(page, /Tartlar/);
+  assert.match(page, /Cheesecake/);
+  assert.doesNotMatch(page, /Cafe Ürünleri/);
   assert.match(page, /Antep Fıstığı Dubai/);
   assert.match(layout, /https:\/\/gourmetbest\.tr/);
   assert.match(layout, /og\.png/);

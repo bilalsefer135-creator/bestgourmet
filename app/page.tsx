@@ -33,16 +33,20 @@ const products: Product[] = [
     ["Hindistan Cevizli", "ekler-hindistan-cevizli"],
     ["Karışık Mix Ekler", "ekler-karisik-mix"],
   ]),
-  ...makeProducts("Cafe Ürünleri", "Vitrin ve dilim servis", [
+  ...makeProducts("Rulo Pastalar", "Dilim servis · rulo seçkisi", [
     ["Muzlu Rulo", "rulo-muzlu"],
     ["Çikolatalı Rulo", "rulo-cikolatali"],
     ["Çilekli Rulo", "rulo-cilekli"],
     ["İbiza Muzlu", "ibiza-muzlu"],
     ["İbiza Çilekli", "ibiza-cilekli"],
+  ]),
+  ...makeProducts("Tartlar", "Tek porsiyon · çıtır taban", [
     ["Çilekli Tart", "tart-cilekli"],
     ["Orman Meyveli Tart", "tart-orman-meyveli"],
     ["Lotuslu Tart", "tart-lotuslu"],
     ["Oreolu Tart", "tart-oreolu"],
+  ]),
+  ...makeProducts("Cheesecake", "Dilim servis · cafe seçkisi", [
     ["San Sebastian", "cheesecake-san-sebastian"],
     ["Antep Fıstıklı San Sebastian", "cheesecake-antep-fistikli-san-sebastian"],
     ["Limonlu Cheesecake", "cheesecake-limonlu"],
@@ -53,16 +57,16 @@ const products: Product[] = [
     ["Orman Meyveli Cheesecake", "cheesecake-orman-meyveli"],
   ]),
   ...makeProducts("Tek Pastalar", "Tek porsiyon · modern vitrin", [
-    ["Tropical Entreme", "tek-tropical-entreme"],
-    ["Angel", "tek-angel"],
-    ["Cherry White", "tek-cherry-white"],
-    ["Raspberry Coconut Cake", "tek-raspberry-coconut"],
-    ["Ferrero Rocher Stick Pasta", "tek-ferrero-stick"],
-    ["Passion Fruit Hindistan Cevizi Stick", "tek-passion-coconut-stick"],
-    ["Çilekli Kat Pasta", "tek-cilekli-kat"],
-    ["Milky Chocolate Mosaic", "tek-milky-chocolate-mosaic"],
+    ["Tropik Kubbe", "tek-tropical-entreme"],
+    ["Velvet Frambuaz", "tek-angel"],
+    ["Vişne Beyaz", "tek-cherry-white"],
+    ["Frambuaz Hindistan Cevizi", "tek-raspberry-coconut"],
+    ["Fındık Pralin Baton", "tek-ferrero-stick"],
+    ["Passion Lime Baton", "tek-passion-coconut-stick"],
+    ["Çilek Antep Fıstığı Kat", "tek-cilekli-kat"],
+    ["Sütlü Çikolata Karamel", "tek-milky-chocolate-mosaic"],
   ]),
-  ...makeProducts("Magnolia", "330 cc cam kavanoz", [
+  ...makeProducts("Magnolia", "330 cc kare cam kase · tek aroma katmanı", [
     ["Çilekli Magnolia", "magnolia-cilekli"],
     ["Lotuslu Magnolia", "magnolia-lotuslu"],
     ["Oreolu Magnolia", "magnolia-oreolu"],
@@ -207,28 +211,9 @@ export default function Home() {
         </nav>
       </header>
 
-      <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow"><span /> Profesyonel mutfakların tatlı imzası</p>
-          <h1>Lezzetin<br /><em>en zarif</em><br />hâli.</h1>
-          <p className="hero-lead">Modern sunum, dengeli reçete ve her serviste aynı özen. Best Gourmet, vitrininize yalnızca tatlı değil; güçlü bir karakter kazandırır.</p>
-          <div className="hero-actions">
-            <a className="button button-primary" href="#urunler">69 lezzeti keşfet <span>↘</span></a>
-            <a className="text-link" href="/etkinlikler">Etkinlik planla <span>→</span></a>
-          </div>
-        </div>
-        <div className="hero-visual" aria-label="Best Gourmet imza ürünü">
-          <div className="hero-visual-frame">
-            <img src={sku("pasta-antep-fistikli")} alt="Best Gourmet Antep fıstıklı pasta" />
-            <div className="hero-image-label"><span>İmza seçkisi / 01</span><strong>Antep Fıstıklı Pasta</strong></div>
-          </div>
-          <p className="hero-visual-side">Best Gourmet · Profesyonel lezzet · 2026</p>
-        </div>
-        <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
-          <div><strong>69 özel ürün</strong><span>geniş ürün seçkisi</span></div>
-          <div><strong>8 kategori</strong><span>tek üretim standardı</span></div>
-          <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
-        </div>
+      <section className="hero-campaign" id="top" aria-label="Best Gourmet ana sayfa kapağı">
+        <img src="/brand/home-hero-2026.jpg" alt="Best Gourmet — Lezzette güven, sunumda kalite" />
+        <a className="hero-campaign-cta" href="#urunler">69 lezzeti keşfet <span>↓</span></a>
       </section>
 
       <div className="marquee" aria-label="Marka değerleri"><div><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span><i>✦</i><span>Lezzeti standartlaştır</span><i>✦</i><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span></div></div>
@@ -236,7 +221,7 @@ export default function Home() {
       <section className="products-section" id="urunler">
         <div className="products-heading">
           <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>Sekiz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 69 ayrı ürün.</p>
+          <p>On ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 69 ayrı ürün.</p>
         </div>
         <div className="catalog-tools">
           <div className="category-browser">
@@ -303,8 +288,10 @@ export default function Home() {
           collectionName="Etkinlik seçkisi"
           items={[
             { id: "ekler", image: sku("ekler-karisik-mix"), title: "Karışık Mix", category: "Fransız Ekleri" },
-            { id: "cafe", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cafe Ürünleri" },
-            { id: "tek", image: sku("tek-tropical-entreme"), title: "Tropical Entreme", category: "Tek Pastalar" },
+            { id: "rulo", image: sku("rulo-cilekli"), title: "Çilekli Rulo", category: "Rulo Pastalar" },
+            { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tartlar" },
+            { id: "cheesecake", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cheesecake" },
+            { id: "tek", image: sku("tek-tropical-entreme"), title: "Tropik Kubbe", category: "Tek Pastalar" },
             { id: "magnolia", image: sku("magnolia-dubai"), title: "Dubai Magnolia", category: "Magnolia" },
             { id: "mono", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
             { id: "adet-pasta", image: sku("adet-orman-meyveli"), title: "Orman Meyveli", category: "Adet Pastalar" },
