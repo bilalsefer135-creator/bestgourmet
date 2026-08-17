@@ -23,43 +23,6 @@ const makeProducts = (
 ): Product[] => items.map(([name, file]) => ({ name, category, detail, image: sku(file) }));
 
 const products: Product[] = [
-  ...makeProducts("Trileçe", "Tek porsiyon", [
-    ["Karamel Trileçe", "karamel-trilece"],
-    ["Frambuazlı Trileçe", "frambuazli-trilece"],
-    ["Lotuslu Trileçe", "lotuslu-trilece"],
-    ["Çikolatalı Islak Kek", "islak-kek"],
-  ]),
-  ...makeProducts("Adet Pastalar", "8–9 cm genişlik · yaklaşık 10 cm yükseklik", [
-    ["Lotuslu", "adet-lotuslu"],
-    ["Fıstık Drajeli", "adet-fistik-drajeli"],
-    ["Frambuazlı", "adet-frambuazli"],
-    ["Çilekli", "adet-cilekli"],
-    ["Meyveli", "adet-meyveli"],
-    ["Antep Fıstıklı", "adet-antep-fistikli"],
-    ["Beyaz Çikolatalı", "adet-beyaz-cikolatali"],
-  ]),
-  ...makeProducts("Pasta Çeşitleri", "1 no · bütün pasta", [
-    ["Çikolatalı Ganaj", "pasta-cikolatali-ganaj"],
-    ["Orman Meyveli", "pasta-orman-meyveli"],
-    ["Profiterollü", "pasta-profiterollu"],
-    ["Çilek Çikolata", "pasta-cilek-cikolata"],
-    ["Meyveli", "pasta-meyveli"],
-    ["Lotus", "pasta-lotus"],
-    ["Antep Fıstıklı", "pasta-antep-fistikli"],
-    ["Beyaz Çikolatalı", "pasta-beyaz-cikolatali"],
-  ]),
-  ...makeProducts("Magnolia", "Porsiyonluk cup", [
-    ["Çilekli Magnolia", "magnolia-cilekli"],
-    ["Lotuslu Magnolia", "magnolia-lotuslu"],
-    ["Oreolu Magnolia", "magnolia-oreolu"],
-    ["Muzlu Magnolia", "magnolia-muzlu"],
-    ["Profiterollü Magnolia", "magnolia-profiterollu"],
-    ["Supangle", "magnolia-supangle"],
-    ["Orman Meyveli Magnolia", "magnolia-orman-meyveli"],
-    ["Yaban Mersinli Magnolia", "magnolia-yaban-mersinli"],
-    ["Frambuazlı Magnolia", "magnolia-frambuazli"],
-    ["Spoonful", "magnolia-spoonful"],
-  ]),
   ...makeProducts("Ekler", "Fransız ekleri", [
     ["Orman Meyveli", "ekler-orman-meyveli"],
     ["Vanilyalı", "ekler-vanilyali"],
@@ -70,20 +33,16 @@ const products: Product[] = [
     ["Hindistan Cevizli", "ekler-hindistan-cevizli"],
     ["Karışık Mix Ekler", "ekler-karisik-mix"],
   ]),
-  ...makeProducts("Rulo", "Dilim servis", [
+  ...makeProducts("Cafe Ürünleri", "Vitrin ve dilim servis", [
     ["Muzlu Rulo", "rulo-muzlu"],
     ["Çikolatalı Rulo", "rulo-cikolatali"],
     ["Çilekli Rulo", "rulo-cilekli"],
     ["İbiza Muzlu", "ibiza-muzlu"],
     ["İbiza Çilekli", "ibiza-cilekli"],
-  ]),
-  ...makeProducts("Tart", "Tek porsiyon", [
     ["Çilekli Tart", "tart-cilekli"],
     ["Orman Meyveli Tart", "tart-orman-meyveli"],
     ["Lotuslu Tart", "tart-lotuslu"],
     ["Oreolu Tart", "tart-oreolu"],
-  ]),
-  ...makeProducts("Cheesecake", "10 dilim · bütün", [
     ["San Sebastian", "cheesecake-san-sebastian"],
     ["Antep Fıstıklı San Sebastian", "cheesecake-antep-fistikli-san-sebastian"],
     ["Limonlu Cheesecake", "cheesecake-limonlu"],
@@ -93,12 +52,61 @@ const products: Product[] = [
     ["Oreolu Cheesecake", "cheesecake-oreolu"],
     ["Orman Meyveli Cheesecake", "cheesecake-orman-meyveli"],
   ]),
+  ...makeProducts("Tek Pastalar", "Tek porsiyon · modern vitrin", [
+    ["Tropical Entreme", "tek-tropical-entreme"],
+    ["Angel", "tek-angel"],
+    ["Cherry White", "tek-cherry-white"],
+    ["Raspberry Coconut Cake", "tek-raspberry-coconut"],
+    ["Ferrero Rocher Stick Pasta", "tek-ferrero-stick"],
+    ["Passion Fruit Hindistan Cevizi Stick", "tek-passion-coconut-stick"],
+    ["Çilekli Kat Pasta", "tek-cilekli-kat"],
+    ["Milky Chocolate Mosaic", "tek-milky-chocolate-mosaic"],
+  ]),
+  ...makeProducts("Magnolia", "330 cc cam kavanoz", [
+    ["Çilekli Magnolia", "magnolia-cilekli"],
+    ["Lotuslu Magnolia", "magnolia-lotuslu"],
+    ["Oreolu Magnolia", "magnolia-oreolu"],
+    ["Muzlu Magnolia", "magnolia-muzlu"],
+    ["Profiterollü Magnolia", "magnolia-profiterollu"],
+    ["Supangle", "magnolia-supangle"],
+    ["Orman Meyveli Magnolia", "magnolia-orman-meyveli"],
+    ["Yaban Mersinli Magnolia", "magnolia-yaban-mersinli"],
+    ["Frambuazlı Magnolia", "magnolia-frambuazli"],
+    ["Spoonful", "magnolia-spoonful"],
+    ["Dubai Magnolia", "magnolia-dubai"],
+  ]),
   ...makeProducts("Mono Pasta", "8 cm genişlik · 7–8 cm yükseklik", [
     ["Lotus", "mono-lotus"],
     ["Lime", "mono-lime"],
     ["Frambuaz", "mono-frambuaz"],
     ["Mango Ananas", "mono-mango-ananas"],
-    ["Antep Fıstığı Dubai", "mono-antep-fistigi-dubai"],
+    ["Antep Fıstığı Dubai", "mono-antep-fistikli-dubai"],
+  ]),
+  ...makeProducts("Adet Pastalar", "Yaklaşık 10 cm · tam sıvalı", [
+    ["Lotuslu Pasta", "adet-lotuslu"],
+    ["Orman Meyveli", "adet-orman-meyveli"],
+    ["Çilek Çikolatalı", "adet-cilek-cikolata"],
+    ["Karışık Meyveli", "adet-karisik-meyveli"],
+    ["Antep Fıstıklı", "adet-antep-fistikli"],
+    ["Beyaz Çikolatalı", "adet-beyaz-cikolatali"],
+    ["Ganaj Çikolatalı", "adet-ganaj-cikolatali"],
+  ]),
+  ...makeProducts("Pasta Çeşitleri", "1 no · bütün pasta", [
+    ["Lotuslu Pasta", "pasta-lotus"],
+    ["Orman Meyveli", "pasta-orman-meyveli"],
+    ["Çilek Çikolatalı", "pasta-cilek-cikolata"],
+    ["Karışık Meyveli", "pasta-karisik-meyveli"],
+    ["Antep Fıstıklı", "pasta-antep-fistikli"],
+    ["Beyaz Çikolatalı", "pasta-beyaz-cikolatali"],
+    ["Ganaj Çikolatalı", "pasta-cikolatali-ganaj"],
+    ["Red Velvet Pasta", "pasta-red-velvet"],
+    ["Devil’s Pasta", "pasta-devils"],
+  ]),
+  ...makeProducts("Trileçe", "Tek porsiyon", [
+    ["Karamel Trileçe", "karamel-trilece"],
+    ["Frambuazlı Trileçe", "frambuazli-trilece"],
+    ["Lotuslu Trileçe", "lotuslu-trilece"],
+    ["Çikolatalı Islak Kek", "islak-kek"],
   ]),
 ];
 
@@ -186,13 +194,13 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Best Gourmet ana sayfa">
-          <span className="brand-mark">BG</span>
-          <span className="brand-type"><strong>Best Gourmet</strong><small>Profesyonel lezzet</small></span>
+          <img className="brand-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" />
         </a>
         <button className="menu-button" type="button" aria-label="Menüyü aç veya kapat" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}><span /><span /></button>
         <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Ana menü">
           <a href="#urunler" onClick={() => setMenuOpen(false)}>Ürünler</a>
-          <a href="#hikayemiz" onClick={() => setMenuOpen(false)}>Hikâyemiz</a>
+          <a href="/hikayemiz" onClick={() => setMenuOpen(false)}>Hikâyemiz</a>
+          <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
           <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
           <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
@@ -205,7 +213,7 @@ export default function Home() {
           <h1>Lezzetin<br /><em>en zarif</em><br />hâli.</h1>
           <p className="hero-lead">Modern sunum, dengeli reçete ve her serviste aynı özen. Best Gourmet, vitrininize yalnızca tatlı değil; güçlü bir karakter kazandırır.</p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#urunler">59 lezzeti keşfet <span>↘</span></a>
+            <a className="button button-primary" href="#urunler">69 lezzeti keşfet <span>↘</span></a>
             <a className="text-link" href="/etkinlikler">Etkinlik planla <span>→</span></a>
           </div>
         </div>
@@ -217,41 +225,18 @@ export default function Home() {
           <p className="hero-visual-side">Best Gourmet · Profesyonel lezzet · 2026</p>
         </div>
         <div className="hero-proof" aria-label="Best Gourmet öne çıkanlar">
-          <div><strong>59 özel ürün</strong><span>geniş ürün seçkisi</span></div>
-          <div><strong>9 kategori</strong><span>tek üretim standardı</span></div>
+          <div><strong>69 özel ürün</strong><span>geniş ürün seçkisi</span></div>
+          <div><strong>8 kategori</strong><span>tek üretim standardı</span></div>
           <div><strong>Soğuk zincir</strong><span>güvenli teslimat</span></div>
         </div>
       </section>
 
       <div className="marquee" aria-label="Marka değerleri"><div><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span><i>✦</i><span>Lezzeti standartlaştır</span><i>✦</i><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span></div></div>
 
-      <section className="manifesto" id="hikayemiz">
-        <div className="manifesto-topline">
-          <p className="section-index">01 / Hikâyemiz</p>
-          <p className="manifesto-kicker">Lezzetten önce bir yaklaşım.</p>
-        </div>
-        <div className="manifesto-heading">
-          <h2>Menünüzdeki en güçlü<br />karakter.</h2>
-          <div className="manifesto-seal"><span>BG</span> Kaliteyi<br />standartlaştırır.</div>
-        </div>
-        <div className="manifesto-narrative">
-          <p className="manifesto-lead">Best Gourmet, profesyonel mutfakların günlük temposunu anlayan çağdaş bir tatlı üretim yaklaşımıdır. Bizim için iyi ürün yalnızca ilk lokmada değil; vitrinde, serviste ve yeniden tercih edildiğinde de aynı güveni vermelidir.</p>
-          <div className="manifesto-copy">
-            <p>Bu yüzden lezzeti; reçete disiplini, porsiyon tutarlılığı ve güçlü sunumla birlikte ele alıyoruz. İşletmelerin kendi karakterini korurken menülerini daha çekici ve yönetilebilir hâle getirmeyi amaçlıyoruz.</p>
-            <p>Tanıdık aromaları çağdaş dokunuşlarla buluşturuyor; üründen planlamaya kadar sade, anlaşılır ve güven veren bir iş ortaklığı kuruyoruz. Her tabakta bıraktığımız iz, markamızın en gerçek imzası oluyor.</p>
-          </div>
-        </div>
-        <div className="manifesto-values" aria-label="Best Gourmet yaklaşımı">
-          <article><span>01</span><h3>Lezzet karakteri</h3><p>Dengeli aromalar, net reçeteler ve hatırlanan bir son dokunuş.</p></article>
-          <article><span>02</span><h3>Servis kolaylığı</h3><p>Yoğun operasyonun ritmine uyum sağlayan planlı bir ürün seçkisi.</p></article>
-          <article><span>03</span><h3>Sunum gücü</h3><p>Vitrinde merak uyandıran, masada özel hissettiren bir görünüm.</p></article>
-        </div>
-      </section>
-
       <section className="products-section" id="urunler">
         <div className="products-heading">
-          <div><p className="section-index">02 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>Dokuz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 59 ayrı ürün.</p>
+          <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
+          <p>Sekiz ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 69 ayrı ürün.</p>
         </div>
         <div className="catalog-tools">
           <div className="category-browser">
@@ -298,7 +283,7 @@ export default function Home() {
       <section className="production" id="uretim">
         <div className="production-photo"><img src={sku("magnolia-lotuslu")} alt="Best Gourmet üretiminden Lotuslu Magnolia" /></div>
         <div className="production-copy">
-          <p className="section-index light">03 / Üretim standardı</p>
+          <p className="section-index light">02 / Üretim standardı</p>
           <h2>Her servis,<br />aynı <em>iyi his.</em></h2>
           <p>Seçilmiş hammaddeler, kontrollü üretim süreçleri ve soğuk zincir teslimatıyla işletmenize yalnızca ürün değil, güvenilir bir lezzet standardı getiriyoruz.</p>
           <p>Ürün planlamasını işletmenin servis yoğunluğuna, menü yapısına ve sunum beklentisine göre ele alıyoruz. Böylece mutfak ekibi daha öngörülebilir bir akışla çalışırken, misafir her siparişte aynı özenli deneyimle buluşuyor.</p>
@@ -313,19 +298,18 @@ export default function Home() {
       </section>
 
       <section className="events" id="etkinlik">
-        <div className="events-intro"><p className="section-index">04 / Etkinlik üretimi</p><h2>Her kutlamaya özel,<br /><em>tek bir iyi standart.</em></h2><p>Düğünden doğum gününe, özel davetten kurumsal buluşmaya; menüyü, sunumu ve servis akışını etkinliğinizin ihtiyacına göre tek bir planda buluşturuyoruz.</p><a className="button button-primary" href="/etkinlikler">Tüm etkinlikleri keşfet <span>↗</span></a></div>
+        <div className="events-intro"><p className="section-index">03 / Etkinlik üretimi</p><h2>Her kutlamaya özel,<br /><em>tek bir iyi standart.</em></h2><p>Düğünden doğum gününe, özel davetten kurumsal buluşmaya; menüyü, sunumu ve servis akışını etkinliğinizin ihtiyacına göre tek bir planda buluşturuyoruz.</p><a className="button button-primary" href="/etkinlikler">Tüm etkinlikleri keşfet <span>↗</span></a></div>
         <InteractivePastryGallery
           collectionName="Etkinlik seçkisi"
           items={[
-            { id: "trilece", image: sku("karamel-trilece"), title: "Karamel Trileçe", category: "Trileçe" },
-            { id: "adet-pasta", image: sku("adet-fistik-drajeli"), title: "Fıstık Drajeli", category: "Adet Pasta" },
-            { id: "pasta", image: sku("pasta-orman-meyveli"), title: "Orman Meyveli", category: "Pasta Çeşitleri" },
-            { id: "magnolia", image: sku("magnolia-yaban-mersinli"), title: "Yaban Mersinli", category: "Magnolia" },
             { id: "ekler", image: sku("ekler-karisik-mix"), title: "Karışık Mix", category: "Fransız Ekleri" },
-            { id: "rulo", image: sku("rulo-muzlu"), title: "Muzlu Rulo", category: "Rulo" },
-            { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tart" },
-            { id: "cheesecake", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cheesecake" },
+            { id: "cafe", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cafe Ürünleri" },
+            { id: "tek", image: sku("tek-tropical-entreme"), title: "Tropical Entreme", category: "Tek Pastalar" },
+            { id: "magnolia", image: sku("magnolia-dubai"), title: "Dubai Magnolia", category: "Magnolia" },
             { id: "mono", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
+            { id: "adet-pasta", image: sku("adet-orman-meyveli"), title: "Orman Meyveli", category: "Adet Pastalar" },
+            { id: "pasta", image: sku("pasta-red-velvet"), title: "Red Velvet", category: "Pasta Çeşitleri" },
+            { id: "trilece", image: sku("karamel-trilece"), title: "Karamel Trileçe", category: "Trileçe" },
           ]}
         />
         <div className="event-cards">
@@ -338,11 +322,11 @@ export default function Home() {
       </section>
 
       <section className="contact" id="iletisim">
-        <p className="section-index">05 / Birlikte büyüyelim</p><h2>Vitrininizi birlikte<br /><em>unutulmaz</em> yapalım.</h2>
+        <p className="section-index">04 / Birlikte büyüyelim</p><h2>Vitrininizi birlikte<br /><em>unutulmaz</em> yapalım.</h2>
         <div className="contact-row"><p>Ürün kataloğu, etkinlik üretimi, fiyatlandırma ve işletmenize özel seçenekler için bize ulaşın.</p><div><a className="button button-dark" href={whatsapp("Merhaba, Best Gourmet ürünleri için teklif almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a><a className="phone-link" href="tel:+905301344525">+90 530 134 45 25</a><a className="mail-link" href="mailto:info@gourmetbest.tr">info@gourmetbest.tr</a></div></div>
       </section>
 
-      <footer><a className="brand footer-brand" href="#top"><span className="brand-mark">BG</span><span className="brand-type"><strong>Best Gourmet</strong><small>Profesyonel lezzet</small></span></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
+      <footer><a className="brand footer-brand" href="#top"><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
     </main>
   );
 }

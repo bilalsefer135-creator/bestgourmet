@@ -9,17 +9,16 @@ export function EventHeader() {
   return (
     <header className="site-header event-site-header">
       <Link className="brand" href="/" aria-label="Best Gourmet ana sayfa">
-        <span className="brand-mark">BG</span>
-        <span className="brand-type"><strong>Best Gourmet</strong><small>Profesyonel lezzet</small></span>
+        <img className="brand-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" />
       </Link>
       <button className="menu-button" type="button" aria-label="Menüyü aç veya kapat" aria-expanded={open} onClick={() => setOpen((value) => !value)}><span /><span /></button>
-      <nav className={open ? "nav-links is-open" : "nav-links"} aria-label="Etkinlik menüsü">
-        <a href="/etkinlikler" onClick={() => setOpen(false)}>Tüm etkinlikler</a>
-        <a href="/etkinlikler/dugun" onClick={() => setOpen(false)}>Düğün</a>
-        <a href="/etkinlikler/dogum-gunu" onClick={() => setOpen(false)}>Doğum günü</a>
-        <a href="/etkinlikler/ozel-gun" onClick={() => setOpen(false)}>Özel gün</a>
-        <a href="/etkinlikler/kurumsal" onClick={() => setOpen(false)}>Kurumsal</a>
-        <a className="nav-cta" href="#teklif" onClick={() => setOpen(false)}>Teklif al</a>
+      <nav className={open ? "nav-links is-open" : "nav-links"} aria-label="Ana menü">
+        <Link href="/#urunler" onClick={() => setOpen(false)}>Ürünler</Link>
+        <Link href="/hikayemiz" onClick={() => setOpen(false)}>Hikâyemiz</Link>
+        <Link href="/referanslar" onClick={() => setOpen(false)}>Referanslarımız</Link>
+        <Link href="/#uretim" onClick={() => setOpen(false)}>Üretim</Link>
+        <Link href="/etkinlikler" onClick={() => setOpen(false)}>Etkinlikler</Link>
+        <Link className="nav-cta" href="/#iletisim" onClick={() => setOpen(false)}>Teklif al</Link>
       </nav>
     </header>
   );

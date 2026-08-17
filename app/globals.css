@@ -45,6 +45,8 @@ section[id] { scroll-margin-top: 92px; }
   backdrop-filter: blur(12px);
 }
 .brand { display: inline-flex; align-items: center; gap: 13px; }
+.brand-logo { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 1px rgba(42,22,15,.16); }
+.footer-logo { width: 82px; height: 82px; }
 .brand-mark {
   width: 46px; height: 46px; border-radius: 50%;
   display: grid; place-items: center;
@@ -367,7 +369,57 @@ footer p:last-child { text-align: right; }
 .event-hub-note > p { max-width: 720px; margin: 0 auto 28px; color: rgba(42,22,15,.5); text-transform: uppercase; letter-spacing: .12em; font-size: 9px; line-height: 1.7; }
 .event-hub-note h2 { font-size: clamp(48px, 5.8vw, 92px); line-height: .92; }
 
+/* Story and references */
+.brand-page { background: var(--paper); }
+.brand-page-hero { min-height: 760px; padding: clamp(82px, 9vw, 144px) clamp(22px, 5vw, 82px); display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; gap: clamp(50px, 8vw, 140px); background: radial-gradient(circle at 10% 8%, rgba(255,255,255,.92), transparent 31%), linear-gradient(135deg, var(--cream), #ead9c7); border-bottom: 1px solid var(--line); }
+.brand-page-hero h1 { max-width: 980px; margin: 30px 0 0; font-size: clamp(62px, 7vw, 116px); line-height: .84; }
+.brand-page-hero-copy { align-self: end; padding-bottom: 16px; }
+.brand-page-hero-copy p { margin: 0 0 36px; color: rgba(42,22,15,.68); font-family: Georgia, serif; font-size: clamp(21px, 2vw, 31px); line-height: 1.42; letter-spacing: -.025em; }
+
+.story-editorial { display: grid; grid-template-columns: .9fr 1.1fr; min-height: 930px; }
+.story-photo { min-height: 760px; overflow: hidden; background: var(--sand); }
+.story-photo img { height: 100%; object-fit: cover; }
+.story-editorial-copy { padding: clamp(70px, 9vw, 145px) clamp(30px, 8vw, 130px); display: flex; flex-direction: column; justify-content: center; }
+.story-editorial-copy h2, .purpose-grid h2, .reference-stage-heading h2, .reference-note h2, .brand-page-cta h2 { font-size: clamp(48px, 5.6vw, 90px); line-height: .92; }
+.story-editorial-copy h2 { margin: 30px 0 42px; }
+.story-editorial-copy > p:not(.section-index) { margin: 0 0 22px; color: rgba(42,22,15,.66); font-size: 16px; line-height: 1.8; }
+
+.purpose-grid { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--line); gap: 1px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.purpose-grid article { min-height: 650px; padding: clamp(60px, 8vw, 124px) clamp(30px, 6vw, 96px); background: var(--cream); display: flex; flex-direction: column; }
+.purpose-grid article > span { color: var(--caramel); text-transform: uppercase; letter-spacing: .18em; font-size: 10px; font-weight: 900; }
+.purpose-grid h2 { margin-top: auto; font-size: clamp(45px, 4.7vw, 76px); }
+.purpose-grid p { margin: 32px 0 0; max-width: 650px; color: rgba(42,22,15,.63); font-size: 16px; line-height: 1.75; }
+
+.story-values { padding: clamp(80px, 9vw, 140px) clamp(22px, 5vw, 82px); background: var(--brown); color: var(--cream); }
+.story-values > div { margin-top: 55px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(246,240,231,.2); border-bottom: 1px solid rgba(246,240,231,.2); }
+.story-values article { min-height: 300px; padding: 28px clamp(20px, 2.5vw, 40px) 38px; border-right: 1px solid rgba(246,240,231,.2); display: flex; flex-direction: column; }
+.story-values article:first-child { padding-left: 0; }
+.story-values article:last-child { border-right: 0; }
+.story-values article > span { color: var(--caramel-light); font-size: 9px; font-weight: 900; letter-spacing: .16em; }
+.story-values h3 { margin-top: auto; font-family: Georgia, serif; font-size: clamp(27px, 2.4vw, 38px); font-weight: 500; }
+.story-values p { margin: 18px 0 0; color: rgba(246,240,231,.62); line-height: 1.65; }
+
+.brand-page-cta { padding: clamp(90px, 11vw, 170px) clamp(22px, 5vw, 82px); background: var(--caramel-light); }
+.brand-page-cta h2 { max-width: 1200px; margin: 30px 0 58px; }
+
+.reference-hero { background: radial-gradient(circle at 82% 18%, rgba(255,255,255,.9), transparent 29%), linear-gradient(140deg, #efe1d1, var(--cream)); }
+.reference-stage { padding: clamp(90px, 10vw, 155px) clamp(22px, 5vw, 82px); }
+.reference-stage-heading { display: grid; grid-template-columns: .35fr 1.65fr; gap: 60px; margin-bottom: 72px; }
+.reference-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.reference-grid article { min-height: 560px; padding: 30px; display: flex; flex-direction: column; background: var(--cream); border: 1px solid var(--line); }
+.reference-grid article > span { color: var(--caramel); font-size: 9px; font-weight: 900; letter-spacing: .17em; }
+.reference-placeholder { min-height: 245px; margin: 28px 0 42px; display: grid; place-items: center; align-content: center; gap: 10px; border: 1px dashed rgba(74,39,26,.3); background: radial-gradient(circle, rgba(201,119,50,.1), transparent 58%); }
+.reference-placeholder i { width: 82px; height: 82px; border-radius: 50%; display: grid; place-items: center; background: var(--cocoa); color: var(--cream); font-family: Georgia, serif; font-size: 27px; font-style: normal; }
+.reference-placeholder small { color: rgba(42,22,15,.45); text-transform: uppercase; letter-spacing: .18em; font-size: 8px; font-weight: 900; }
+.reference-grid h3 { margin-top: auto; font-family: Georgia, serif; font-size: clamp(27px, 2.4vw, 40px); font-weight: 500; letter-spacing: -.04em; }
+.reference-grid p { margin: 18px 0 0; color: rgba(42,22,15,.6); line-height: 1.65; }
+.reference-note { padding: clamp(88px, 10vw, 155px) clamp(22px, 5vw, 82px); display: grid; grid-template-columns: .35fr 1.65fr; gap: 60px; background: var(--brown); color: var(--cream); }
+.reference-note h2 { max-width: 1020px; }
+.reference-note div > p { max-width: 730px; margin: 38px 0 0; color: rgba(246,240,231,.64); font-size: 17px; line-height: 1.75; }
+
 @media (max-width: 1100px) {
+  .site-header .nav-links { gap: 12px; font-size: 11px; }
+  .site-header .nav-cta { padding: 11px 15px; }
   .hero { min-height: auto; grid-template-columns: minmax(0, 1fr) minmax(360px, .86fr); grid-template-rows: minmax(620px, 1fr) auto; }
   .hero-copy { width: 100%; }
   .hero-visual { min-height: 620px; }
@@ -392,12 +444,24 @@ footer p:last-child { text-align: right; }
   .event-fit-copy { border-right: 0; border-bottom: 1px solid rgba(246,240,231,.16); }
   .event-category-card-grid > a { min-height: 600px; }
   .event-category-card-grid img { height: 360px; }
+  .brand-page-hero { grid-template-columns: 1fr; min-height: 720px; }
+  .brand-page-hero-copy { max-width: 720px; }
+  .story-editorial { grid-template-columns: 1fr; }
+  .story-photo { min-height: 660px; }
+  .story-values > div { grid-template-columns: repeat(2, 1fr); }
+  .story-values article:nth-child(2) { border-right: 0; }
+  .story-values article:nth-child(-n+2) { border-bottom: 1px solid rgba(246,240,231,.2); }
+  .reference-stage-heading, .reference-note { grid-template-columns: 1fr; gap: 28px; }
+  .reference-grid { grid-template-columns: 1fr; }
+  .reference-grid article { min-height: 500px; }
 }
 
 @media (max-width: 760px) {
   main { padding-top: 76px; }
   section[id] { scroll-margin-top: 76px; }
   .site-header { height: 76px; }
+  .brand-logo { width: 54px; height: 54px; }
+  .footer-logo { width: 76px; height: 76px; }
   .brand-type strong { font-size: 16px; }
   .brand-mark { width: 40px; height: 40px; }
   .menu-button { display: block; position: relative; z-index: 3; }
@@ -492,6 +556,18 @@ footer p:last-child { text-align: right; }
   .event-category-card-grid > a { flex: 0 0 86vw; min-height: 600px; scroll-snap-align: start; }
   .event-category-card-grid img { height: 360px; }
   .event-hub-process { gap: 55px; }
+  .brand-page-hero { min-height: auto; padding: 70px 22px 78px; gap: 56px; }
+  .brand-page-hero h1 { font-size: clamp(54px, 15.5vw, 76px); }
+  .story-photo { min-height: 500px; }
+  .story-editorial-copy { padding: 76px 22px; }
+  .story-editorial-copy h2, .purpose-grid h2, .reference-stage-heading h2, .reference-note h2, .brand-page-cta h2 { font-size: clamp(46px, 13.5vw, 66px); }
+  .purpose-grid { grid-template-columns: 1fr; }
+  .purpose-grid article { min-height: 520px; padding: 64px 22px; }
+  .story-values > div { grid-template-columns: 1fr; }
+  .story-values article, .story-values article:first-child { min-height: 230px; padding: 28px 0 32px; border-right: 0; border-bottom: 1px solid rgba(246,240,231,.2); }
+  .story-values article:last-child { border-bottom: 0; }
+  .reference-grid article { min-height: 480px; padding: 22px; }
+  .reference-placeholder { min-height: 220px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

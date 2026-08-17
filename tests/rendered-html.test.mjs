@@ -23,10 +23,10 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /<html lang="tr">/i);
   assert.match(html, /<title>Best Gourmet \| Profesyonel Lezzet<\/title>/i);
   assert.match(html, /Tatlı değil,/);
-  assert.match(html, /<strong>59<\/strong> ürün gösteriliyor/);
+  assert.match(html, /<strong>69<\/strong> ürün gösteriliyor/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905301344525/);
-  assert.match(html, /products-studio\/sku\/mono-antep-fistigi-dubai\.webp/);
+  assert.match(html, /products-studio\/sku\/mono-antep-fistikli-dubai\.webp/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
 
@@ -49,6 +49,19 @@ test("server-renders the event hub and four category routes", async () => {
   }
 });
 
+test("server-renders the story and references pages", async () => {
+  for (const [pathname, copy] of [
+    ["/hikayemiz", /Önce iyi ürüne/],
+    ["/referanslar", /Her iyi iş birliği/],
+  ]) {
+    const response = await render(pathname);
+    assert.equal(response.status, 200, pathname);
+    const html = await response.text();
+    assert.match(html, copy, pathname);
+    assert.match(html, /Best Gourmet/, pathname);
+  }
+});
+
 test("ships one dedicated image for every catalog product", async () => {
   const [files, page, layout] = await Promise.all([
     readdir(new URL("../public/products-studio/sku/", import.meta.url)),
@@ -56,8 +69,10 @@ test("ships one dedicated image for every catalog product", async () => {
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  const productImages = files.filter((file) => file.endsWith(".webp"));
-  assert.equal(productImages.length, 59);
+  const productBlock = page.slice(page.indexOf("const products"), page.indexOf("const categories"));
+  const catalogFiles = [...productBlock.matchAll(/\[\s*"[^"]+",\s*"([a-z0-9-]+)"\s*\]/g)].map((match) => `${match[1]}.webp`);
+  assert.equal(catalogFiles.length, 69);
+  for (const file of catalogFiles) assert.ok(files.includes(file), `missing catalog image: ${file}`);
   assert.match(page, /const products: Product\[\]/);
   assert.match(page, /Pasta Çeşitleri/);
   assert.match(page, /Antep Fıstığı Dubai/);

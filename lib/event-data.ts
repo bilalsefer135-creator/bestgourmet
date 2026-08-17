@@ -135,7 +135,7 @@ export const eventCategories: Record<string, EventCategory> = {
     ],
     gallery: [
       { src: "/events/kurumsal.webp", alt: "Kurumsal tatlı servisi hazırlayan ekip konsept görseli", label: "Kurumsal servis · Konsept görsel" },
-      { src: sku("mono-antep-fistigi-dubai"), alt: "Antep fıstığı Dubai mono pasta", label: "Porsiyon kontrollü" },
+      { src: sku("mono-antep-fistikli-dubai"), alt: "Antep fıstığı Dubai mono pasta", label: "Porsiyon kontrollü" },
       { src: sku("ekler-vanilyali"), alt: "Vanilyalı Fransız ekleri", label: "Toplantı ikramı" },
       { src: sku("magnolia-yaban-mersinli"), alt: "Yaban mersinli magnolia", label: "Cup servis" },
     ],

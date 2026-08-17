@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://gourmetbest.tr"),
   title: "Best Gourmet | Profesyonel Lezzet",
-  description: "Yeni nesil işletmeler için 59 çeşit premium tatlı. Güvenilir üretim, güçlü sunum ve planlı tedarik.",
+  description: "Yeni nesil işletmeler için 69 çeşit premium tatlı. Güvenilir üretim, güçlü sunum ve planlı tedarik.",
   keywords: ["Best Gourmet", "toptan tatlı", "premium pasta", "etkinlik tatlıları", "İstanbul tatlı üretimi"],
   openGraph: {
     title: "Best Gourmet | Tatlı değil, imza bırakıyoruz.",
-    description: "Profesyonel mutfaklar ve etkinlikler için 59 çeşit premium tatlı.",
+    description: "Profesyonel mutfaklar ve etkinlikler için 69 çeşit premium tatlı.",
     url: "https://gourmetbest.tr",
     siteName: "Best Gourmet",
     type: "website",
