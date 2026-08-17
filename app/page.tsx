@@ -66,7 +66,7 @@ const products: Product[] = [
     ["Çilek Antep Fıstığı Kat", "tek-cilekli-kat"],
     ["Sütlü Çikolata Karamel", "tek-milky-chocolate-mosaic"],
   ]),
-  ...makeProducts("Magnolia", "330 cc kare cam kase · tek aroma katmanı", [
+  ...makeProducts("Magnolia", "330 cc kare cam kase", [
     ["Çilekli Magnolia", "magnolia-cilekli"],
     ["Lotuslu Magnolia", "magnolia-lotuslu"],
     ["Oreolu Magnolia", "magnolia-oreolu"],
