@@ -117,7 +117,7 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .hero-campaign > img {
   width: 100%;
   height: auto;
-  aspect-ratio: 1600 / 720;
+  aspect-ratio: 1600 / 800;
   object-fit: cover;
   object-position: center;
 }
