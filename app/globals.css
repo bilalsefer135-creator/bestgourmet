@@ -142,7 +142,8 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 }
 .hero-campaign-kicker { display: flex; align-items: center; gap: 13px; margin: 0 0 25px; text-transform: uppercase; letter-spacing: .2em; font-size: 9px; font-weight: 900; }
 .hero-campaign-kicker::before { content: ""; width: 34px; height: 2px; background: var(--caramel-light); }
-.hero-campaign-copy h1 { margin: 0; font-size: clamp(62px, 6vw, 104px); line-height: .84; letter-spacing: -.055em; }
+.hero-campaign-logo { display: block; width: clamp(170px, 15vw, 238px); height: auto; aspect-ratio: 1; border-radius: 50%; object-fit: cover; box-shadow: 0 18px 55px rgba(0,0,0,.22); }
+.hero-campaign-copy h1 { max-width: 520px; margin: 25px 0 0; font-size: clamp(34px, 3.25vw, 54px); line-height: .96; letter-spacing: -.045em; }
 .hero-campaign-copy h1 em { color: var(--caramel-light); font-weight: 400; }
 .hero-campaign-lead { max-width: 510px; margin: 32px 0 0; color: rgba(246,240,231,.72); font-size: clamp(15px, 1.15vw, 18px); line-height: 1.65; }
 .hero-campaign-actions { display: flex; align-items: center; gap: 28px; margin-top: 38px; }
@@ -540,7 +541,8 @@ footer p:last-child { text-align: right; }
   .hero-campaign > img { width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: 69% center; }
   .hero-campaign-copy { top: 50px; left: 22px; right: 22px; width: auto; transform: none; }
   .hero-campaign-kicker { margin-bottom: 20px; font-size: 7px; }
-  .hero-campaign-copy h1 { max-width: 460px; font-size: clamp(52px, 15vw, 72px); }
+  .hero-campaign-logo { width: 150px; }
+  .hero-campaign-copy h1 { max-width: 390px; margin-top: 18px; font-size: clamp(34px, 10vw, 46px); }
   .hero-campaign-lead { max-width: 430px; margin-top: 24px; font-size: 14px; }
   .hero-campaign-actions { align-items: flex-start; flex-direction: column; gap: 12px; margin-top: 27px; }
   .hero-campaign-cta { justify-content: space-between; }

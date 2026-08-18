@@ -212,10 +212,11 @@ export default function Home() {
       </header>
 
       <section className="hero-campaign" id="top" aria-label="Best Gourmet ana sayfa kapağı">
-        <img src="/brand/home-hero-studio-v2.webp" alt="Best Gourmet San Sebastian, Supangle, çikolatalı ekler ve Antep fıstıklı pasta seçkisi" />
+        <img src="/brand/home-hero-studio-v3.webp" alt="Best Gourmet San Sebastian, Supangle, çikolatalı ekler ve Antep fıstıklı pasta seçkisi" />
         <div className="hero-campaign-copy">
           <p className="hero-campaign-kicker">Profesyonel mutfaklara özel</p>
-          <h1>Lezzette güven,<br /><em>sunumda kalite.</em></h1>
+          <img className="hero-campaign-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet Pâtisserie & Sweets" />
+          <h1>Lezzette güven, <em>sunumda kalite.</em></h1>
           <p className="hero-campaign-lead">Kafe, restoran ve işletmeler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
           <div className="hero-campaign-actions">
             <a className="hero-campaign-cta" href="#urunler">69 lezzeti keşfet <span>↓</span></a>
