@@ -24,6 +24,8 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /<title>Best Gourmet \| Profesyonel Lezzet<\/title>/i);
   assert.match(html, /home-hero-studio-v3\.webp/);
   assert.match(html, /Lezzette güven/);
+  assert.match(html, /Fiyat Listesi/);
+  assert.match(html, /Best%20Gourmet%20fiyat%20listesini%20almak%20istiyorum/);
   assert.match(html, /<strong>69<\/strong> ürün gösteriliyor/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905301344525/);

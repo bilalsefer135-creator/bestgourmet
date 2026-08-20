@@ -207,6 +207,7 @@ export default function Home() {
           <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
           <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
           <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
+          <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat Listesi</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
         </nav>
       </header>
@@ -233,6 +234,16 @@ export default function Home() {
           <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
           <p>On ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 69 ayrı ürün.</p>
         </div>
+        <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
+          <div>
+            <p className="price-list-kicker">Güncel fiyat listesi</p>
+            <h3>Listeyi iste,<br /><em>biz gönderelim.</em></h3>
+          </div>
+          <div className="price-list-action">
+            <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
+            <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
+          </div>
+        </aside>
         <div className="catalog-tools">
           <div className="category-browser">
             <div className="category-browser-meta">
