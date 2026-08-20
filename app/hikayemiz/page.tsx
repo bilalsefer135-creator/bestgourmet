@@ -60,7 +60,7 @@ export default function StoryPage() {
       <section className="brand-page-cta">
         <p className="section-index">03 / Tanışalım</p>
         <h2>Bizim hikâyemizin en güzel tarafı,<br /><em>birlikte büyüdüğümüz insanlar.</em></h2>
-        <a className="button button-dark" href="https://wa.me/905301344525?text=Merhaba%2C%20Best%20Gourmet%20ile%20tanışmak%20istiyorum." target="_blank" rel="noreferrer">Bize yaz <span>↗</span></a>
+        <a className="button button-dark" href="https://wa.me/905015740522?text=Merhaba%2C%20Best%20Gourmet%20ile%20tanışmak%20istiyorum." target="_blank" rel="noreferrer">Bize yaz <span>↗</span></a>
       </section>
       <EventFooter />
     </main>

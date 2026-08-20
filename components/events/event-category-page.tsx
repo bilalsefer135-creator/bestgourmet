@@ -4,7 +4,7 @@ import { EventHeader } from "./event-header";
 import { EventInquiryForm } from "./event-inquiry-form";
 
 export function EventCategoryPage({ category }: { category: EventCategory }) {
-  const whatsapp = `https://wa.me/905301344525?text=${encodeURIComponent(`Merhaba, ${category.eyebrow} için bilgi ve teklif almak istiyorum.`)}`;
+  const whatsapp = `https://wa.me/905015740522?text=${encodeURIComponent(`Merhaba, ${category.eyebrow} için bilgi ve teklif almak istiyorum.`)}`;
 
   return (
     <main className="event-page">

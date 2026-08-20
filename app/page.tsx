@@ -116,7 +116,7 @@ const products: Product[] = [
 
 const categories = ["Tümü", ...Array.from(new Set(products.map((product) => product.category)))];
 const whatsapp = (message: string) =>
-  `https://wa.me/905301344525?text=${encodeURIComponent(message)}`;
+  `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Tümü");
@@ -331,7 +331,7 @@ export default function Home() {
 
       <section className="contact" id="iletisim">
         <p className="section-index">04 / Birlikte büyüyelim</p><h2>Vitrininizi birlikte<br /><em>unutulmaz</em> yapalım.</h2>
-        <div className="contact-row"><p>Ürün kataloğu, etkinlik üretimi, fiyatlandırma ve işletmenize özel seçenekler için bize ulaşın.</p><div><a className="button button-dark" href={whatsapp("Merhaba, Best Gourmet ürünleri için teklif almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a><a className="phone-link" href="tel:+905301344525">+90 530 134 45 25</a><a className="mail-link" href="mailto:info@gourmetbest.tr">info@gourmetbest.tr</a></div></div>
+        <div className="contact-row"><p>Ürün kataloğu, etkinlik üretimi, fiyatlandırma ve işletmenize özel seçenekler için bize ulaşın.</p><div><a className="button button-dark" href={whatsapp("Merhaba, Best Gourmet ürünleri için teklif almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a><a className="phone-link" href="tel:+905015740522">+90 501 574 05 22</a><a className="mail-link" href="mailto:info@gourmetbest.tr">info@gourmetbest.tr</a></div></div>
       </section>
 
       <footer><a className="brand footer-brand" href="#top"><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>

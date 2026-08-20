@@ -28,7 +28,7 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /Best%20Gourmet%20fiyat%20listesini%20almak%20istiyorum/);
   assert.match(html, /<strong>69<\/strong> ürün gösteriliyor/);
   assert.match(html, /Etkinlik üretimi/);
-  assert.match(html, /wa\.me\/905301344525/);
+  assert.match(html, /wa\.me\/905015740522/);
   assert.match(html, /products-studio\/sku\/mono-antep-fistikli-dubai\.webp/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
 });
@@ -48,7 +48,7 @@ test("server-renders the event hub and four category routes", async () => {
     const html = await response.text();
     assert.match(html, heading, pathname);
     assert.match(html, /Teklif ve rezervasyon/, pathname);
-    assert.match(html, /905301344525/, pathname);
+    assert.match(html, /905015740522/, pathname);
   }
 });
 

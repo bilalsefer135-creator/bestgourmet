@@ -53,7 +53,7 @@ export default function ReferencesPage() {
       <section className="brand-page-cta">
         <p className="section-index">03 / Yeni iş birlikleri</p>
         <h2>Sıradaki güzel işi<br /><em>birlikte üretelim.</em></h2>
-        <a className="button button-dark" href="https://wa.me/905301344525?text=Merhaba%2C%20Best%20Gourmet%20ile%20iş%20birliği%20hakkında%20görüşmek%20istiyorum." target="_blank" rel="noreferrer">İş birliği konuşalım <span>↗</span></a>
+        <a className="button button-dark" href="https://wa.me/905015740522?text=Merhaba%2C%20Best%20Gourmet%20ile%20iş%20birliği%20hakkında%20görüşmek%20istiyorum." target="_blank" rel="noreferrer">İş birliği konuşalım <span>↗</span></a>
       </section>
       <EventFooter />
     </main>
