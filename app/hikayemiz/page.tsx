@@ -23,14 +23,23 @@ export default function StoryPage() {
         </div>
       </section>
 
-      <section className="story-editorial">
-        <div className="story-photo"><img src="/products-studio/sku/pasta-orman-meyveli.webp" alt="Best Gourmet Orman Meyveli Pasta" /></div>
+      <section className="story-editorial story-text-only">
         <div className="story-editorial-copy">
           <p className="section-index">01 / Bizim için mesele</p>
           <h2>Lezzeti biraz daha<br /><em>kişisel</em> hâle getirmek.</h2>
           <p>Biz tatlıya sadece reçete olarak bakmıyoruz. Bir vitrinde ilk bakışı, masada ilk heyecanı ve bittikten sonra akılda kalan o küçük duyguyu da düşünüyoruz. O yüzden her üründe tanıdık aromaları koruyor, sunumu ise bugünün enerjisiyle yeniden yorumluyoruz.</p>
           <p>Profesyonel mutfakların hızını biliyoruz. Ürünün iyi olması kadar doğru porsiyonda gelmesi, servis sırasında formunu koruması ve her siparişte aynı standardı vermesi gerektiğini de biliyoruz. Best Gourmet’in asıl sözü burada başlıyor: Gösterişli laflardan önce düzgün iş, güçlü lezzet ve güvenilir bir üretim düzeni.</p>
           <p>İş ortaklarımızın menüsüne kendi imzamızı zorla atmak yerine, onların karakterini daha görünür hâle getiren ürünler tasarlıyoruz. Bazen klasik bir lezzeti sadeleştiriyor, bazen de yeni bir dokunuşla vitrinin en merak edilen parçasına dönüştürüyoruz.</p>
+        </div>
+      </section>
+
+      <section className="story-editorial story-founder story-text-only">
+        <div className="story-editorial-copy">
+          <p className="section-index">01.1 / Kurucumuz</p>
+          <h2>Mutfağın içinden gelen<br /><em>bir lezzet anlayışı.</em></h2>
+          <p><strong>Bilal Sefer Aydın</strong>, Best Gourmet&apos;in kurucusu olarak markanın her ürününde mutfak disiplinini, sahadaki servis ihtiyacını ve iyi sunumun verdiği heyecanı bir araya getiriyor.</p>
+          <p>Kumburgaz Turizm Otelcilik Lisesi&apos;nde başlayan yolculuğunu İstinye Üniversitesi Gastronomi eğitimiyle geliştiren Bilal; yaklaşık 10 yıllık mutfak tecrübesi boyunca reçeteden üretim planına, vitrinden servis anına kadar her ayrıntının içinde yer aldı.</p>
+          <p>Best Gourmet&apos;teki hedefi net: iyi ürünü erişilebilir, tutarlı ve işletmeler için gerçekten çalışır hâle getirmek. Bu yüzden her tarifte lezzetin yanında porsiyon, form, teslimat ve tekrar edilebilirliği de düşünür.</p>
         </div>
       </section>
 

@@ -8,9 +8,8 @@ export const metadata: Metadata = {
 };
 
 const referenceGroups = [
-  { number: "01", title: "Kafe & Coffee Shop", body: "Vitrin seçkisi, porsiyon planı ve servis hızına uygun ürün çözümleri." },
-  { number: "02", title: "Restoran & Otel", body: "Menü karakterine uyum sağlayan, sunumu ve gramajı standart tatlı üretimi." },
-  { number: "03", title: "Etkinlik & Organizasyon", body: "Davet ölçeğine göre planlanan üretim, sunum ve kontrollü teslimat akışı." },
+  { number: "07", title: "Kafe", body: "Vitrin seçkisi, porsiyon planı ve servis hızına uygun ürün çözümleri." },
+  { number: "01", title: "Pastane", body: "Ürün çeşitliliği, günlük üretim ritmi ve güçlü vitrin sunumu için birlikte çalışıyoruz." },
 ];
 
 export default function ReferencesPage() {
@@ -23,15 +22,15 @@ export default function ReferencesPage() {
           <h1>Her iyi iş birliği,<br />vitrinde kalıcı bir<br /><em>iz bırakır.</em></h1>
         </div>
         <div className="brand-page-hero-copy">
-          <p>Referanslarımızı, birlikte çalıştığımız markaların onayı ve güncel proje bilgileriyle burada paylaşacağız. Şimdilik iş birliği alanlarımızı ve çalışma yaklaşımımızı inceleyebilirsiniz.</p>
-          <a className="text-link" href="#alanlar">Çalışma alanları <span>↓</span></a>
+          <p>Şu anda 7 kafe ve 1 pastane ile çalışıyor; her işletmenin ritmine uygun, düzenli ve güçlü bir tatlı seçkisi oluşturuyoruz.</p>
+          <a className="text-link" href="#alanlar">İş ortaklıklarını gör <span>↓</span></a>
         </div>
       </section>
 
       <section className="reference-stage" id="alanlar">
         <div className="reference-stage-heading">
-          <p className="section-index">01 / İş birliği alanları</p>
-          <h2>İhtiyaca göre şekillenen,<br /><em>tek bir kalite anlayışı.</em></h2>
+          <p className="section-index">01 / Şu an birlikte çalıştıklarımız</p>
+          <h2>Farklı işletmeler,<br /><em>aynı iyi standart.</em></h2>
         </div>
         <div className="reference-grid">
           {referenceGroups.map((group) => (
@@ -46,8 +45,8 @@ export default function ReferencesPage() {
       </section>
 
       <section className="reference-note">
-        <p className="section-index light">02 / Yakında</p>
-        <div><h2>İsimleri değil,<br /><em>gerçek işleri</em> paylaşacağız.</h2><p>Bu sayfa; onaylanan marka logoları, proje fotoğrafları ve kısa iş birliği notları geldikçe güncellenecek. Böylece burada yalnızca doğrulanmış ve güncel referanslar yer alacak.</p></div>
+        <p className="section-index light">02 / Çalışma yaklaşımımız</p>
+        <div><h2>İsimlerden önce,<br /><em>sağlam iş</em> gelir.</h2><p>Her işletmenin servis temposu ve vitrini farklıdır. Best Gourmet seçkisini; menü yapısına, satış ritmine ve sunum ihtiyacına göre birlikte planlarız. Ortak noktamız ise değişmez: her serviste aynı güveni veren ürünler.</p></div>
       </section>
 
       <section className="brand-page-cta">

@@ -206,6 +206,9 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .price-list-cta h3 em { color: var(--caramel-light); }
 .price-list-action { position: relative; z-index: 1; max-width: 390px; }
 .price-list-action > p { margin: 0; color: rgba(246,240,231,.71); font-size: 14px; line-height: 1.65; }
+.price-category-groups { display: grid; gap: 14px; margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid rgba(246,240,231,.2); }
+.price-category-groups p { margin: 0; color: rgba(246,240,231,.7); font-size: 11px; line-height: 1.55; }
+.price-category-groups strong { display: block; margin-bottom: 4px; color: var(--caramel-light); font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
 .price-list-action a { display: inline-flex; align-items: center; gap: 24px; margin-top: 25px; padding-bottom: 10px; border-bottom: 1px solid var(--caramel-light); color: var(--cream); text-transform: uppercase; letter-spacing: .13em; font-size: 10px; font-weight: 900; transition: color .2s ease, gap .2s ease; }
 .price-list-action a:hover { color: var(--caramel-light); gap: 31px; }
 .price-list-action span { font-size: 17px; line-height: .6; }
@@ -233,6 +236,7 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .product-card { min-width: 0; }
 .product-image-wrap { aspect-ratio: 1 / 1; position: relative; overflow: hidden; background: var(--sand); }
 .product-image-wrap img { height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.product-image-wrap img.product-image-contain { object-fit: contain; object-position: center; }
 .product-card:hover img { transform: scale(1.045); }
 .product-number { position: absolute; left: 16px; top: 16px; background: rgba(255,253,249,.9); padding: 8px 10px; font-size: 10px; letter-spacing: .12em; font-weight: 800; }
 .product-action { position: absolute; right: 16px; bottom: 16px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); font-size: 19px; transition: .25s; }
@@ -246,6 +250,11 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .production { display: grid; grid-template-columns: 1fr 1fr; min-height: 790px; background: var(--brown); color: var(--cream); }
 .production-photo { min-height: 650px; overflow: hidden; }
 .production-photo img { height: 100%; object-fit: cover; filter: saturate(.76) sepia(.09); }
+.production-collage { position: relative; padding: 28px; background: #28140d; }
+.production-collage .production-main-image { width: 100%; height: 100%; object-fit: cover; filter: saturate(.7) sepia(.12) contrast(1.05); }
+.production-sample-card { position: absolute; right: 18px; bottom: 20px; width: min(46%, 290px); padding: 8px; background: var(--cream); box-shadow: 0 20px 50px rgba(0,0,0,.38); transform: rotate(3deg); }
+.production-sample-card img { display: block; width: 100%; height: auto; aspect-ratio: 1 / .9; object-fit: cover; filter: saturate(.78) sepia(.08); }
+.production-sample-card span { display: block; padding: 10px 5px 4px; color: var(--brown); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
 .production-copy { padding: clamp(64px, 8vw, 130px); display: flex; flex-direction: column; justify-content: center; }
 .section-index.light { color: var(--caramel-light); }
 .production h2 { margin-top: 28px; }
@@ -276,6 +285,7 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .pastry-gallery-cards { position: absolute; inset: 0; display: flex; justify-content: center; align-items: flex-end; pointer-events: none; }
 .pastry-gallery-card { position: absolute; bottom: 86px; width: clamp(150px, 13vw, 176px); aspect-ratio: .78; border-radius: 17px; overflow: hidden; background: var(--paper); border: 7px solid var(--paper); box-shadow: 0 22px 48px rgba(42,22,15,.26); transform-origin: 50% 100%; transform: translate3d(calc(var(--offset) * 5px), calc(var(--offset) * -3px + var(--drag-y)), 0) rotate(calc(var(--offset) * 2.1deg)) scale(var(--stack-scale)); transition: transform .7s cubic-bezier(.2,.82,.2,1), box-shadow .35s ease, filter .35s ease; touch-action: none; user-select: none; }
 .pastry-gallery-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.pastry-gallery-card img.product-image-contain { object-fit: contain; object-position: center; }
 .pastry-card-caption { position: absolute; inset: auto 0 0; padding: 38px 15px 14px; color: var(--white); background: linear-gradient(transparent, rgba(31,14,8,.86)); display: grid; gap: 4px; opacity: 0; transform: translateY(8px); transition: .35s ease; }
 .pastry-card-caption span { text-transform: uppercase; letter-spacing: .16em; font-size: 7px; font-weight: 800; color: var(--caramel-light); }
 .pastry-card-caption strong { font-family: Georgia, serif; font-size: 17px; font-weight: 500; }
@@ -447,6 +457,8 @@ footer p:last-child { text-align: right; }
 .brand-page-hero-copy p { margin: 0 0 36px; color: rgba(42,22,15,.68); font-family: Georgia, serif; font-size: clamp(21px, 2vw, 31px); line-height: 1.42; letter-spacing: -.025em; }
 
 .story-editorial { display: grid; grid-template-columns: .9fr 1.1fr; min-height: 930px; }
+.story-editorial.story-text-only { display: block; min-height: 0; background: var(--cream); }
+.story-editorial.story-text-only .story-editorial-copy { max-width: 1080px; min-height: 0; margin: 0 auto; }
 .story-photo { min-height: 760px; overflow: hidden; background: var(--sand); }
 .story-photo img { height: 100%; object-fit: cover; }
 .story-editorial-copy { padding: clamp(70px, 9vw, 145px) clamp(30px, 8vw, 130px); display: flex; flex-direction: column; justify-content: center; }
@@ -581,6 +593,8 @@ footer p:last-child { text-align: right; }
   .product-image-wrap { aspect-ratio: 1 / 1; }
   .production { grid-template-columns: 1fr; }
   .production-photo { min-height: 520px; }
+  .production-collage { padding: 18px; }
+  .production-sample-card { right: 18px; bottom: 18px; width: 45%; }
   .production-copy { padding: 72px 24px; }
   .event-cards { grid-template-columns: 1fr; margin-top: 58px; }
   .pastry-gallery { margin-top: 58px; padding-top: 22px; }

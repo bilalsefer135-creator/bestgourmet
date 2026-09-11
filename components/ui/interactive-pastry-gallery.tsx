@@ -7,6 +7,7 @@ export type PastryGalleryItem = {
   image: string;
   title: string;
   category: string;
+  imageFit?: "cover" | "contain";
 };
 
 type InteractivePastryGalleryProps = {
@@ -102,7 +103,7 @@ export function InteractivePastryGallery({
                   onPointerUp={(event) => endDrag(event, item.id)}
                   onPointerCancel={(event) => endDrag(event, item.id)}
                 >
-                  <img src={item.image} alt={item.title} draggable="false" />
+                  <img className={item.imageFit === "contain" ? "product-image-contain" : undefined} src={item.image} alt={item.title} draggable="false" />
                   <div className="pastry-card-caption"><span>{item.category}</span><strong>{item.title}</strong></div>
                 </article>
               );

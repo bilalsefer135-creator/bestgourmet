@@ -1,0 +1,7 @@
+﻿{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "site-creator-vinext-starter",
+  "compatibility_date": "2026-02-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./worker/index.ts"
+}

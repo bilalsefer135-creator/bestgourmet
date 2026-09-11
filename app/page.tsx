@@ -15,7 +15,7 @@ type Product = {
   image: string;
 };
 
-const sku = (file: string) => `/products-studio/sku/${file}.webp`;
+const sku = (file: string) => `/products-studio/sku/${file.includes(".") ? file : `${file}.webp`}`;
 const makeProducts = (
   category: string,
   detail: string,
@@ -40,11 +40,10 @@ const products: Product[] = [
     ["İbiza Muzlu", "ibiza-muzlu"],
     ["İbiza Çilekli", "ibiza-cilekli"],
   ]),
-  ...makeProducts("Tartlar", "Tek porsiyon · çıtır taban", [
+  ...makeProducts("Tartlar", "Dilim servis · cafe seçkisi", [
     ["Çilekli Tart", "tart-cilekli"],
     ["Orman Meyveli Tart", "tart-orman-meyveli"],
     ["Lotuslu Tart", "tart-lotuslu"],
-    ["Oreolu Tart", "tart-oreolu"],
   ]),
   ...makeProducts("Cheesecake", "Dilim servis · cafe seçkisi", [
     ["San Sebastian", "cheesecake-san-sebastian"],
@@ -57,14 +56,15 @@ const products: Product[] = [
     ["Orman Meyveli Cheesecake", "cheesecake-orman-meyveli"],
   ]),
   ...makeProducts("Tek Pastalar", "Tek porsiyon · modern vitrin", [
-    ["Tropik Kubbe", "tek-tropical-entreme"],
-    ["Velvet Frambuaz", "tek-angel"],
     ["Vişne Beyaz", "tek-cherry-white"],
     ["Frambuaz Hindistan Cevizi", "tek-raspberry-coconut"],
     ["Fındık Pralin Baton", "tek-ferrero-stick"],
     ["Passion Lime Baton", "tek-passion-coconut-stick"],
-    ["Çilek Antep Fıstığı Kat", "tek-cilekli-kat"],
-    ["Sütlü Çikolata Karamel", "tek-milky-chocolate-mosaic"],
+    ["Sütlü Çikolata Karamel", "tek-sutlu-cikolata-karamel-v2.png"],
+    ["KitKat & Altın Çilek", "tek-kitkat-altin-cilek.png"],
+    ["Portakallı Balkabağı", "tek-portakalli-balkabagi.png"],
+    ["Çilekli Mousse", "tek-cilekli-mousse.png"],
+    ["Tahinli", "tek-tahinli.png"],
   ]),
   ...makeProducts("Magnolia", "330 cc kare cam kase", [
     ["Çilekli Magnolia", "magnolia-cilekli"],
@@ -80,11 +80,12 @@ const products: Product[] = [
     ["Dubai Magnolia", "magnolia-dubai"],
   ]),
   ...makeProducts("Mono Pasta", "8 cm genişlik · 7–8 cm yükseklik", [
-    ["Lotus", "mono-lotus"],
-    ["Lime", "mono-lime"],
-    ["Frambuaz", "mono-frambuaz"],
-    ["Mango Ananas", "mono-mango-ananas"],
-    ["Antep Fıstığı Dubai", "mono-antep-fistikli-dubai"],
+    ["Lotus", "mono-lotus-v2.png"],
+    ["Lime", "mono-lime-v2.png"],
+    ["Frambuaz", "mono-frambuaz-v2.png"],
+    ["Mango Ananas", "mono-mango-ananas-v2.png"],
+    ["Antep Fıstığı Dubai", "mono-antep-fistikli-dubai-v2.png"],
+    ["Oreo", "mono-oreo.png"],
   ]),
   ...makeProducts("Adet Pastalar", "Yaklaşık 10 cm · tam sıvalı", [
     ["Lotuslu Pasta", "adet-lotuslu"],
@@ -103,8 +104,16 @@ const products: Product[] = [
     ["Antep Fıstıklı", "pasta-antep-fistikli"],
     ["Beyaz Çikolatalı", "pasta-beyaz-cikolatali"],
     ["Ganaj Çikolatalı", "pasta-cikolatali-ganaj"],
+    ["Karamelli Pasta", "pasta-karamelli-v2.png"],
     ["Red Velvet Pasta", "pasta-red-velvet"],
     ["Devil’s Pasta", "pasta-devils"],
+  ]),
+  ...makeProducts("Pasta Çeşitleri", "Dilim pasta · beşli seri", [
+    ["Devil’s Dilim Pasta", "dilim-devils-v2.png"],
+    ["Red Velvet Dilim Pasta", "dilim-red-velvet-v2.png"],
+    ["Karamelli Dilim Pasta", "dilim-karamelli-v2.png"],
+    ["Beyaz Çikolatalı Dilim Pasta", "dilim-beyaz-cikolatali-v2.png"],
+    ["Antep Fıstıklı Dilim Pasta", "dilim-antep-fistikli-v2.png"],
   ]),
   ...makeProducts("Trileçe", "Tek porsiyon", [
     ["Karamel Trileçe", "karamel-trilece"],
@@ -115,6 +124,8 @@ const products: Product[] = [
 ];
 
 const categories = ["Tümü", ...Array.from(new Set(products.map((product) => product.category)))];
+const cafeCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
+const pastaneCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe"];
 const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
@@ -220,7 +231,7 @@ export default function Home() {
           <h1>Lezzette güven, <em>sunumda kalite.</em></h1>
           <p className="hero-campaign-lead">Kafe, restoran ve işletmeler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
           <div className="hero-campaign-actions">
-            <a className="hero-campaign-cta" href="#urunler">69 lezzeti keşfet <span>↓</span></a>
+            <a className="hero-campaign-cta" href="#urunler">{products.length} lezzeti keşfet <span>↓</span></a>
             <a className="hero-campaign-link" href="/hikayemiz">Bizi tanıyın <span>↗</span></a>
           </div>
         </div>
@@ -232,7 +243,7 @@ export default function Home() {
       <section className="products-section" id="urunler">
         <div className="products-heading">
           <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>On ana kategoride profesyonel servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı 69 ayrı ürün.</p>
+          <p>Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi.</p>
         </div>
         <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
           <div>
@@ -240,6 +251,10 @@ export default function Home() {
             <h3>Listeyi iste,<br /><em>biz gönderelim.</em></h3>
           </div>
           <div className="price-list-action">
+            <div className="price-category-groups">
+              <p><strong>Kafe ürünleri</strong>{cafeCategories.join(" · ")}</p>
+              <p><strong>Pastane grubu</strong>{pastaneCategories.join(" · ")}</p>
+            </div>
             <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
             <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
           </div>
@@ -275,7 +290,12 @@ export default function Home() {
           {visibleProducts.map((product, index) => (
             <article className="product-card" key={`${product.category}-${product.name}`}>
               <div className="product-image-wrap">
-                <img src={product.image} alt={product.name} loading={index > 7 ? "lazy" : "eager"} />
+                <img
+                  className={product.name.startsWith("İbiza ") ? "product-image-contain" : undefined}
+                  src={product.image}
+                  alt={product.name}
+                  loading={index > 7 ? "lazy" : "eager"}
+                />
                 <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
                 <a className="product-action" href={whatsapp(`Merhaba, ${product.name} (${product.category}) için bilgi ve fiyat almak istiyorum.`)} target="_blank" rel="noreferrer" aria-label={`${product.name} için WhatsApp'tan bilgi al`}>↗</a>
               </div>
@@ -287,7 +307,10 @@ export default function Home() {
       </section>
 
       <section className="production" id="uretim">
-        <div className="production-photo"><img src={sku("magnolia-lotuslu")} alt="Best Gourmet üretiminden Lotuslu Magnolia" /></div>
+        <div className="production-photo production-collage">
+          <img className="production-main-image" src="/production/uretim-studio.png" alt="Best Gourmet üretim mutfağı ve günlük tatlı hazırlığı" />
+          <div className="production-sample-card"><img src="/production/numune-kutusu-01.jpg" alt="Best Gourmet numune paketi" /><span>Numune paketi</span></div>
+        </div>
         <div className="production-copy">
           <p className="section-index light">02 / Üretim standardı</p>
           <h2>Her servis,<br />aynı <em>iyi his.</em></h2>
@@ -309,10 +332,10 @@ export default function Home() {
           collectionName="Etkinlik seçkisi"
           items={[
             { id: "ekler", image: sku("ekler-karisik-mix"), title: "Karışık Mix", category: "Fransız Ekleri" },
-            { id: "rulo", image: sku("rulo-cilekli"), title: "Çilekli Rulo", category: "Rulo Pastalar" },
+            { id: "rulo", image: sku("rulo-cilekli"), title: "Çilekli Rulo", category: "Rulo Pastalar", imageFit: "contain" },
             { id: "tart", image: sku("tart-orman-meyveli"), title: "Orman Meyveli", category: "Tartlar" },
             { id: "cheesecake", image: sku("cheesecake-san-sebastian"), title: "San Sebastian", category: "Cheesecake" },
-            { id: "tek", image: sku("tek-tropical-entreme"), title: "Tropik Kubbe", category: "Tek Pastalar" },
+            { id: "tek", image: sku("tek-kitkat-altin-cilek.png"), title: "KitKat & Altın Çilek", category: "Tek Pastalar" },
             { id: "magnolia", image: sku("magnolia-dubai"), title: "Dubai Magnolia", category: "Magnolia" },
             { id: "mono", image: sku("mono-frambuaz"), title: "Frambuaz Mono", category: "Mono Pasta" },
             { id: "adet-pasta", image: sku("adet-orman-meyveli"), title: "Orman Meyveli", category: "Adet Pastalar" },
