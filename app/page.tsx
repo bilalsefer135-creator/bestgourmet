@@ -129,6 +129,8 @@ const pastaneCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe"];
 const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
+const mapLocation = "https://www.google.com/maps?q=41.09184847445046,28.646867234059656";
+
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [query, setQuery] = useState("");
@@ -218,6 +220,7 @@ export default function Home() {
           <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
           <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
           <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
+          <a href="#iletisim" onClick={() => setMenuOpen(false)}>İletişim</a>
           <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat Listesi</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
         </nav>
@@ -353,8 +356,42 @@ export default function Home() {
       </section>
 
       <section className="contact" id="iletisim">
-        <p className="section-index">04 / Birlikte büyüyelim</p><h2>Vitrininizi birlikte<br /><em>unutulmaz</em> yapalım.</h2>
-        <div className="contact-row"><p>Ürün kataloğu, etkinlik üretimi, fiyatlandırma ve işletmenize özel seçenekler için bize ulaşın.</p><div><a className="button button-dark" href={whatsapp("Merhaba, Best Gourmet ürünleri için teklif almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a><a className="phone-link" href="tel:+905015740522">+90 501 574 05 22</a><a className="mail-link" href="mailto:info@gourmetbest.tr">info@gourmetbest.tr</a></div></div>
+        <p className="section-index">04 / İletişim</p>
+        <div className="contact-heading">
+          <h2>Bir kahve kadar<br /><em>yakınız.</em></h2>
+          <p>Ürün kataloğu, etkinlik üretimi, fiyatlandırma ve işletmenize özel seçenekler için bize ulaşın. Mesajınıza en kısa sürede dönüş yapalım.</p>
+        </div>
+        <div className="contact-layout">
+          <div className="contact-panel">
+            <div className="contact-list">
+              <a href={mapLocation} target="_blank" rel="noreferrer" className="contact-item">
+                <span>01 / Konum</span>
+                <strong>Best Gourmet üretim noktası</strong>
+                <small>41.091848, 28.646867 · Yol tarifi al ↗</small>
+              </a>
+              <a href="tel:+905015740522" className="contact-item">
+                <span>02 / Telefon</span>
+                <strong>+90 501 574 05 22</strong>
+                <small>Aramak için dokunun</small>
+              </a>
+              <a href="mailto:info@gourmetbest.tr" className="contact-item">
+                <span>03 / E-posta</span>
+                <strong>info@gourmetbest.tr</strong>
+                <small>E-posta gönderin</small>
+              </a>
+            </div>
+            <a className="button button-dark contact-whatsapp" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a>
+          </div>
+          <div className="contact-map" aria-label="Best Gourmet üretim noktası konumu">
+            <div className="contact-map-visual" aria-hidden="true"><span>BG</span></div>
+            <div className="contact-map-copy">
+              <span>41.091848 N · 28.646867 E</span>
+              <strong>Best Gourmet</strong>
+              <p>Üretim noktası · İstanbul</p>
+            </div>
+            <a href={mapLocation} target="_blank" rel="noreferrer">Haritada aç <span>↗</span></a>
+          </div>
+        </div>
       </section>
 
       <footer><a className="brand footer-brand" href="#top"><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>

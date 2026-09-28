@@ -29,6 +29,10 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /<strong>76<\/strong> ürün gösteriliyor/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905015740522/);
+  assert.match(html, /Bir kahve kadar/);
+  assert.match(html, /tel:\+905015740522/);
+  assert.match(html, /mailto:info@gourmetbest\.tr/);
+  assert.match(html, /41\.09184847445046,28\.646867234059656/);
   assert.match(html, /products-studio\/sku\/mono-antep-fistikli-dubai-v2\.png/);
   assert.match(html, /products-studio\/sku\/ibiza-muzlu\.webp/);
   assert.match(html, /products-studio\/sku\/ibiza-cilekli\.webp/);
