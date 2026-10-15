@@ -27,6 +27,12 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /Fiyat Listesi/);
   assert.match(html, /Best%20Gourmet%20fiyat%20listesini%20almak%20istiyorum/);
   assert.match(html, /<strong>77<\/strong> ürün gösteriliyor/);
+  assert.match(html, /aria-label="Ürün grubu seçimi"/);
+  assert.match(html, /id="group-catalog" hidden/);
+  assert.match(html, /Cafe Ürünleri/);
+  assert.match(html, /Pastane Ürünleri/);
+  assert.match(html, /Ekler KG/);
+  assert.match(html, /Rulo KG/);
   for (const name of ["Lotus Bomba", "Beyaz Çikolatalı Browni", "Paris Brest", "Antepistan"]) {
     assert.ok(html.includes(name), `missing new product: ${name}`);
   }
@@ -96,7 +102,7 @@ test("ships the image resources for every catalog product", async () => {
   assert.match(page, /Tartlar/);
   assert.doesNotMatch(page, /Tartoletler/);
   assert.match(page, /Cheesecake/);
-  assert.match(page, /Kafe ürünleri/);
+  assert.match(page, /Cafe ürünleri/);
   assert.match(page, /Antep Fıstığı Dubai/);
   assert.doesNotMatch(productBlock, /tart-oreolu|tek-angel|tek-cilek-antep-fistikli-kat/);
   assert.match(layout, /https:\/\/gourmetbest\.tr/);

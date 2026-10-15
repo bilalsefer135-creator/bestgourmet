@@ -124,15 +124,20 @@ const products: Product[] = [
   ]),
 ];
 
-const categories = ["Tümü", ...Array.from(new Set(products.map((product) => product.category)))];
-const cafeCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
-const pastaneCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe"];
+const cafeCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG"];
+const pastaneCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
+const productGroups = [
+  { name: "Cafe Ürünleri", categories: cafeCategories },
+  { name: "Pastane Ürünleri", categories: pastaneCategories },
+];
+const categoryLabel = (category: string) => category === "Pasta Çeşitleri" ? "Pastalar" : category;
 const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
 const mapLocation = "https://www.google.com/maps?q=41.09184847445046,28.646867234059656";
 
 export default function Home() {
+  const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -144,15 +149,25 @@ export default function Home() {
     scrollLeft: 0,
   });
   const suppressCategoryClickRef = useRef(false);
+  const groupCategories = productGroups.find((group) => group.name === activeGroup)?.categories;
+  const categories = ["Tümü", ...(groupCategories ?? [...cafeCategories, ...pastaneCategories])];
 
   const visibleProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
     return products.filter((product) => {
       const categoryMatches = activeCategory === "Tümü" || product.category === activeCategory;
       const queryMatches = !normalizedQuery || `${product.name} ${product.category}`.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
-      return categoryMatches && queryMatches;
+      const groupMatches = !groupCategories || groupCategories.includes(product.category);
+      return groupMatches && categoryMatches && queryMatches;
     });
-  }, [activeCategory, query]);
+  }, [activeCategory, query, groupCategories]);
+
+  function selectGroup(name: string | null) {
+    setActiveGroup(name);
+    setActiveCategory("Tümü");
+    setQuery("");
+    categoryTabsRef.current?.scrollTo({ left: 0 });
+  }
 
   function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const track = categoryTabsRef.current;
@@ -216,7 +231,7 @@ export default function Home() {
         </a>
         <button className="menu-button" type="button" aria-label="Menüyü aç veya kapat" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}><span /><span /></button>
         <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Ana menü">
-          <a href="#urunler" onClick={() => setMenuOpen(false)}>Ürünler</a>
+          <a href="#urunler" onClick={() => { setMenuOpen(false); selectGroup(null); }}>Ürünler</a>
           <a href="/hikayemiz" onClick={() => setMenuOpen(false)}>Hikâyemiz</a>
           <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
           <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
@@ -235,7 +250,7 @@ export default function Home() {
           <h1>Lezzette güven, <em>sunumda kalite.</em></h1>
           <p className="hero-campaign-lead">Kafe, restoran ve işletmeler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
           <div className="hero-campaign-actions">
-            <a className="hero-campaign-cta" href="#urunler">{products.length} lezzeti keşfet <span>↓</span></a>
+            <a className="hero-campaign-cta" href="#urunler" onClick={() => selectGroup(null)}>{products.length} lezzeti keşfet <span>↓</span></a>
             <a className="hero-campaign-link" href="/hikayemiz">Bizi tanıyın <span>↗</span></a>
           </div>
         </div>
@@ -249,6 +264,17 @@ export default function Home() {
           <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
           <p>Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi.</p>
         </div>
+        <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
+          {productGroups.map((group, index) => (
+            <button className={`product-group-panel${activeGroup === group.name ? " is-active" : ""}`} key={group.name} type="button" aria-pressed={activeGroup === group.name} aria-controls="group-catalog" onClick={() => selectGroup(group.name)}>
+              <span className="product-group-index">0{index + 1} / Ürün grubu</span>
+              <strong>{group.name}</strong>
+              <span className="product-group-categories">{group.categories.map(categoryLabel).join(" · ")}</span>
+              <span className="product-group-action">Ürünleri keşfet <span aria-hidden="true">↗</span></span>
+            </button>
+          ))}
+        </div>
+        <div id="group-catalog" hidden={activeGroup === null}>
         <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
           <div>
             <p className="price-list-kicker">Güncel fiyat listesi</p>
@@ -256,8 +282,8 @@ export default function Home() {
           </div>
           <div className="price-list-action">
             <div className="price-category-groups">
-              <p><strong>Kafe ürünleri</strong>{cafeCategories.join(" · ")}</p>
-              <p><strong>Pastane grubu</strong>{pastaneCategories.join(" · ")}</p>
+              <p><strong>Cafe ürünleri</strong>{cafeCategories.map(categoryLabel).join(" · ")}</p>
+              <p><strong>Pastane ürünleri</strong>{pastaneCategories.join(" · ")}</p>
             </div>
             <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
             <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
@@ -283,7 +309,7 @@ export default function Home() {
                 onPointerUp={finishCategoryDrag}
                 onPointerCancel={finishCategoryDrag}
               >
-                {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => selectCategory(category)}>{category}</button>)}
+                {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => selectCategory(category)}>{categoryLabel(category)}</button>)}
               </div>
             </div>
           </div>
@@ -306,7 +332,8 @@ export default function Home() {
               <div className="product-info"><p>{product.category}</p><h3>{product.name}</h3><span>{product.detail}</span></div>
             </article>
           ))}
-          {visibleProducts.length === 0 && <p className="empty-state">Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin.</p>}
+          {visibleProducts.length === 0 && <p className="empty-state">{!query.trim() && ["Ekler KG", "Rulo KG"].includes(activeCategory) ? `${activeCategory} ürünlerimiz yakında burada yer alacak.` : "Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin."}</p>}
+        </div>
         </div>
       </section>
 
