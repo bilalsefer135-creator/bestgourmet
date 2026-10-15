@@ -127,8 +127,8 @@ const products: Product[] = [
 const cafeCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG"];
 const pastaneCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
 const productGroups = [
-  { name: "Cafe Ürünleri", categories: cafeCategories },
-  { name: "Pastane Ürünleri", categories: pastaneCategories },
+  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel.webp" },
+  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel.webp" },
 ];
 const categoryLabel = (category: string) => category === "Pasta Çeşitleri" ? "Pastalar" : category;
 const whatsapp = (message: string) =>
@@ -267,6 +267,7 @@ export default function Home() {
         <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
           {productGroups.map((group, index) => (
             <button className={`product-group-panel${activeGroup === group.name ? " is-active" : ""}`} key={group.name} type="button" aria-pressed={activeGroup === group.name} aria-controls="group-catalog" onClick={() => selectGroup(group.name)}>
+              <img className="product-group-background" src={group.image} alt="" aria-hidden="true" loading="lazy" width="1536" height="1024" />
               <span className="product-group-index">0{index + 1} / Ürün grubu</span>
               <strong>{group.name}</strong>
               <span className="product-group-categories">{group.categories.map(categoryLabel).join(" · ")}</span>
