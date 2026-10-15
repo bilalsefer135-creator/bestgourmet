@@ -25,17 +25,14 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /home-hero-studio-v3\.webp/);
   assert.match(html, /Lezzette güven/);
   assert.match(html, /Fiyat Listesi/);
-  assert.match(html, /Best%20Gourmet%20fiyat%20listesini%20almak%20istiyorum/);
-  assert.match(html, /<strong>77<\/strong> ürün gösteriliyor/);
   assert.match(html, /aria-label="Ürün grubu seçimi"/);
-  assert.match(html, /id="group-catalog" hidden/);
+  assert.match(html, /href="\/urunler\/cafe"/);
+  assert.match(html, /href="\/urunler\/pastane"/);
+  assert.doesNotMatch(html, /class="product-card"|id="group-catalog"/);
   assert.match(html, /Cafe Ürünleri/);
   assert.match(html, /Pastane Ürünleri/);
   assert.match(html, /Ekler KG/);
   assert.match(html, /Rulo KG/);
-  for (const name of ["Lotus Bomba", "Beyaz Çikolatalı Browni", "Paris Brest", "Antepistan"]) {
-    assert.ok(html.includes(name), `missing new product: ${name}`);
-  }
   assert.doesNotMatch(html, /Vişne Beyaz|Frambuaz Hindistan Cevizi|Sütlü Çikolata Karamel/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905015740522/);
@@ -43,14 +40,39 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /tel:\+905015740522/);
   assert.match(html, /mailto:info@gourmetbest\.tr/);
   assert.match(html, /41\.09184847445046,28\.646867234059656/);
-  assert.match(html, /products-studio\/sku\/mono-antep-fistikli-dubai-v2\.png/);
-  assert.match(html, /products-studio\/sku\/ibiza-muzlu\.webp/);
-  assert.match(html, /products-studio\/sku\/ibiza-cilekli\.webp/);
-  assert.match(html, /products-studio\/sku\/rulo-cilekli\.webp/);
-  assert.match(html, /products-studio\/sku\/rulo-cikolatali\.webp/);
   assert.doesNotMatch(html, /Oreolu Tart|Velvet Frambuaz|Çilek Antep Fıstığı Kat/);
-  assert.match(html, /Oreolu Cheesecake|Oreolu Magnolia|Red Velvet Pasta/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
+});
+
+test("opens separate group catalogs with only the selected products", async () => {
+  const cafeResponse = await render("/urunler/cafe");
+  const pastaneResponse = await render("/urunler/pastane");
+  assert.equal(cafeResponse.status, 200);
+  assert.equal(pastaneResponse.status, 200);
+  const cafe = await cafeResponse.text();
+  const pastane = await pastaneResponse.text();
+  assert.match(cafe, /<title>Cafe Ürünleri \| Best Gourmet<\/title>/);
+  assert.match(pastane, /<title>Pastane Ürünleri \| Best Gourmet<\/title>/);
+  assert.match(cafe, /<strong>26<\/strong> ürün gösteriliyor/);
+  assert.match(pastane, /<strong>51<\/strong> ürün gösteriliyor/);
+  assert.equal((cafe.match(/class="product-card"/g) ?? []).length, 26);
+  assert.equal((pastane.match(/class="product-card"/g) ?? []).length, 51);
+  assert.match(cafe, /Ekler KG|Rulo KG/);
+  assert.match(cafe, /Red Velvet Pasta/);
+  assert.doesNotMatch(cafe, /Lotus Bomba|San Sebastian|Çilekli Rulo/);
+  assert.doesNotMatch(pastane, /Red Velvet Pasta|Karamel Trileçe|Adet Pastalar/);
+  for (const name of ["Lotus Bomba", "Beyaz Çikolatalı Browni", "Paris Brest", "Antepistan", "Oreolu Cheesecake", "Oreolu Magnolia"]) {
+    assert.ok(pastane.includes(name), `missing product: ${name}`);
+  }
+  for (const file of ["mono-antep-fistikli-dubai-v2.png", "ibiza-muzlu.webp", "ibiza-cilekli.webp", "rulo-cilekli.webp", "rulo-cikolatali.webp"]) {
+    assert.ok(pastane.includes(file), `missing image: ${file}`);
+  }
+  for (const html of [cafe, pastane]) {
+    assert.match(html, /Ürün gruplarına dön/);
+    assert.match(html, /href="\/#urunler"/);
+    assert.doesNotMatch(html, /aria-label="Ürün grubu seçimi"/);
+    assert.doesNotMatch(html, /Vişne Beyaz|Frambuaz Hindistan Cevizi|Sütlü Çikolata Karamel|Oreolu Tart|Velvet Frambuaz|Çilek Antep Fıstığı Kat/);
+  }
 });
 
 test("server-renders the event hub and four category routes", async () => {
@@ -102,7 +124,7 @@ test("ships the image resources for every catalog product", async () => {
   assert.match(page, /Tartlar/);
   assert.doesNotMatch(page, /Tartoletler/);
   assert.match(page, /Cheesecake/);
-  assert.match(page, /Cafe ürünleri/);
+  assert.match(page, /Cafe Ürünleri/);
   assert.match(page, /Antep Fıstığı Dubai/);
   assert.doesNotMatch(productBlock, /tart-oreolu|tek-angel|tek-cilek-antep-fistikli-kat/);
   assert.match(layout, /https:\/\/gourmetbest\.tr/);

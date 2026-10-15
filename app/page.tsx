@@ -6,7 +6,6 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
-import { flushSync } from "react-dom";
 import { InteractivePastryGallery } from "@/components/ui/interactive-pastry-gallery";
 
 type Product = {
@@ -128,8 +127,8 @@ const products: Product[] = [
 const cafeCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG"];
 const pastaneCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
 const productGroups = [
-  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel.webp" },
-  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel.webp" },
+  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel.webp", href: "/urunler/cafe" },
+  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel.webp", href: "/urunler/pastane" },
 ];
 const categoryLabel = (category: string) => category === "Pasta Çeşitleri" ? "Pastalar" : category;
 const whatsapp = (message: string) =>
@@ -137,13 +136,12 @@ const whatsapp = (message: string) =>
 
 const mapLocation = "https://www.google.com/maps?q=41.09184847445046,28.646867234059656";
 
-export default function Home() {
-  const [activeGroup, setActiveGroup] = useState<string | null>(null);
+export default function Home({ productGroup }: { productGroup?: string } = {}) {
+  const activeGroup = productGroup ?? null;
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const categoryTabsRef = useRef<HTMLDivElement>(null);
-  const catalogResultsRef = useRef<HTMLDivElement>(null);
   const categoryDragRef = useRef({
     active: false,
     moved: false,
@@ -163,23 +161,6 @@ export default function Home() {
       return groupMatches && categoryMatches && queryMatches;
     });
   }, [activeCategory, query, groupCategories]);
-
-  function selectGroup(name: string | null) {
-    setActiveGroup(name);
-    setActiveCategory("Tümü");
-    setQuery("");
-    categoryTabsRef.current?.scrollTo({ left: 0 });
-  }
-
-  function openGroup(name: string) {
-    flushSync(() => selectGroup(name));
-    const results = catalogResultsRef.current;
-    results?.focus({ preventScroll: true });
-    results?.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-      block: "start",
-    });
-  }
 
   function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const track = categoryTabsRef.current;
@@ -236,24 +217,25 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <main className={productGroup ? "catalog-page" : undefined}>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Best Gourmet ana sayfa">
+        <a className="brand" href={productGroup ? "/" : "#top"} aria-label="Best Gourmet ana sayfa">
           <img className="brand-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" />
         </a>
         <button className="menu-button" type="button" aria-label="Menüyü aç veya kapat" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}><span /><span /></button>
         <nav className={menuOpen ? "nav-links is-open" : "nav-links"} aria-label="Ana menü">
-          <a href="#urunler" onClick={() => { setMenuOpen(false); selectGroup(null); }}>Ürünler</a>
+          <a href={productGroup ? "/#urunler" : "#urunler"} onClick={() => setMenuOpen(false)}>Ürünler</a>
           <a href="/hikayemiz" onClick={() => setMenuOpen(false)}>Hikâyemiz</a>
           <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
-          <a href="#uretim" onClick={() => setMenuOpen(false)}>Üretim</a>
+          <a href={productGroup ? "/#uretim" : "#uretim"} onClick={() => setMenuOpen(false)}>Üretim</a>
           <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
-          <a href="#iletisim" onClick={() => setMenuOpen(false)}>İletişim</a>
+          <a href={productGroup ? "/#iletisim" : "#iletisim"} onClick={() => setMenuOpen(false)}>İletişim</a>
           <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat Listesi</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
         </nav>
       </header>
 
+      {!productGroup && <>
       <section className="hero-campaign" id="top" aria-label="Best Gourmet ana sayfa kapağı">
         <img src="/brand/home-hero-studio-v3.webp" alt="Best Gourmet San Sebastian, Supangle, çikolatalı ekler ve Antep fıstıklı pasta seçkisi" />
         <div className="hero-campaign-copy">
@@ -262,7 +244,7 @@ export default function Home() {
           <h1>Lezzette güven, <em>sunumda kalite.</em></h1>
           <p className="hero-campaign-lead">Kafe, restoran ve işletmeler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
           <div className="hero-campaign-actions">
-            <a className="hero-campaign-cta" href="#urunler" onClick={() => selectGroup(null)}>{products.length} lezzeti keşfet <span>↓</span></a>
+            <a className="hero-campaign-cta" href="#urunler">{products.length} lezzeti keşfet <span>↓</span></a>
             <a className="hero-campaign-link" href="/hikayemiz">Bizi tanıyın <span>↗</span></a>
           </div>
         </div>
@@ -270,39 +252,27 @@ export default function Home() {
       </section>
 
       <div className="marquee" aria-label="Marka değerleri"><div><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span><i>✦</i><span>Lezzeti standartlaştır</span><i>✦</i><span>Menüne güç kat</span><i>✦</i><span>Sunumu yükselt</span></div></div>
+      </>}
 
       <section className="products-section" id="urunler">
+        {productGroup && <a className="catalog-back" href="/#urunler">← Ürün gruplarına dön</a>}
         <div className="products-heading">
-          <div><p className="section-index">01 / Tam seçkimiz</p><h2>Favorini seç,<br /><em>farkını göster.</em></h2></div>
-          <p>Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi.</p>
+          <div><p className="section-index">{productGroup ? "Ürün seçkimiz" : "01 / Tam seçkimiz"}</p>{productGroup ? <h1 className="catalog-page-title">{productGroup}</h1> : <h2>Favorini seç,<br /><em>farkını göster.</em></h2>}</div>
+          <p>{productGroup ? `${productGroup} seçkimizden işletmenize uygun lezzetleri keşfedin. Kategori seçerek veya ürün adıyla arayarak inceleyebilirsiniz.` : "Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi."}</p>
         </div>
-        <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
+        {!productGroup && <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
           {productGroups.map((group, index) => (
-            <button className={`product-group-panel${activeGroup === group.name ? " is-active" : ""}`} key={group.name} type="button" aria-pressed={activeGroup === group.name} aria-controls="group-catalog" onClick={() => openGroup(group.name)}>
+            <a className="product-group-panel" key={group.name} href={group.href}>
               <img className="product-group-background" src={group.image} alt="" aria-hidden="true" loading="lazy" width="1536" height="1024" />
               <span className="product-group-index">0{index + 1} / Ürün grubu</span>
               <strong>{group.name}</strong>
               <span className="product-group-categories">{group.categories.map(categoryLabel).join(" · ")}</span>
               <span className="product-group-action">Ürünleri keşfet <span aria-hidden="true">↗</span></span>
-            </button>
+            </a>
           ))}
-        </div>
-        <div id="group-catalog" hidden={activeGroup === null}>
-        <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
-          <div>
-            <p className="price-list-kicker">Güncel fiyat listesi</p>
-            <h3>Listeyi iste,<br /><em>biz gönderelim.</em></h3>
-          </div>
-          <div className="price-list-action">
-            <div className="price-category-groups">
-              <p><strong>Cafe ürünleri</strong>{cafeCategories.map(categoryLabel).join(" · ")}</p>
-              <p><strong>Pastane ürünleri</strong>{pastaneCategories.join(" · ")}</p>
-            </div>
-            <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
-            <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
-          </div>
-        </aside>
-        <div className="catalog-results" ref={catalogResultsRef} tabIndex={-1} role="region" aria-label={activeGroup ? `${activeGroup} ürün listesi` : "Ürün listesi"}>
+        </div>}
+        {productGroup && <div id="group-catalog">
+        <div className="catalog-results" role="region" aria-label={`${activeGroup} ürün listesi`}>
         <div className="catalog-tools">
           <div className="category-browser">
             <div className="category-browser-meta">
@@ -349,9 +319,18 @@ export default function Home() {
           {visibleProducts.length === 0 && <p className="empty-state">{!query.trim() && ["Ekler KG", "Rulo KG"].includes(activeCategory) ? `${activeCategory} ürünlerimiz yakında burada yer alacak.` : "Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin."}</p>}
         </div>
         </div>
-        </div>
+        <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
+          <div><p className="price-list-kicker">Güncel fiyat listesi</p><h3>Listeyi iste,<br /><em>biz gönderelim.</em></h3></div>
+          <div className="price-list-action">
+            <div className="price-category-groups"><p><strong>{productGroup}</strong>{groupCategories?.map(categoryLabel).join(" · ")}</p></div>
+            <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
+            <a href={whatsapp(`Merhaba, Best Gourmet ${productGroup} fiyat listesini almak istiyorum.`)} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
+          </div>
+        </aside>
+        </div>}
       </section>
 
+      {!productGroup && <>
       <section className="production" id="uretim">
         <div className="production-photo production-collage">
           <img className="production-main-image" src="/production/uretim-studio.png" alt="Best Gourmet üretim mutfağı ve günlük tatlı hazırlığı" />
@@ -437,7 +416,8 @@ export default function Home() {
         </div>
       </section>
 
-      <footer><a className="brand footer-brand" href="#top"><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
+      </>}
+      <footer><a className="brand footer-brand" href={productGroup ? "/" : "#top"}><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
     </main>
   );
 }
