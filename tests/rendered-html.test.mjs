@@ -26,7 +26,11 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /Lezzette güven/);
   assert.match(html, /Fiyat Listesi/);
   assert.match(html, /Best%20Gourmet%20fiyat%20listesini%20almak%20istiyorum/);
-  assert.match(html, /<strong>76<\/strong> ürün gösteriliyor/);
+  assert.match(html, /<strong>77<\/strong> ürün gösteriliyor/);
+  for (const name of ["Lotus Bomba", "Beyaz Çikolatalı Browni", "Paris Brest", "Antepistan"]) {
+    assert.ok(html.includes(name), `missing new product: ${name}`);
+  }
+  assert.doesNotMatch(html, /Vişne Beyaz|Frambuaz Hindistan Cevizi|Sütlü Çikolata Karamel/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905015740522/);
   assert.match(html, /Bir kahve kadar/);
@@ -84,7 +88,7 @@ test("ships the image resources for every catalog product", async () => {
 
   const productBlock = page.slice(page.indexOf("const products"), page.indexOf("const categories"));
   const catalogFiles = [...productBlock.matchAll(/\[\s*"[^"]+",\s*"([a-z0-9.-]+)"\s*\]/g)].map((match) => match[1].includes(".") ? match[1] : `${match[1]}.webp`);
-  assert.equal(catalogFiles.length, 76);
+  assert.equal(catalogFiles.length, 77);
   for (const file of catalogFiles) assert.ok(files.includes(file), `missing catalog image: ${file}`);
   assert.match(page, /const products: Product\[\]/);
   assert.match(page, /Pasta Çeşitleri/);
