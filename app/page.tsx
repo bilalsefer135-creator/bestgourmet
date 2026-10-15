@@ -6,6 +6,7 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import { flushSync } from "react-dom";
 import { InteractivePastryGallery } from "@/components/ui/interactive-pastry-gallery";
 
 type Product = {
@@ -142,6 +143,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const categoryTabsRef = useRef<HTMLDivElement>(null);
+  const catalogResultsRef = useRef<HTMLDivElement>(null);
   const categoryDragRef = useRef({
     active: false,
     moved: false,
@@ -167,6 +169,16 @@ export default function Home() {
     setActiveCategory("Tümü");
     setQuery("");
     categoryTabsRef.current?.scrollTo({ left: 0 });
+  }
+
+  function openGroup(name: string) {
+    flushSync(() => selectGroup(name));
+    const results = catalogResultsRef.current;
+    results?.focus({ preventScroll: true });
+    results?.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      block: "start",
+    });
   }
 
   function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
@@ -266,7 +278,7 @@ export default function Home() {
         </div>
         <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
           {productGroups.map((group, index) => (
-            <button className={`product-group-panel${activeGroup === group.name ? " is-active" : ""}`} key={group.name} type="button" aria-pressed={activeGroup === group.name} aria-controls="group-catalog" onClick={() => selectGroup(group.name)}>
+            <button className={`product-group-panel${activeGroup === group.name ? " is-active" : ""}`} key={group.name} type="button" aria-pressed={activeGroup === group.name} aria-controls="group-catalog" onClick={() => openGroup(group.name)}>
               <img className="product-group-background" src={group.image} alt="" aria-hidden="true" loading="lazy" width="1536" height="1024" />
               <span className="product-group-index">0{index + 1} / Ürün grubu</span>
               <strong>{group.name}</strong>
@@ -290,6 +302,7 @@ export default function Home() {
             <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
           </div>
         </aside>
+        <div className="catalog-results" ref={catalogResultsRef} tabIndex={-1} role="region" aria-label={activeGroup ? `${activeGroup} ürün listesi` : "Ürün listesi"}>
         <div className="catalog-tools">
           <div className="category-browser">
             <div className="category-browser-meta">
@@ -334,6 +347,7 @@ export default function Home() {
             </article>
           ))}
           {visibleProducts.length === 0 && <p className="empty-state">{!query.trim() && ["Ekler KG", "Rulo KG"].includes(activeCategory) ? `${activeCategory} ürünlerimiz yakında burada yer alacak.` : "Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin."}</p>}
+        </div>
         </div>
         </div>
       </section>

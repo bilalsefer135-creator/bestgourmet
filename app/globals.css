@@ -225,6 +225,8 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .price-list-action a:hover { color: var(--caramel-light); gap: 31px; }
 .price-list-action span { font-size: 17px; line-height: .6; }
 .catalog-tools { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 28px; align-items: end; padding: 54px 0 18px; }
+.catalog-results { scroll-margin-top: 105px; }
+.catalog-results:focus { outline: none; }
 .category-browser { min-width: 0; }
 .category-browser-meta { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 10px; }
 .category-browser-meta > span { color: rgba(42,22,15,.48); text-transform: uppercase; letter-spacing: .15em; font-size: 8px; font-weight: 900; }
