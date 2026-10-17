@@ -31,8 +31,11 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.doesNotMatch(html, /class="product-card"|id="group-catalog"/);
   assert.match(html, /Cafe Ürünleri/);
   assert.match(html, /Pastane Ürünleri/);
-  assert.match(html, /Ekler KG/);
-  assert.match(html, /Rulo KG/);
+  assert.match(html, /cafe-products-panel-v2\.webp/);
+  assert.match(html, /pastane-products-panel-v2\.webp/);
+  assert.match(html, /KG’lık Ekler/);
+  assert.match(html, /KG’lık Mini Rulo/);
+  assert.match(html, /Mini Tartolet/);
   assert.doesNotMatch(html, /Vişne Beyaz|Frambuaz Hindistan Cevizi|Sütlü Çikolata Karamel/);
   assert.match(html, /Etkinlik üretimi/);
   assert.match(html, /wa\.me\/905015740522/);
@@ -53,19 +56,29 @@ test("opens separate group catalogs with only the selected products", async () =
   const pastane = await pastaneResponse.text();
   assert.match(cafe, /<title>Cafe Ürünleri \| Best Gourmet<\/title>/);
   assert.match(pastane, /<title>Pastane Ürünleri \| Best Gourmet<\/title>/);
-  assert.match(cafe, /<strong>26<\/strong> ürün gösteriliyor/);
-  assert.match(pastane, /<strong>51<\/strong> ürün gösteriliyor/);
-  assert.equal((cafe.match(/class="product-card"/g) ?? []).length, 26);
-  assert.equal((pastane.match(/class="product-card"/g) ?? []).length, 51);
-  assert.match(cafe, /Ekler KG|Rulo KG/);
-  assert.match(cafe, /Red Velvet Pasta/);
-  assert.doesNotMatch(cafe, /Lotus Bomba|San Sebastian|Çilekli Rulo/);
-  assert.doesNotMatch(pastane, /Red Velvet Pasta|Karamel Trileçe|Adet Pastalar/);
+  assert.match(cafe, /<strong>51<\/strong> ürün gösteriliyor/);
+  assert.match(pastane, /<strong>26<\/strong> ürün gösteriliyor/);
+  assert.equal((cafe.match(/class="product-card"/g) ?? []).length, 51);
+  assert.equal((pastane.match(/class="product-card"/g) ?? []).length, 26);
+  const categoryTabs = (html) => {
+    const tabs = html.split('aria-label="Ürün kategorileri"')[1]?.split("</div>")[0] ?? "";
+    return [...tabs.matchAll(/<button\b[^>]*>([^<]+)<\/button>/g)].map((match) => match[1]);
+  };
+  assert.deepEqual(categoryTabs(cafe), ["Tümü", "Cheesecake Çeşitleri", "Tartlar", "Fransız Ekler", "Magnolia", "Rulo Çeşitleri", "Tek Pastalar", "Mono Pastalar"]);
+  assert.deepEqual(categoryTabs(pastane), ["Tümü", "Pasta Çeşitleri", "Trileçe", "KG’lık Ekler", "KG’lık Mini Rulo", "Adet Pastalar", "Mini Tartolet"]);
+  assert.match(pastane, /Red Velvet Pasta/);
+  assert.match(pastane, /Karamel Trileçe/);
+  assert.match(pastane, /products-studio\/sku\/adet-lotuslu\.webp/);
+  assert.doesNotMatch(pastane, /Lotus Bomba|San Sebastian|Çilekli Rulo/);
+  assert.doesNotMatch(cafe, /Red Velvet Pasta|Karamel Trileçe|Adet Pastalar|KG’lık|Mini Tartolet/);
+  for (const html of [cafe, pastane]) {
+    assert.doesNotMatch(html, /product-info"><p>(?:KG’lık Ekler|KG’lık Mini Rulo|Mini Tartolet)<\/p>/);
+  }
   for (const name of ["Lotus Bomba", "Beyaz Çikolatalı Browni", "Paris Brest", "Antepistan", "Oreolu Cheesecake", "Oreolu Magnolia"]) {
-    assert.ok(pastane.includes(name), `missing product: ${name}`);
+    assert.ok(cafe.includes(name), `missing product: ${name}`);
   }
   for (const file of ["mono-antep-fistikli-dubai-v2.png", "ibiza-muzlu.webp", "ibiza-cilekli.webp", "rulo-cilekli.webp", "rulo-cikolatali.webp"]) {
-    assert.ok(pastane.includes(file), `missing image: ${file}`);
+    assert.ok(cafe.includes(file), `missing image: ${file}`);
   }
   for (const html of [cafe, pastane]) {
     assert.match(html, /Ürün gruplarına dön/);

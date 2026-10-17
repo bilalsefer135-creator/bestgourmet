@@ -124,13 +124,22 @@ const products: Product[] = [
   ]),
 ];
 
-const cafeCategories = ["Adet Pastalar", "Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG"];
-const pastaneCategories = ["Ekler", "Rulo Pastalar", "Tartlar", "Cheesecake", "Tek Pastalar", "Magnolia", "Mono Pasta"];
+const cafeCategories = ["Cheesecake", "Tartlar", "Ekler", "Magnolia", "Rulo Pastalar", "Tek Pastalar", "Mono Pasta"];
+const pastaneCategories = ["Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG", "Adet Pastalar", "Mini Tartolet"];
+const upcomingCategories = ["Ekler KG", "Rulo KG", "Mini Tartolet"];
 const productGroups = [
-  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel.webp", href: "/urunler/cafe" },
-  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel.webp", href: "/urunler/pastane" },
+  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel-v2.webp", href: "/urunler/cafe" },
+  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel-v2.webp", href: "/urunler/pastane" },
 ];
-const categoryLabel = (category: string) => category === "Pasta Çeşitleri" ? "Pastalar" : category;
+const categoryLabels: Record<string, string> = {
+  Cheesecake: "Cheesecake Çeşitleri",
+  Ekler: "Fransız Ekler",
+  "Rulo Pastalar": "Rulo Çeşitleri",
+  "Mono Pasta": "Mono Pastalar",
+  "Ekler KG": "KG’lık Ekler",
+  "Rulo KG": "KG’lık Mini Rulo",
+};
+const categoryLabel = (category: string) => categoryLabels[category] ?? category;
 const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
@@ -156,7 +165,7 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
     return products.filter((product) => {
       const categoryMatches = activeCategory === "Tümü" || product.category === activeCategory;
-      const queryMatches = !normalizedQuery || `${product.name} ${product.category}`.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
+      const queryMatches = !normalizedQuery || `${product.name} ${product.category} ${categoryLabel(product.category)}`.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
       const groupMatches = !groupCategories || groupCategories.includes(product.category);
       return groupMatches && categoryMatches && queryMatches;
     });
@@ -311,12 +320,12 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
                   loading={index > 7 ? "lazy" : "eager"}
                 />
                 <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
-                <a className="product-action" href={whatsapp(`Merhaba, ${product.name} (${product.category}) için bilgi ve fiyat almak istiyorum.`)} target="_blank" rel="noreferrer" aria-label={`${product.name} için WhatsApp'tan bilgi al`}>↗</a>
+                <a className="product-action" href={whatsapp(`Merhaba, ${product.name} (${categoryLabel(product.category)}) için bilgi ve fiyat almak istiyorum.`)} target="_blank" rel="noreferrer" aria-label={`${product.name} için WhatsApp'tan bilgi al`}>↗</a>
               </div>
-              <div className="product-info"><p>{product.category}</p><h3>{product.name}</h3><span>{product.detail}</span></div>
+              <div className="product-info"><p>{categoryLabel(product.category)}</p><h3>{product.name}</h3><span>{product.detail}</span></div>
             </article>
           ))}
-          {visibleProducts.length === 0 && <p className="empty-state">{!query.trim() && ["Ekler KG", "Rulo KG"].includes(activeCategory) ? `${activeCategory} ürünlerimiz yakında burada yer alacak.` : "Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin."}</p>}
+          {visibleProducts.length === 0 && <p className="empty-state">{!query.trim() && upcomingCategories.includes(activeCategory) ? `${categoryLabel(activeCategory)} ürünlerimiz yakında burada yer alacak.` : "Aramana uygun ürün bulunamadı. Başka bir lezzet deneyebilirsin."}</p>}
         </div>
         </div>
         <aside className="price-list-cta" aria-label="Fiyat listesi talebi">
