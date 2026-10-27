@@ -41,7 +41,9 @@ test("server-renders the finished Best Gourmet site", async () => {
   assert.match(html, /wa\.me\/905015740522/);
   assert.match(html, /Bir kahve kadar/);
   assert.match(html, /tel:\+905015740522/);
-  assert.match(html, /mailto:info@gourmetbest\.tr/);
+  assert.match(html, /mailto:bestgourmet22@gmail\.com/);
+  assert.match(html, /<strong>bestgourmet22@gmail\.com<\/strong>/);
+  assert.doesNotMatch(html, /info@gourmetbest\.tr/);
   assert.match(html, /41\.09184847445046,28\.646867234059656/);
   assert.doesNotMatch(html, /Oreolu Tart|Velvet Frambuaz|Çilek Antep Fıstığı Kat/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);
@@ -104,6 +106,8 @@ test("server-renders the event hub and four category routes", async () => {
     assert.match(html, heading, pathname);
     assert.match(html, /Teklif ve rezervasyon/, pathname);
     assert.match(html, /905015740522/, pathname);
+    assert.match(html, /mailto:bestgourmet22@gmail\.com/, pathname);
+    assert.doesNotMatch(html, /info@gourmetbest\.tr/, pathname);
   }
 });
 

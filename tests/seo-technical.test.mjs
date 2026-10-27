@@ -68,7 +68,7 @@ test("one truthful Organization JSON-LD appears in the shared layout", async () 
   assert.equal(organization.name, "Best Gourmet");
   assert.equal(organization.url, `${origin}/`);
   assert.equal(organization.telephone, "+905015740522");
-  assert.equal(organization.email, "info@gourmetbest.tr");
+  assert.equal(organization.email, "bestgourmet22@gmail.com");
   assert.match(JSON.stringify(organization.areaServed), /İstanbul/);
   for (const property of ["address", "aggregateRating", "review", "priceRange"]) {
     assert.equal(organization[property], undefined, `unverified ${property}`);

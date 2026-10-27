@@ -46,7 +46,7 @@ test("contact intent events contain no inquiry text, contact data or target URL"
   assert.deepEqual(event, { name: "contact_click", params: { contact_method: "whatsapp", placement: "product_card" } });
   assert.equal(JSON.stringify(event).includes("private"), false);
   assert.deepEqual(contactEvent("tel:+905015740522", "contact"), { name: "contact_click", params: { contact_method: "phone", placement: "contact" } });
-  assert.deepEqual(contactEvent("mailto:info@gourmetbest.tr?body=private", "footer"), { name: "contact_click", params: { contact_method: "email", placement: "footer" } });
+  assert.deepEqual(contactEvent("mailto:bestgourmet22@gmail.com?body=private", "footer"), { name: "contact_click", params: { contact_method: "email", placement: "footer" } });
 });
 
 test("price list is measured as a click, not a lead or sale", async () => {

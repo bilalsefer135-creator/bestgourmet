@@ -82,7 +82,7 @@ export function EventInquiryForm({ defaultEvent = "", compact = false }: EventIn
       <div className="event-form-actions">
         <button className="button button-primary" type="submit">WhatsApp ile gönder <span>↗</span></button>
         <a href="tel:+905015740522">Ara · +90 501 574 05 22</a>
-        <a href="mailto:info@gourmetbest.tr">E-posta gönder</a>
+        <a href="mailto:bestgourmet22@gmail.com">E-posta gönder</a>
       </div>
       {sent && <p className="event-form-note" role="status">Talep özetiniz WhatsApp için hazırlandı. Gönderimi açılan pencerede onaylayabilirsiniz.</p>}
     </form>

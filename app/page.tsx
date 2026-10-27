@@ -291,9 +291,9 @@ export default function Home({ productGroup, initialCategory = "Tümü" }: { pro
                 <strong>+90 501 574 05 22</strong>
                 <small>Aramak için dokunun</small>
               </a>
-              <a href="mailto:info@gourmetbest.tr" className="contact-item">
+              <a href="mailto:bestgourmet22@gmail.com" className="contact-item">
                 <span>03 / E-posta</span>
-                <strong>info@gourmetbest.tr</strong>
+                <strong>bestgourmet22@gmail.com</strong>
                 <small>E-posta gönderin</small>
               </a>
             </div>

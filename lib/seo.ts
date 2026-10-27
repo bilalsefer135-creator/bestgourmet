@@ -37,6 +37,6 @@ export const organizationJsonLd = {
   name: "Best Gourmet",
   url: `${SITE_URL}/`,
   telephone: "+905015740522",
-  email: "info@gourmetbest.tr",
+  email: "bestgourmet22@gmail.com",
   areaServed: "İstanbul ve çevresi",
 };
