@@ -14,6 +14,7 @@ const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
 const mapLocation = "https://www.google.com/maps?q=41.09184847445046,28.646867234059656";
+const mapEmbed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.951228583527!2d28.641444890154748!3d41.09191224038049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b559f25242ec57%3A0xbe48fb90abd2722!2sBest%20Gourmet%20Patisserie!5e0!3m2!1str!2str!4v1793128201425!5m2!1str!2str";
 
 export default function Home({ productGroup, initialCategory = "Tümü" }: { productGroup?: string; initialCategory?: string } = {}) {
   const activeGroup = productGroup ?? null;
@@ -299,13 +300,13 @@ export default function Home({ productGroup, initialCategory = "Tümü" }: { pro
             <a className="button button-dark contact-whatsapp" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">WhatsApp’tan yaz <span>↗</span></a>
           </div>
           <div className="contact-map" aria-label="Best Gourmet üretim noktası konumu">
-            <div className="contact-map-visual" aria-hidden="true"><span>BG</span></div>
-            <div className="contact-map-copy">
-              <span>41.091848 N · 28.646867 E</span>
-              <strong>Best Gourmet</strong>
-              <p>Üretim noktası · İstanbul</p>
+            <iframe src={mapEmbed} title="Best Gourmet Patisserie konumu — Google Maps"
+              width="600" height="450" loading="lazy" allowFullScreen
+              referrerPolicy="strict-origin-when-cross-origin" />
+            <div className="contact-map-footer">
+              <span>Best Gourmet Patisserie · Google Maps</span>
+              <a href={mapLocation} target="_blank" rel="noreferrer">Haritada aç <span aria-hidden="true">↗</span></a>
             </div>
-            <a href={mapLocation} target="_blank" rel="noreferrer">Haritada aç <span>↗</span></a>
           </div>
         </div>
       </section>

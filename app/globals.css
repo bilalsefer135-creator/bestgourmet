@@ -343,18 +343,13 @@ h1 em, h2 em { color: var(--caramel); font-weight: 400; }
 .contact-item strong { overflow-wrap: anywhere; font-family: Georgia, serif; font-size: clamp(23px, 2.3vw, 34px); font-weight: 500; letter-spacing: -.035em; }
 .contact-item small { margin-top: 8px; color: rgba(42,22,15,.62); font-size: 11px; letter-spacing: .03em; }
 .contact-whatsapp { margin-top: 40px; width: min(100%, 330px); }
-.contact-map { position: relative; min-height: 570px; overflow: hidden; background: var(--cream); }
-.contact-map-visual { position: absolute; inset: 0; display: grid; place-items: center; background: radial-gradient(circle at 50% 50%, rgba(201,119,50,.3) 0 2px, transparent 3px), repeating-linear-gradient(0deg, transparent 0 52px, rgba(74,39,26,.09) 53px), repeating-linear-gradient(90deg, transparent 0 52px, rgba(74,39,26,.09) 53px), radial-gradient(circle at 50% 50%, rgba(201,119,50,.2), transparent 42%); }
-.contact-map-visual::before, .contact-map-visual::after { content: ""; position: absolute; left: 50%; top: 50%; border: 1px solid rgba(201,119,50,.34); border-radius: 50%; transform: translate(-50%, -50%); }
-.contact-map-visual::before { width: 210px; height: 210px; }
-.contact-map-visual::after { width: 360px; height: 360px; }
-.contact-map-visual > span { position: relative; z-index: 1; width: 76px; height: 76px; display: grid; place-items: center; border: 8px solid rgba(255,255,255,.7); border-radius: 50%; background: var(--cocoa); color: var(--cream); box-shadow: 0 20px 48px rgba(74,39,26,.22); font-family: Georgia, serif; font-size: 23px; }
-.contact-map-copy { position: absolute; left: clamp(24px, 4vw, 54px); bottom: clamp(24px, 4vw, 52px); z-index: 2; display: grid; }
-.contact-map-copy > span { margin-bottom: 12px; color: rgba(42,22,15,.55); font-size: 9px; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
-.contact-map-copy strong { font-family: Georgia, serif; font-size: clamp(31px, 3.5vw, 54px); font-weight: 500; letter-spacing: -.04em; }
-.contact-map-copy p { margin: 8px 0 0; color: rgba(42,22,15,.62); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
-.contact-map > a { position: absolute; right: 18px; bottom: 18px; padding: 14px 18px; border: 1px solid rgba(246,240,231,.22); border-radius: 999px; background: rgba(42,22,15,.9); color: var(--cream); backdrop-filter: blur(10px); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; transition: transform .25s ease, background .25s ease; }
-.contact-map > a:hover { transform: translateY(-2px); background: var(--brown); }
+.contact-map { display: flex; flex-direction: column; min-height: 570px; overflow: hidden; background: var(--cream); }
+.contact-map iframe { display: block; flex: 1; width: 100%; min-height: 450px; border: 0; }
+.contact-map-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding: 18px 22px; border-top: 1px solid var(--line); }
+.contact-map-footer > span { font-size: 11px; line-height: 1.6; color: var(--brown); }
+.contact-map-footer > a { display: inline-flex; align-items: center; gap: 15px; padding: 14px 18px; border-radius: 999px; background: var(--cocoa); color: var(--cream); font-size: 9px; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; transition: background .25s ease; }
+.contact-map-footer > a:hover { background: var(--brown); }
+.contact-map-footer > a:focus-visible { outline: 2px solid var(--caramel); outline-offset: 4px; }
 .button-dark { background: var(--cocoa); color: var(--cream); min-width: 270px; }
 
 footer { min-height: 160px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; gap: 30px; padding: 40px clamp(22px, 4.5vw, 76px); background: var(--cocoa); color: var(--cream); }
@@ -657,7 +652,8 @@ footer p:last-child { text-align: right; }
   .contact-panel { padding: 30px 0 42px; }
   .contact-item { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; }
   .contact-map { min-height: 430px; }
-  .contact-map-copy { bottom: 76px; }
+  .contact-map iframe { min-height: 350px; }
+  .contact-map-footer { padding: 16px 18px; }
   .button-dark { width: 100%; }
   footer { grid-template-columns: 1fr; text-align: left; }
   footer p, footer p:last-child { text-align: left; }

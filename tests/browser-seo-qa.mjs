@@ -18,8 +18,15 @@ const failedRequests = [];
 const googleRequests = [];
 const routes = ["/", "/urunler/cafe", "/urunler/pastane", "/urunler/cafe/cheesecake", "/rehber", "/rehber/tedarikci-secimi", "/rehber/toptan-tatli-fiyatlari", "/rehber/kafe-menusu-tatli-secimi"];
 
+async function stubMaps(context) {
+  await context.route("https://www.google.com/maps/embed?*", (route) => route.fulfill({
+    contentType: "text/html", body: "<!doctype html><html lang='tr'><body>Google Maps — test yer tutucusu</body></html>",
+  }));
+}
+
 try {
   const context = await browser.newContext();
+  await stubMaps(context);
   const page = await context.newPage();
   page.on("pageerror", (error) => consoleErrors.push(error.message));
   page.on("requestfailed", (request) => failedRequests.push({ url: request.url(), error: request.failure()?.errorText }));
@@ -92,6 +99,7 @@ try {
   // Isolated production-host simulation: serve the local build, stub Google,
   // and never send any request or measurement to real production services.
   const production = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  await stubMaps(production);
   let tagLoads = 0;
   await production.route("https://bestgourmet.online/**", async (route) => {
     const url = new URL(route.request().url());
@@ -179,6 +187,7 @@ try {
   await production.close();
 
   const restricted = await browser.newContext();
+  await stubMaps(restricted);
   await restricted.addInitScript(() => Object.defineProperty(window, "localStorage", { get() { throw new Error("QA storage unavailable"); } }));
   const restrictedPage = await restricted.newPage();
   await restrictedPage.goto(origin);
@@ -186,7 +195,7 @@ try {
   assert.equal(await restrictedPage.locator(".analytics-banner").count(), 0, "choice works without storage");
   await restricted.close();
 
-  await writeFile(path.join(output, "browser-report.json"), JSON.stringify({ findings, consoleErrors, failedRequests, googleRequests, analyticsSimulation: "pass; Google tag stubbed, no real data sent", interactions: "category navigation/back/search, mobile nav, consent/persistence/revocation/storage fallback passed" }, null, 2));
+  await writeFile(path.join(output, "browser-report.json"), JSON.stringify({ findings, consoleErrors, failedRequests, googleRequests, analyticsSimulation: "pass; Google tag and Maps embed stubbed, no real data sent", maps: "real third-party loading tested separately with browser-map-qa.mjs", interactions: "category navigation/back/search, mobile nav, consent/persistence/revocation/storage fallback passed" }, null, 2));
   console.log(`PASS: ${findings.length} responsive page checks, navigation/search, no broken assets or runtime errors, consent and production-host Analytics simulation. Screenshots: ${output}`);
 } finally {
   await browser.close();

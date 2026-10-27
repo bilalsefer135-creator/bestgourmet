@@ -63,3 +63,11 @@ Ana tsconfig ile tüm depo kontrolü, mevcut db/worker Cloudflare tipleri ve wor
 Rehber dizini ve üç yazının girişine güncel fiyat listesi isteme ve ürünleri inceleme düğmeleri eklendi. WhatsApp isteği yalnızca rehberin başlığını ve genel talebi içerir. Fiyat listesi düğmesi mevcut izinli Analytics akışında price_list_click olarak ölçülür; mesaj metni ölçüm olayına eklenmez. Yazı sonundaki WhatsApp çağrısı korunup ürün bağlantısıyla tamamlandı.
 
 Bu revizyonun derlemesi, 28 Node testi, uygulama TypeScript kontrolü ve kapsamlı tarayıcı testi başarılıdır. Üç genişlikte 24 sayfa kontrolü ve yeni CTA'nın SPA geçişinden sonraki fiyat listesi ölçümü geçti. Harita alanı bu revizyonda değiştirilmedi; işletmenin Google Maps yerleştirme kodu veya paylaşım bağlantısı bekleniyor. Canlıya dağıtım yapılmadı.
+
+## Google Maps revizyonu
+
+İşletmenin gönderdiği Google Maps iframe adresi, iletişim bölümündeki dekoratif haritanın yerine yerleştirildi. Ham HTML çalıştırılmaz; yalnızca verilen sabit Google adresi kullanılır. Best Gourmet Patisserie kimliği, lazy loading, tam ekran ve referrer policy korunur. Harita mobil/tablet/masaüstünde esner; altındaki Haritada aç bağlantısı harita kontrollerinin üzerine binmez ve daha önce kullanıcı tarafından verilen hassas koordinatları korur. Embed içindeki görüntü merkezi koordinatları işletmenin koordinatı gibi yorumlanmadı.
+
+Google Maps üçüncü taraf bağlantısıdır ve Analytics tercihinden bağımsız yüklenebilir. Temel SEO/Analytics tarayıcı testinde harita taklit edilir; gerçek harita ayrı `node tests/browser-map-qa.mjs` kontrolünde açılır. Bu kontrol gerçek Google yanıtını (200), etkileşimli harita alanını, Google atfını ve 1440/768/390 px yerleşimini doğruladı. Ekran görüntüleri incelendi; Best Gourmet Patisserie etiketi ve işaretçisi görünüyor. Yeniden boyutlandırmada Google'ın bazı eski karo istekleri iptal edilebilir; üçüncü taraf iptalleri ayrı raporlanır ve raporlara sorgu parametreleri/anahtarlar yazılmaz.
+
+Derleme, 29 Node testi, kapsamlı 24 görünüm/Analytics tarayıcı kontrolü ve uygulama TypeScript kontrolü geçti. Bu revizyon da yalnızca yerelde hazırlandı; dağıtım veya Search Console/GA hesap değişikliği yapılmadı.
