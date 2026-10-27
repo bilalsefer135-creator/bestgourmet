@@ -110,7 +110,11 @@ export default function AnalyticsConsent() {
       const anchor = event.target.closest<HTMLAnchorElement>("a[href]");
       if (!anchor) return;
       const measurement = contactEvent(anchor.href, contactPlacement(anchor), anchor.dataset.analyticsIntent);
-      if (measurement) window.gtag?.("event", measurement.name, measurement.params);
+      if (measurement) window.gtag?.("event", measurement.name, {
+        ...measurement.params,
+        page_location: cleanPageUrl(window.location.href),
+        page_referrer: cleanPageUrl(document.referrer),
+      });
     }
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

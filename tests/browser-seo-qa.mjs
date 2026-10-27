@@ -125,7 +125,10 @@ try {
   await prodPage.locator('a[href="tel:+905015740522"]').first().click();
   events = (await queue()).filter((item) => item[0] === "event");
   assert.equal(events.filter((item) => item[1] === "price_list_click").length, 1);
-  assert.deepEqual(events.find((item) => item[1] === "price_list_click")[2], { contact_method: "whatsapp", placement: "header" });
+  assert.deepEqual(events.find((item) => item[1] === "price_list_click")[2], {
+    contact_method: "whatsapp", placement: "header",
+    page_location: "https://bestgourmet.online/", page_referrer: "",
+  });
   assert.equal(events.filter((item) => item[1] === "contact_click").length, 1);
 
   await prodPage.locator('header a[href="/rehber"]').click();
@@ -135,11 +138,29 @@ try {
   assert.equal(events.length, 2, "one manual pageview per route");
   assert.equal(events[1][2].page_location, "https://bestgourmet.online/rehber");
 
+  await prodPage.locator('.guide-contact-actions a[href="https://wa.me/905015740522"]').click();
+  const guideContact = (await queue()).filter((item) => item[0] === "event" && item[1] === "contact_click").at(-1);
+  assert.equal(guideContact[2].page_location, "https://bestgourmet.online/rehber", "contact after SPA navigation uses current clean page URL");
+  assert.deepEqual(guideContact[2], {
+    contact_method: "whatsapp", placement: "content",
+    page_location: "https://bestgourmet.online/rehber", page_referrer: "",
+  }, "contact payload contains only safe fields, without target URL, query, fragment or PII");
+  assert.equal(JSON.stringify(await queue()).includes("private@example.com"), false);
+
   await production.addCookies([
     { name: "_ga", value: "test", domain: ".bestgourmet.online", path: "/" },
     { name: "_ga_M251PGJTLK", value: "test", domain: ".bestgourmet.online", path: "/" },
     { name: "unrelated_preference", value: "keep", domain: ".bestgourmet.online", path: "/" },
   ]);
+  await prodPage.reload();
+  await prodPage.waitForFunction(() => window.__qaGoogleTagStub);
+  assert.equal(tagLoads, 2, "saved granted consent loads the tag on reload");
+  assert.equal(await prodPage.evaluate(() => window["ga-disable-G-M251PGJTLK"]), false, "saved grant keeps analytics enabled after hydration");
+  events = (await queue()).filter((item) => item[0] === "event" && item[1] === "page_view");
+  assert.equal(events.length, 1, "saved grant reload emits exactly one pageview");
+  const grantedCookies = await production.cookies();
+  assert.equal(grantedCookies.find((cookie) => cookie.name === "_ga")?.value, "test", "hydration preserves existing GA cookie with saved consent");
+  assert.equal(grantedCookies.find((cookie) => cookie.name === "_ga_M251PGJTLK")?.value, "test", "hydration preserves existing GA session cookie with saved consent");
   await prodPage.getByRole("button", { name: "Çerez tercihleri", exact: true }).click();
   await prodPage.getByRole("button", { name: "Analitiği reddet", exact: true }).click();
   assert.equal(await prodPage.evaluate(() => window["ga-disable-G-M251PGJTLK"]), true);

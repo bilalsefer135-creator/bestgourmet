@@ -27,8 +27,8 @@ Manuel olaylar:
 | Olay | Anlamı | Parametreler |
 | --- | --- | --- |
 | page_view | Açılan normal sayfa | Sorgu ve hash içermeyen sayfa/referrer adresi, sayfa başlığı |
-| contact_click | WhatsApp, telefon veya e-posta bağlantısına tıklama | contact_method, izinli sabit placement |
-| price_list_click | Fiyat listesi bağlantısına tıklama | contact_method, izinli sabit placement |
+| contact_click | WhatsApp, telefon veya e-posta bağlantısına tıklama | contact_method, izinli sabit placement, sorgu/hash içermeyen güncel sayfa/referrer adresi |
+| price_list_click | Fiyat listesi bağlantısına tıklama | contact_method, izinli sabit placement, sorgu/hash içermeyen güncel sayfa/referrer adresi |
 
 Tıklamalar gönderilmiş teklif, gerçek görüşme veya satış değildir. Manuel olaylara form bilgileri, mesaj metni, e-posta, telefon veya WhatsApp hedef adresi eklenmez. Reklam kişiselleştirmesi ve Google signals kapalıdır.
 
@@ -41,6 +41,8 @@ Tıklamalar gönderilmiş teklif, gerçek görüşme veya satış değildir. Man
 5. Dağıtım onayından sonra Search Console'un doğru alan adı mülküne `https://bestgourmet.online/sitemap.xml` gönderin; durumunu ve önemli sayfaları URL Denetimi ile izleyin. Yerel dosyanın hazırlanması Search Console'a gönderildiği anlamına gelmez.
 
 ## Tekrarlanabilir kontroller
+
+Son yerel doğrulama: derleme başarılı; 27 Node testi geçti; uygulama/bileşen/lib TypeScript kontrolü geçti. Kapsamlı uygulama lint kontrolü sıfır hata ve mevcut img kullanımları için 12 uyarı verdi. Chrome'da 1440, 768 ve 390 px genişliklerde sekiz sayfa için 24 görünüm kontrolü geçti: yatay taşma, kırık görsel, başarısız kaynak veya çalışma zamanı hatası bulunmadı. Kategori geçişi/geri gezinme/arama, mobil menü, izin/ret, saklanan iznin yeniden açılışı, çerezlerin korunması ve izin geri alındığında temizlenmesi, depolama engeli ve SPA geçişi sonrası doğru sayfaya iletişim atfı test edildi. Gerçek Google hizmetlerine veri gönderilmedi. Bu kontroller gerçek kullanıcı Core Web Vitals veya Google sıralama ölçümü değildir.
 
 ```powershell
 npm run build:vinext
