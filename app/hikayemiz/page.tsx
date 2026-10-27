@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { EventFooter } from "@/components/events/event-footer";
 import { EventHeader } from "@/components/events/event-header";
 
-export const metadata: Metadata = {
-  title: "Hikâyemiz | Best Gourmet",
-  description: "Best Gourmet’in üretim yaklaşımı, vizyonu ve profesyonel mutfaklara verdiği lezzet sözü.",
-};
+export const metadata = pageMetadata(
+  "Hikâyemiz | Best Gourmet",
+  "Best Gourmet’in üretim yaklaşımı, vizyonu ve profesyonel mutfaklara verdiği lezzet sözü.",
+  "/hikayemiz",
+);
 
 export default function StoryPage() {
   return (

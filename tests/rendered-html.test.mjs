@@ -21,7 +21,7 @@ test("server-renders the finished Best Gourmet site", async () => {
 
   const html = await response.text();
   assert.match(html, /<html lang="tr">/i);
-  assert.match(html, /<title>Best Gourmet \| Profesyonel Lezzet<\/title>/i);
+  assert.match(html, /<title>İstanbul’da Toptan Tatlı \| Best Gourmet<\/title>/i);
   assert.match(html, /home-hero-studio-v3\.webp/);
   assert.match(html, /Lezzette güven/);
   assert.match(html, /Fiyat Listesi/);
@@ -62,7 +62,7 @@ test("opens separate group catalogs with only the selected products", async () =
   assert.equal((pastane.match(/class="product-card"/g) ?? []).length, 26);
   const categoryTabs = (html) => {
     const tabs = html.split('aria-label="Ürün kategorileri"')[1]?.split("</div>")[0] ?? "";
-    return [...tabs.matchAll(/<button\b[^>]*>([^<]+)<\/button>/g)].map((match) => match[1]);
+    return [...tabs.matchAll(/<(?:button|a)\b[^>]*>([^<]+)<\/(?:button|a)>/g)].map((match) => match[1]);
   };
   assert.deepEqual(categoryTabs(cafe), ["Tümü", "Cheesecake Çeşitleri", "Tartlar", "Fransız Ekler", "Magnolia", "Rulo Çeşitleri", "Tek Pastalar", "Mono Pastalar"]);
   assert.deepEqual(categoryTabs(pastane), ["Tümü", "Pasta Çeşitleri", "Trileçe", "KG’lık Ekler", "KG’lık Mini Rulo", "Adet Pastalar", "Mini Tartolet"]);
@@ -123,11 +123,11 @@ test("server-renders the story and references pages", async () => {
 test("ships the image resources for every catalog product", async () => {
   const [files, page, layout] = await Promise.all([
     readdir(new URL("../public/products-studio/sku/", import.meta.url)),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/catalog.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  const productBlock = page.slice(page.indexOf("const products"), page.indexOf("const categories"));
+  const productBlock = page.slice(page.indexOf("const products"), page.indexOf("const cafeCategories"));
   const catalogFiles = [...productBlock.matchAll(/\[\s*"[^"]+",\s*"([a-z0-9.-]+)"\s*\]/g)].map((match) => match[1].includes(".") ? match[1] : `${match[1]}.webp`);
   assert.equal(catalogFiles.length, 77);
   for (const file of catalogFiles) assert.ok(files.includes(file), `missing catalog image: ${file}`);
@@ -140,6 +140,8 @@ test("ships the image resources for every catalog product", async () => {
   assert.match(page, /Cafe Ürünleri/);
   assert.match(page, /Antep Fıstığı Dubai/);
   assert.doesNotMatch(productBlock, /tart-oreolu|tek-angel|tek-cilek-antep-fistikli-kat/);
-  assert.match(layout, /https:\/\/gourmetbest\.tr/);
-  assert.match(layout, /og\.png/);
+  const seo = await readFile(new URL("../lib/seo.ts", import.meta.url), "utf8");
+  assert.match(layout, /metadataBase: new URL\(SITE_URL\)/);
+  assert.match(seo, /https:\/\/bestgourmet\.online/);
+  assert.match(seo, /og\.png/);
 });

@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { EventFooter } from "@/components/events/event-footer";
 import { EventHeader } from "@/components/events/event-header";
 
-export const metadata: Metadata = {
-  title: "Referanslarımız | Best Gourmet",
-  description: "Best Gourmet’in kafe, restoran, otel ve etkinlik iş birlikleri için referans alanı.",
-};
+export const metadata = pageMetadata(
+  "Referanslarımız | Best Gourmet",
+  "Best Gourmet’in kafe, restoran, otel ve etkinlik iş birlikleri için referans alanı.",
+  "/referanslar",
+);
 
 const referenceGroups = [
   { number: "07", title: "Kafe", body: "Vitrin seçkisi, porsiyon planı ve servis hızına uygun ürün çözümleri." },

@@ -1,153 +1,23 @@
 "use client";
 
 import {
-  useMemo,
   useRef,
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import Link from "next/link";
 import { InteractivePastryGallery } from "@/components/ui/interactive-pastry-gallery";
 
-type Product = {
-  name: string;
-  category: string;
-  detail: string;
-  image: string;
-};
-
-const sku = (file: string) => `/products-studio/sku/${file.includes(".") ? file : `${file}.webp`}`;
-const makeProducts = (
-  category: string,
-  detail: string,
-  items: Array<[string, string]>,
-): Product[] => items.map(([name, file]) => ({ name, category, detail, image: sku(file) }));
-
-const products: Product[] = [
-  ...makeProducts("Ekler", "Fransız ekleri", [
-    ["Orman Meyveli", "ekler-orman-meyveli"],
-    ["Vanilyalı", "ekler-vanilyali"],
-    ["Tiramisulu", "ekler-tiramisulu"],
-    ["Çikolatalı", "ekler-cikolatali"],
-    ["Çilekli", "ekler-cilekli"],
-    ["Lotuslu", "ekler-lotuslu"],
-    ["Hindistan Cevizli", "ekler-hindistan-cevizli"],
-    ["Karışık Mix Ekler", "ekler-karisik-mix"],
-  ]),
-  ...makeProducts("Rulo Pastalar", "Dilim servis · rulo seçkisi", [
-    ["Muzlu Rulo", "rulo-muzlu"],
-    ["Çikolatalı Rulo", "rulo-cikolatali"],
-    ["Çilekli Rulo", "rulo-cilekli"],
-    ["İbiza Muzlu", "ibiza-muzlu"],
-    ["İbiza Çilekli", "ibiza-cilekli"],
-  ]),
-  ...makeProducts("Tartlar", "Dilim servis · cafe seçkisi", [
-    ["Çilekli Tart", "tart-cilekli"],
-    ["Orman Meyveli Tart", "tart-orman-meyveli"],
-    ["Lotuslu Tart", "tart-lotuslu"],
-  ]),
-  ...makeProducts("Cheesecake", "Dilim servis · cafe seçkisi", [
-    ["San Sebastian", "cheesecake-san-sebastian"],
-    ["Antep Fıstıklı San Sebastian", "cheesecake-antep-fistikli-san-sebastian"],
-    ["Limonlu Cheesecake", "cheesecake-limonlu"],
-    ["Frambuazlı Cheesecake", "cheesecake-frambuazli"],
-    ["Yaban Mersinli Cheesecake", "cheesecake-yaban-mersinli"],
-    ["Lotuslu Cheesecake", "cheesecake-lotuslu"],
-    ["Oreolu Cheesecake", "cheesecake-oreolu"],
-    ["Orman Meyveli Cheesecake", "cheesecake-orman-meyveli"],
-  ]),
-  ...makeProducts("Tek Pastalar", "Tek porsiyon · modern vitrin", [
-    ["Lotus Bomba", "tek-lotus-bomba"],
-    ["Beyaz Çikolatalı Browni", "tek-beyaz-cikolatali-browni"],
-    ["Paris Brest", "tek-paris-brest"],
-    ["Antepistan", "tek-antepistan"],
-    ["Fındık Pralin Baton", "tek-ferrero-stick"],
-    ["Passion Lime Baton", "tek-passion-coconut-stick"],
-    ["KitKat & Altın Çilek", "tek-kitkat-altin-cilek.png"],
-    ["Portakallı Balkabağı", "tek-portakalli-balkabagi.png"],
-    ["Çilekli Mousse", "tek-cilekli-mousse.png"],
-    ["Tahinli", "tek-tahinli.png"],
-  ]),
-  ...makeProducts("Magnolia", "330 cc kare cam kase", [
-    ["Çilekli Magnolia", "magnolia-cilekli"],
-    ["Lotuslu Magnolia", "magnolia-lotuslu"],
-    ["Oreolu Magnolia", "magnolia-oreolu"],
-    ["Muzlu Magnolia", "magnolia-muzlu"],
-    ["Profiterollü Magnolia", "magnolia-profiterollu"],
-    ["Supangle", "magnolia-supangle"],
-    ["Orman Meyveli Magnolia", "magnolia-orman-meyveli"],
-    ["Yaban Mersinli Magnolia", "magnolia-yaban-mersinli"],
-    ["Frambuazlı Magnolia", "magnolia-frambuazli"],
-    ["Spoonful", "magnolia-spoonful"],
-    ["Dubai Magnolia", "magnolia-dubai"],
-  ]),
-  ...makeProducts("Mono Pasta", "8 cm genişlik · 7–8 cm yükseklik", [
-    ["Lotus", "mono-lotus-v2.png"],
-    ["Lime", "mono-lime-v2.png"],
-    ["Frambuaz", "mono-frambuaz-v2.png"],
-    ["Mango Ananas", "mono-mango-ananas-v2.png"],
-    ["Antep Fıstığı Dubai", "mono-antep-fistikli-dubai-v2.png"],
-    ["Oreo", "mono-oreo.png"],
-  ]),
-  ...makeProducts("Adet Pastalar", "Yaklaşık 10 cm · tam sıvalı", [
-    ["Lotuslu Pasta", "adet-lotuslu"],
-    ["Orman Meyveli", "adet-orman-meyveli"],
-    ["Çilek Çikolatalı", "adet-cilek-cikolata"],
-    ["Karışık Meyveli", "adet-karisik-meyveli"],
-    ["Antep Fıstıklı", "adet-antep-fistikli"],
-    ["Beyaz Çikolatalı", "adet-beyaz-cikolatali"],
-    ["Ganaj Çikolatalı", "adet-ganaj-cikolatali"],
-  ]),
-  ...makeProducts("Pasta Çeşitleri", "1 no · bütün pasta", [
-    ["Lotuslu Pasta", "pasta-lotus"],
-    ["Orman Meyveli", "pasta-orman-meyveli"],
-    ["Çilek Çikolatalı", "pasta-cilek-cikolata"],
-    ["Karışık Meyveli", "pasta-karisik-meyveli"],
-    ["Antep Fıstıklı", "pasta-antep-fistikli"],
-    ["Beyaz Çikolatalı", "pasta-beyaz-cikolatali"],
-    ["Ganaj Çikolatalı", "pasta-cikolatali-ganaj"],
-    ["Karamelli Pasta", "pasta-karamelli-v2.png"],
-    ["Red Velvet Pasta", "pasta-red-velvet"],
-    ["Devil’s Pasta", "pasta-devils"],
-  ]),
-  ...makeProducts("Pasta Çeşitleri", "Dilim pasta · beşli seri", [
-    ["Devil’s Dilim Pasta", "dilim-devils-v2.png"],
-    ["Red Velvet Dilim Pasta", "dilim-red-velvet-v2.png"],
-    ["Karamelli Dilim Pasta", "dilim-karamelli-v2.png"],
-    ["Beyaz Çikolatalı Dilim Pasta", "dilim-beyaz-cikolatali-v2.png"],
-    ["Antep Fıstıklı Dilim Pasta", "dilim-antep-fistikli-v2.png"],
-  ]),
-  ...makeProducts("Trileçe", "Tek porsiyon", [
-    ["Karamel Trileçe", "karamel-trilece"],
-    ["Frambuazlı Trileçe", "frambuazli-trilece"],
-    ["Lotuslu Trileçe", "lotuslu-trilece"],
-    ["Çikolatalı Islak Kek", "islak-kek"],
-  ]),
-];
-
-const cafeCategories = ["Cheesecake", "Tartlar", "Ekler", "Magnolia", "Rulo Pastalar", "Tek Pastalar", "Mono Pasta"];
-const pastaneCategories = ["Pasta Çeşitleri", "Trileçe", "Ekler KG", "Rulo KG", "Adet Pastalar", "Mini Tartolet"];
-const upcomingCategories = ["Ekler KG", "Rulo KG", "Mini Tartolet"];
-const productGroups = [
-  { name: "Cafe Ürünleri", categories: cafeCategories, image: "/brand/cafe-products-panel-v2.webp", href: "/urunler/cafe" },
-  { name: "Pastane Ürünleri", categories: pastaneCategories, image: "/brand/pastane-products-panel-v2.webp", href: "/urunler/pastane" },
-];
-const categoryLabels: Record<string, string> = {
-  Cheesecake: "Cheesecake Çeşitleri",
-  Ekler: "Fransız Ekler",
-  "Rulo Pastalar": "Rulo Çeşitleri",
-  "Mono Pasta": "Mono Pastalar",
-  "Ekler KG": "KG’lık Ekler",
-  "Rulo KG": "KG’lık Mini Rulo",
-};
-const categoryLabel = (category: string) => categoryLabels[category] ?? category;
+import { products, sku, cafeCategories, pastaneCategories, upcomingCategories, productGroups, categoryLabel } from "@/lib/catalog";
+import { wholesaleCategories } from "@/lib/catalog-seo";
 const whatsapp = (message: string) =>
   `https://wa.me/905015740522?text=${encodeURIComponent(message)}`;
 
 const mapLocation = "https://www.google.com/maps?q=41.09184847445046,28.646867234059656";
 
-export default function Home({ productGroup }: { productGroup?: string } = {}) {
+export default function Home({ productGroup, initialCategory = "Tümü" }: { productGroup?: string; initialCategory?: string } = {}) {
   const activeGroup = productGroup ?? null;
-  const [activeCategory, setActiveCategory] = useState("Tümü");
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const categoryTabsRef = useRef<HTMLDivElement>(null);
@@ -159,17 +29,17 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
   });
   const suppressCategoryClickRef = useRef(false);
   const groupCategories = productGroups.find((group) => group.name === activeGroup)?.categories;
+  const groupSlug = productGroup === "Cafe Ürünleri" ? "cafe" : "pastane";
+  const categoryPage = wholesaleCategories.find((entry) => entry.group === groupSlug && entry.category === initialCategory);
   const categories = ["Tümü", ...(groupCategories ?? [...cafeCategories, ...pastaneCategories])];
 
-  const visibleProducts = useMemo(() => {
-    const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
-    return products.filter((product) => {
-      const categoryMatches = activeCategory === "Tümü" || product.category === activeCategory;
-      const queryMatches = !normalizedQuery || `${product.name} ${product.category} ${categoryLabel(product.category)}`.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
-      const groupMatches = !groupCategories || groupCategories.includes(product.category);
-      return groupMatches && categoryMatches && queryMatches;
-    });
-  }, [activeCategory, query, groupCategories]);
+  const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
+  const visibleProducts = products.filter((product) => {
+    const categoryMatches = activeCategory === "Tümü" || product.category === activeCategory;
+    const queryMatches = !normalizedQuery || `${product.name} ${product.category} ${categoryLabel(product.category)}`.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
+    const groupMatches = !groupCategories || groupCategories.includes(product.category);
+    return groupMatches && categoryMatches && queryMatches;
+  });
 
   function handleCategoryPointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const track = categoryTabsRef.current;
@@ -238,8 +108,9 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
           <a href="/referanslar" onClick={() => setMenuOpen(false)}>Referanslarımız</a>
           <a href={productGroup ? "/#uretim" : "#uretim"} onClick={() => setMenuOpen(false)}>Üretim</a>
           <a href="/etkinlikler" onClick={() => setMenuOpen(false)}>Etkinlikler</a>
+          <Link href="/rehber" onClick={() => setMenuOpen(false)}>Rehber</Link>
           <a href={productGroup ? "/#iletisim" : "#iletisim"} onClick={() => setMenuOpen(false)}>İletişim</a>
-          <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} target="_blank" rel="noreferrer">Fiyat Listesi</a>
+          <a href={whatsapp("Merhaba, Best Gourmet fiyat listesini almak istiyorum.")} data-analytics-intent="price_list" target="_blank" rel="noreferrer">Fiyat Listesi</a>
           <a className="nav-cta" href={whatsapp("Merhaba, Best Gourmet ürünleri hakkında bilgi almak istiyorum.")} target="_blank" rel="noreferrer">Teklif al</a>
         </nav>
       </header>
@@ -250,8 +121,9 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
         <div className="hero-campaign-copy">
           <p className="hero-campaign-kicker">Profesyonel mutfaklara özel</p>
           <img className="hero-campaign-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet Pâtisserie & Sweets" />
-          <h1>Lezzette güven, <em>sunumda kalite.</em></h1>
-          <p className="hero-campaign-lead">Kafe, restoran ve işletmeler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
+          <h1>İstanbul’da toptan tatlı <em>üretimi ve satışı.</em></h1>
+          <p className="hero-campaign-slogan">Lezzette güven, sunumda kalite.</p>
+          <p className="hero-campaign-lead">Kafe, restoran ve pastaneler için özenle hazırlanan, servise hazır premium tatlı çözümleri.</p>
           <div className="hero-campaign-actions">
             <a className="hero-campaign-cta" href="#urunler">{products.length} lezzeti keşfet <span>↓</span></a>
             <a className="hero-campaign-link" href="/hikayemiz">Bizi tanıyın <span>↗</span></a>
@@ -264,11 +136,16 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
       </>}
 
       <section className="products-section" id="urunler">
-        {productGroup && <a className="catalog-back" href="/#urunler">← Ürün gruplarına dön</a>}
+        {productGroup && <Link className="catalog-back" href="/#urunler">← Ürün gruplarına dön</Link>}
         <div className="products-heading">
-          <div><p className="section-index">{productGroup ? "Ürün seçkimiz" : "01 / Tam seçkimiz"}</p>{productGroup ? <h1 className="catalog-page-title">{productGroup}</h1> : <h2>Favorini seç,<br /><em>farkını göster.</em></h2>}</div>
-          <p>{productGroup ? `${productGroup} seçkimizden işletmenize uygun lezzetleri keşfedin. Kategori seçerek veya ürün adıyla arayarak inceleyebilirsiniz.` : "Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi."}</p>
+          <div><p className="section-index">{productGroup ? "Ürün seçkimiz" : "01 / Tam seçkimiz"}</p>{productGroup ? <h1 className="catalog-page-title">{categoryPage?.title ?? productGroup}</h1> : <h2>Favorini seç,<br /><em>farkını göster.</em></h2>}</div>
+          <p>{categoryPage?.intro ?? (productGroup ? `${productGroup} seçkimizden işletmenize uygun lezzetleri keşfedin. Kategori seçerek veya ürün adıyla arayarak inceleyebilirsiniz.` : "Kafe ve pastanelerin servis temposuna hazır, sunumu güçlü ve lezzeti tutarlı seçkin bir ürün yelpazesi.")}</p>
         </div>
+        {categoryPage && <div className="catalog-category-intro" aria-label="Kategori ve sipariş bilgisi">
+          <nav className="catalog-breadcrumb" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span aria-hidden="true">/</span><Link href={`/urunler/${groupSlug}`}>{productGroup}</Link><span aria-hidden="true">/</span><span>{categoryLabel(categoryPage.category)}</span></nav>
+          <div>{categoryPage.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+          <a className="catalog-information-link" href={whatsapp(`Merhaba, ${categoryLabel(categoryPage.category)} ürünleri ve İstanbul ve çevresi için sipariş koşulları hakkında bilgi almak istiyorum.`)} target="_blank" rel="noreferrer">Ürün ve sipariş bilgisi al <span aria-hidden="true">↗</span></a>
+        </div>}
         {!productGroup && <div className="product-group-panels" role="group" aria-label="Ürün grubu seçimi">
           {productGroups.map((group, index) => (
             <a className="product-group-panel" key={group.name} href={group.href}>
@@ -301,8 +178,12 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
                 onPointerMove={handleCategoryPointerMove}
                 onPointerUp={finishCategoryDrag}
                 onPointerCancel={finishCategoryDrag}
+                onClickCapture={(event) => { if (suppressCategoryClickRef.current) { event.preventDefault(); event.stopPropagation(); } }}
               >
-                {categories.map((category) => <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => selectCategory(category)}>{categoryLabel(category)}</button>)}
+                {categories.map((category) => {
+                  const href = category === "Tümü" ? `/urunler/${groupSlug}` : wholesaleCategories.find((entry) => entry.group === groupSlug && entry.category === category)?.href;
+                  return href ? <Link key={category} href={href} draggable={false} className={activeCategory === category ? "is-active" : ""} aria-current={activeCategory === category ? "page" : undefined}>{categoryLabel(category)}</Link> : <button type="button" key={category} className={activeCategory === category ? "is-active" : ""} aria-pressed={activeCategory === category} onClick={() => selectCategory(category)}>{categoryLabel(category)}</button>;
+                })}
               </div>
             </div>
           </div>
@@ -320,7 +201,7 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
                   loading={index > 7 ? "lazy" : "eager"}
                 />
                 <span className="product-number">{String(index + 1).padStart(2, "0")}</span>
-                <a className="product-action" href={whatsapp(`Merhaba, ${product.name} (${categoryLabel(product.category)}) için bilgi ve fiyat almak istiyorum.`)} target="_blank" rel="noreferrer" aria-label={`${product.name} için WhatsApp'tan bilgi al`}>↗</a>
+                <a className="product-action" href={whatsapp(`Merhaba, ${product.name} (${categoryLabel(product.category)}) için bilgi ve fiyat almak istiyorum.`)} data-analytics-placement="product_card" target="_blank" rel="noreferrer" aria-label={`${product.name} için WhatsApp'tan bilgi al`}>↗</a>
               </div>
               <div className="product-info"><p>{categoryLabel(product.category)}</p><h3>{product.name}</h3><span>{product.detail}</span></div>
             </article>
@@ -333,13 +214,17 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
           <div className="price-list-action">
             <div className="price-category-groups"><p><strong>{productGroup}</strong>{groupCategories?.map(categoryLabel).join(" · ")}</p></div>
             <p>Menü kapsamına ve sipariş adedine göre güncellenen fiyat listemizi WhatsApp&apos;tan talep edin.</p>
-            <a href={whatsapp(`Merhaba, Best Gourmet ${productGroup} fiyat listesini almak istiyorum.`)} target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
+            <a href={whatsapp(`Merhaba, Best Gourmet ${productGroup} fiyat listesini almak istiyorum.`)} data-analytics-intent="price_list" target="_blank" rel="noreferrer">Fiyat listesini iste <span>↗</span></a>
           </div>
         </aside>
         </div>}
       </section>
 
       {!productGroup && <>
+      <section className="wholesale-service" aria-labelledby="wholesale-service-title">
+        <div><p className="section-index">İşletmeniz için</p><h2 id="wholesale-service-title">İstanbul ve çevresine<br /><em>toptan tatlı çözümleri.</em></h2></div>
+        <div><p>Best Gourmet, İstanbul ve çevresindeki kafe, restoran ve pastaneler için toptan tatlı üretimi ve satışı yapar. Cafe ve pastane kataloglarından işletmenizin menüsüne uygun ürünleri inceleyebilirsiniz.</p><p>Sipariş planlamak için ilgilendiğiniz ürünleri, tahmini ihtiyacınızı ve işletmenizin konumunu bizimle paylaşın. Güncel fiyatları, minimum sipariş koşullarını, saklama bilgilerini ve adresinize teslimat uygunluğunu birlikte netleştirelim.</p><Link href="/rehber">Tedarik ve menü planlama rehberlerini okuyun <span aria-hidden="true">↗</span></Link></div>
+      </section>
       <section className="production" id="uretim">
         <div className="production-photo production-collage">
           <img className="production-main-image" src="/production/uretim-studio.png" alt="Best Gourmet üretim mutfağı ve günlük tatlı hazırlığı" />
@@ -426,7 +311,7 @@ export default function Home({ productGroup }: { productGroup?: string } = {}) {
       </section>
 
       </>}
-      <footer><a className="brand footer-brand" href={productGroup ? "/" : "#top"}><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
+      <footer><a className="brand footer-brand" href={productGroup ? "/" : "#top"}><img className="brand-logo footer-logo" src="/brand/best-gourmet-logo.jpeg" alt="Best Gourmet" /></a><div className="catalog-footer-links"><p>Premium tatlılar · Etkinlik üretimi · Güçlü sunum</p><Link href="/rehber">İşletmeler için rehber</Link></div><p>© {new Date().getFullYear()} Best Gourmet</p></footer>
     </main>
   );
 }

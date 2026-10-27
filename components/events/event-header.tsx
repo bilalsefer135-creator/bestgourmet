@@ -18,6 +18,7 @@ export function EventHeader() {
         <Link href="/referanslar" onClick={() => setOpen(false)}>Referanslarımız</Link>
         <Link href="/#uretim" onClick={() => setOpen(false)}>Üretim</Link>
         <Link href="/etkinlikler" onClick={() => setOpen(false)}>Etkinlikler</Link>
+        <Link href="/rehber" onClick={() => setOpen(false)}>Rehber</Link>
         <Link className="nav-cta" href="/#iletisim" onClick={() => setOpen(false)}>Teklif al</Link>
       </nav>
     </header>

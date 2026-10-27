@@ -1,13 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { EventFooter } from "@/components/events/event-footer";
 import { EventHeader } from "@/components/events/event-header";
 import { EventInquiryForm } from "@/components/events/event-inquiry-form";
 import { eventCategoryList, eventProcess } from "@/lib/event-data";
 
-export const metadata: Metadata = {
-  title: "Etkinlik Hizmetleri | Best Gourmet",
-  description: "Düğün, doğum günü, özel gün ve kurumsal etkinlikler için Best Gourmet tatlı, pasta, sunum ve servis planlaması.",
-};
+export const metadata = pageMetadata(
+  "Etkinlik Hizmetleri | Best Gourmet",
+  "Düğün, doğum günü, özel gün ve kurumsal etkinlikler için Best Gourmet tatlı, pasta, sunum ve servis planlaması.",
+  "/etkinlikler",
+);
 
 export default function EventsPage() {
   return (
