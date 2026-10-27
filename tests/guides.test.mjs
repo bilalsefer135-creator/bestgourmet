@@ -81,3 +81,27 @@ test("shared event navigation exposes the guide directory", async () => {
   assert.match(header, /href="\/rehber"/);
   assert.match(footer, /href="\/rehber"/);
 });
+
+test("guide introductions offer a tracked price-list CTA and product discovery", async () => {
+  for (const slug of ["", ...cases.map(([slug]) => slug)]) {
+    const pathname = `/rehber${slug ? `/${slug}` : ""}`;
+    const html = await (await render(pathname)).text();
+    const actions = html.match(/<div class="guide-intro-actions"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+    assert.ok(actions, `${pathname}: prominent introductory actions`);
+    assert.match(actions, /data-analytics-intent="price_list"/);
+    assert.match(actions, /Güncel fiyat listesini iste/);
+    assert.match(actions, /href="\/#urunler"/);
+    assert.match(actions, /Ürünleri incele/);
+    const whatsappHref = actions.match(/href="(https:\/\/wa\.me\/905015740522[^\"]+)"/)?.[1];
+    assert.ok(whatsappHref, `${pathname}: working WhatsApp price request`);
+    const message = new URL(whatsappHref).searchParams.get("text");
+    assert.match(message, /güncel fiyat listesini/i);
+    if (slug) assert.ok(message.includes(cases.find(([key]) => key === slug)[1]));
+    if (slug) {
+      assert.ok(html.indexOf('class="guide-intro-actions"') < html.indexOf('class="guide-reading-layout"'));
+      const closing = html.match(/<section class="guide-contact"[\s\S]*?<\/section>/)?.[0] ?? "";
+      assert.match(closing, /class="guide-contact-actions"/);
+      assert.match(closing, /Ürünleri incele/);
+    }
+  }
+});

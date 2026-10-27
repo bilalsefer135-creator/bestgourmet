@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { EventFooter } from "@/components/events/event-footer";
 import { EventHeader } from "@/components/events/event-header";
+import { GuideActions } from "@/components/guides/guide-actions";
 import { guides, serializeGuideJsonLd } from "@/lib/guides";
 import { pageMetadata, SITE_URL } from "@/lib/seo";
 
@@ -31,6 +32,7 @@ export default function GuidesPage() {
           <h1>Kafe ve pastaneler için tatlı rehberi</h1>
           <p className="guide-lead">Doğru ürünü seçmek, iyi sorularla başlar. İstanbul ve çevresindeki işletmeler için tedarik, maliyet ve menü kararlarını birlikte düşünmeye yardımcı olan notlar.</p>
           <p className="guide-byline">Best Gourmet editoryal</p>
+          <GuideActions />
         </header>
         <section className="guide-card-grid" aria-label="Tatlı satın alma ve menü rehberleri">
           {guides.map((guide, index) => (

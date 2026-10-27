@@ -57,3 +57,9 @@ Vinext'in Node `start` komutu bu Cloudflare projesinde statik ASSETS bağlamaz; 
 Tarayıcı testi ayrı terminalde `node tests/browser-seo-qa.mjs` ile çalışır. Playwright kurulu ortamda çalıştırın; Codex'in paketleri kullanılacaksa `BEST_GOURMET_QA_MODULES` ortam değişkenine yerel runtime node_modules dizinini verin. Chrome gereklidir. Ekran görüntüleri ve JSON rapor outputs/seo-2026-10-27 altında üretilir. Üretim alan adı simülasyonunda bütün site istekleri yerel sunucuya, Google etiketi de test taklidine yönlendirilir; gerçek üretim servisine trafik gönderilmez.
 
 Ana tsconfig ile tüm depo kontrolü, mevcut db/worker Cloudflare tipleri ve work/ içindeki eski dağıtım kopyaları nedeniyle hata verir. tests/tsconfig.seo.json, bu sürümün uygulama/bileşen/lib kaynaklarını kontrol eder; altyapı hataları bu SEO değişikliğinde gizlenerek düzeltilmemiştir. Mevcut img etiketleri için Next lint uyarıları korunur; bunlar bir ölçülmüş performans sonucu değildir.
+
+## Rehber CTA revizyonu
+
+Rehber dizini ve üç yazının girişine güncel fiyat listesi isteme ve ürünleri inceleme düğmeleri eklendi. WhatsApp isteği yalnızca rehberin başlığını ve genel talebi içerir. Fiyat listesi düğmesi mevcut izinli Analytics akışında price_list_click olarak ölçülür; mesaj metni ölçüm olayına eklenmez. Yazı sonundaki WhatsApp çağrısı korunup ürün bağlantısıyla tamamlandı.
+
+Bu revizyonun derlemesi, 28 Node testi, uygulama TypeScript kontrolü ve kapsamlı tarayıcı testi başarılıdır. Üç genişlikte 24 sayfa kontrolü ve yeni CTA'nın SPA geçişinden sonraki fiyat listesi ölçümü geçti. Harita alanı bu revizyonda değiştirilmedi; işletmenin Google Maps yerleştirme kodu veya paylaşım bağlantısı bekleniyor. Canlıya dağıtım yapılmadı.

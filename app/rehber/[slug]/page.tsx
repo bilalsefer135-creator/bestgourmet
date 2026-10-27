@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EventFooter } from "@/components/events/event-footer";
 import { EventHeader } from "@/components/events/event-header";
+import { GuideActions } from "@/components/guides/guide-actions";
 import { getGuide, guides, serializeGuideJsonLd } from "@/lib/guides";
 import { pageMetadata, SITE_URL } from "@/lib/seo";
 
@@ -58,6 +59,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
             <h1>{guide.title}</h1>
             <p className="guide-lead">{guide.intro}</p>
             <p className="guide-byline">Best Gourmet editoryal</p>
+            <GuideActions context={guide.title} />
           </header>
           <div className="guide-reading-layout">
             <aside className="guide-contents">
@@ -76,7 +78,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
           </div>
         </article>
         <section className="guide-related" aria-labelledby="guide-products-title"><div><p className="section-index">Katalogdan devam edin</p><h2 id="guide-products-title">İlgili ürün grupları</h2></div><ul>{guide.relatedLinks.map((link) => <li key={link.href}><Link href={link.href}>{link.label}<span aria-hidden="true">↗</span></Link></li>)}</ul></section>
-        <section className="guide-contact" aria-labelledby="guide-contact-title"><div><p className="section-index">İşletmeniz için sonraki adım</p><h2 id="guide-contact-title">Sorularınızı birlikte netleştirelim.</h2><p>İlgilendiğiniz ürünleri ve bulunduğunuz bölgeyi paylaşın. Fiyat, sipariş miktarı ve teslimat kapsamını işletmenizin ihtiyacına göre görüşelim.</p></div><a className="button button-primary" href="https://wa.me/905015740522">WhatsApp ile görüşün <span aria-hidden="true">↗</span></a></section>
+        <section className="guide-contact" aria-labelledby="guide-contact-title"><div><p className="section-index">İşletmeniz için sonraki adım</p><h2 id="guide-contact-title">Sorularınızı birlikte netleştirelim.</h2><p>İlgilendiğiniz ürünleri ve bulunduğunuz bölgeyi paylaşın. Fiyat, sipariş miktarı ve teslimat kapsamını işletmenizin ihtiyacına göre görüşelim.</p></div><div className="guide-contact-actions"><a className="button button-primary" href="https://wa.me/905015740522" target="_blank" rel="noreferrer">WhatsApp ile görüşün <span aria-hidden="true">↗</span></a><Link className="text-link" href="/#urunler">Ürünleri incele <span aria-hidden="true">↗</span></Link></div></section>
         <nav className="guide-more" aria-label="Diğer rehberler"><p className="section-index">Okumaya devam edin</p>{guides.filter((item) => item.slug !== guide.slug).map((item) => <Link href={`/rehber/${item.slug}`} key={item.slug}>{item.title}<span aria-hidden="true">↗</span></Link>)}<Link href="/rehber">Tüm rehberler<span aria-hidden="true">←</span></Link></nav>
       </div>
       <EventFooter />

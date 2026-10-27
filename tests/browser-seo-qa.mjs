@@ -138,6 +138,13 @@ try {
   assert.equal(events.length, 2, "one manual pageview per route");
   assert.equal(events[1][2].page_location, "https://bestgourmet.online/rehber");
 
+  await prodPage.locator('.guide-intro-actions a[data-analytics-intent="price_list"]').click();
+  const guidePriceRequest = (await queue()).filter((item) => item[0] === "event" && item[1] === "price_list_click").at(-1);
+  assert.deepEqual(guidePriceRequest[2], {
+    contact_method: "whatsapp", placement: "content",
+    page_location: "https://bestgourmet.online/rehber", page_referrer: "",
+  }, "new introductory CTA tracks a price request on the current guide page, without message text");
+
   await prodPage.locator('.guide-contact-actions a[href="https://wa.me/905015740522"]').click();
   const guideContact = (await queue()).filter((item) => item[0] === "event" && item[1] === "contact_click").at(-1);
   assert.equal(guideContact[2].page_location, "https://bestgourmet.online/rehber", "contact after SPA navigation uses current clean page URL");
